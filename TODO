@@ -1,8 +1,5 @@
 TODO:
 
-- Fix BlogSlice.description and BlogSlice.version
-- Fix LICENSE with your name
-- Fix Rakefile with your name and contact info
 - Add your code to lib/blog-slice.rb
 - Add your Merb rake tasks to lib/blog-slice/merbtasks.rb
 

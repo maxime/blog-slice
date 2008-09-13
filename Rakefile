@@ -6,10 +6,10 @@ require 'merb-core/tasks/merb_rake_helper'
 require 'merb-core/test/tasks/spectasks'
 
 NAME = "blog-slice"
-AUTHOR = "Your Name"
-EMAIL = "Your Email"
+AUTHOR = "Maxime Guilbot for Ekohe"
+EMAIL = "maxime@ekohe.com"
 HOMEPAGE = "http://merbivore.com/"
-SUMMARY = "Merb Slice that provides ..."
+SUMMARY = "Blog Slice is a very basic blogging system"
 GEM_VERSION = "0.9.6"
 
 spec = Gem::Specification.new do |s|

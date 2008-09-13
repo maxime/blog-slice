@@ -21,9 +21,9 @@ if defined?(Merb::Plugins)
   module BlogSlice
     
     # Slice metadata
-    self.description = "BlogSlice is a chunky Merb slice!"
+    self.description = "Blog Slice is a very basic blogging system"
     self.version = "0.0.1"
-    self.author = "Maxime Guilbot"
+    self.author = "Maxime Guilbot for Ekohe"
     
     # Stub classes loaded hook - runs before LoadClasses BootLoader
     # right after a slice's classes have been loaded internally.
