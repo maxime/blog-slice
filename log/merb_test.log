@@ -1,0 +1,258 @@
+Sat, 13 Sep 2008 12:57:56 GMT  ~  info  ~  Logfile created
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 7f2973a6e75758f577b89487970aee7b -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>2.2e-05, :action_time=>0.003189, :after_filters_time=>3.1e-05}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => bab51bcb56d98a0acafbeffbad1cd187 -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.002054, :after_filters_time=>2.7e-05}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 0141ffe492cb60347ac12c0d24601828 -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>9.0e-06, :action_time=>0.001731, :after_filters_time=>8.0e-06}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 150fa57f862d3012a28ee8f095dfc748 -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>7.0e-06, :action_time=>0.001355, :after_filters_time=>8.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => b902d2a8cd4eeca52ae4449e43033321 -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.001602, :after_filters_time=>8.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 64cff56054bd6024d1ba058332fb6a31 -- {"expires"=>"Sat, 27-Sep-2008 12:57:57 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>1.5e-05, :action_time=>0.001626, :after_filters_time=>1.0e-05}
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => d83778e14446ab5c750987898e9b34c3 -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>2.2e-05, :action_time=>0.00325, :after_filters_time=>2.1e-05}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => e3f7626a9814d283150e689299480cdd -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.001829, :after_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 5dacbb365fd8091d82db018738dbf824 -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>1.0e-05, :action_time=>0.001698, :after_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 90c85aa56ae7619d075552e2861b3f86 -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.001326, :after_filters_time=>8.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => e0666fce3925a5dbf853bee9f930c639 -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>9.0e-06, :action_time=>0.001598, :after_filters_time=>7.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 59399e75682a48b8377bbb52895ffaec -- {"expires"=>"Sat, 27-Sep-2008 12:58:16 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.001644, :after_filters_time=>8.0e-06}
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 22d8cfb29eb2a7547497795c626de6c9 -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>1.9e-05, :action_time=>0.0032, :before_filters_time=>2.2e-05}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => dfc2a55db473d6409ab3bc3b30b0dd41 -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>7.0e-06, :action_time=>0.001904, :before_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 8f221a4a3590e85435c65f1e4c6e57a7 -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>7.0e-06, :action_time=>0.001594, :before_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 2bf1412dcbb313df61f59ec73c04f7ab -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>7.0e-06, :action_time=>0.001203, :before_filters_time=>7.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 07a00773c0b16e6653327918167be322 -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.001628, :before_filters_time=>6.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 980f49bb235ff9a0b11f9554dcde30a4 -- {"expires"=>"Sat, 27-Sep-2008 12:58:21 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>6.0e-06, :action_time=>0.001628, :before_filters_time=>6.0e-06}
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 6154b1987dbdcd6022ebed56ab447f1f -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 1546267dd39ed1782c29b66626bc72ec -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 903720cd159853f5a7b1050fb6c3522b -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 8267ab1f7569940a5fa481263d76655d -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 17bbfb382752b1047ecc99ddf2e77452 -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 1966cda533a4e67b154de070bf66dd4f -- {"expires"=>"Sat, 27-Sep-2008 13:04:31 GMT", "path"=>"/"}
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 29566364a34c89a67dbeb5545cba52df -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 6f190be6cfc10d46ad853a05de6ae0d9 -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => a428f1195cfc919f970b62fa11f92ca7 -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 4cc04662905d5bdaf1f6abe8ce1dbcc3 -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => ce9213c4e0240be0f7fe38375afd0719 -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => d843757adb6ddffb686182e417e16474 -- {"expires"=>"Sat, 27-Sep-2008 13:05:01 GMT", "path"=>"/"}
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => eb6c83913ca4935429eb1df120d8b7b3 -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => b8cf2c618a2e1be1e2ec748b6a23716f -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 7b15f2c4bfb5121bf8d2ed91bc73b4f3 -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 815b80315f262dc53bd83e56a309f153 -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 096e0197b9c8bd9f009020b5126fabc9 -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 1823a7181cced879da6e5f3360b59f03 -- {"expires"=>"Sat, 27-Sep-2008 13:05:29 GMT", "path"=>"/"}
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => c67a82188d37bfbc07bc97dd28ec2b79 -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>2.0e-05, :action_time=>0.00217, :before_filters_time=>2.2e-05}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 41e1076711068212226a42afaf993303 -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.000864, :before_filters_time=>9.0e-06}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 2b94ed5c2f00d2991f6d829bed8bb459 -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.000835, :before_filters_time=>8.0e-06}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => cc7966e1b834ab8682539913aa8ca423 -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.00042, :before_filters_time=>8.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 7151a836dff793281ba17c2efc1fb46f -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.000806, :before_filters_time=>7.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => f549a38325448115ece3421619f6582e -- {"expires"=>"Sat, 27-Sep-2008 13:05:43 GMT", "path"=>"/"}
+ ~ {:after_filters_time=>8.0e-06, :action_time=>0.001027, :before_filters_time=>9.0e-06}
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Found slice 'blog-slice' in search path at lib/blog-slice.rb
+ ~ loading gem 'merb-slices' ...
+ ~ Registered slice 'BlogSlice' located at /Users/maxime/Documents/ekohe/blog-slice
+ ~ No database.yml file found in /Users/maxime/Documents/ekohe/blog-slice/config, assuming database connection(s) established in the environment file in /Users/maxime/Documents/ekohe/blog-slice/config/environments
+ ~ loading gem 'merb_datamapper' ...
+ ~ loading gem 'dm-validations' ...
+ ~ loading gem 'dm-timestamps' ...
+ ~ loading gem 'dm-is-slug' ...
+ ~ Loaded slice 'BlogSlice' ...
+ ~ Initializing slice 'BlogSlice' ...
+ ~ Activating slice 'BlogSlice' ...
+ ~ Using in-memory sessions; sessions will be lost whenever the server stops.
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Mounting slice BlogSlice at /blog-slice
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 09de4c20619a0bc42271529e10755914 -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>2.3e-05, :action_time=>0.002299, :after_filters_time=>2.1e-05}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 1af9c67af1e7634a12f8b3dbfbd2cc63 -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>7.0e-06, :action_time=>0.000768, :after_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"", "action"=>"index", "id"=>"", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 37f92dbbfeb7654075542430fc27b987 -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>7.0e-06, :action_time=>0.000781, :after_filters_time=>7.0e-06}
+ ~ Params: {"format"=>"html", "action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => 3ae5dbb905aec45bccfe104400eaf54c -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.000426, :after_filters_time=>7.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => eb2bebf7d0a0ad10928d75a7ef2b9335 -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>8.0e-06, :action_time=>0.000776, :after_filters_time=>7.0e-06}
+ ~ Params: {"action"=>"index", "controller"=>"blog_slice/main"}
+ ~ Cookie set: _session_id => b319cb4cfa2803f0df12e3c72e65dbd0 -- {"expires"=>"Sat, 27-Sep-2008 13:06:05 GMT", "path"=>"/"}
+ ~ {:before_filters_time=>7.0e-06, :action_time=>0.000764, :after_filters_time=>7.0e-06}
