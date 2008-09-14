@@ -21,6 +21,10 @@ module Merb
               RedCloth
             end
           end
+
+          def self.rendering_engines
+            [["Textile", 'textile'],  ["MarkDown", 'markdown']]
+          end
         end
       end
     end

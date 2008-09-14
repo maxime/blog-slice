@@ -1,7 +1,6 @@
 module Merb
   module BlogSlice
     module ApplicationHelper
-      
       # @param *segments<Array[#to_s]> Path segments to append.
       #
       # @return <String> 

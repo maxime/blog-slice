@@ -52,8 +52,10 @@ if defined?(Merb::Plugins)
     # @note prefix your named routes with :blog_slice_
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
-      # example of a named route
-      scope.match('/index.:format').to(:controller => 'main', :action => 'index').name(:blog_slice_index)
+      scope.resource :posts
+      
+      scope.match('/').to(:controller => 'posts', :action => 'index').name(:blog_slice_index)
+      scope.match('/index.:format').to(:controller => 'posts', :action => 'index').name(:longer_blog_slice_index)
     end
     
   end
@@ -75,9 +77,9 @@ if defined?(Merb::Plugins)
   # Add dependencies for other BlogSlice classes below. Example:
   # dependency "blog-slice/other"
   use_orm :datamapper
-  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable"
+  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb_helpers", "merb-simple-forms"
   
-  dependencies "redcloth", "BlueCloth"
+  dependencies "RedCloth", "BlueCloth"
 
   require 'blog-slice/text_rendering'
 end

@@ -85,14 +85,14 @@ describe Post, "tagging" do
     # Check if the post is tagged with 3 tags
     @post.tags.should have(3).things
     # Check if it's really the same tags
-    tags.each {|tag| @post.tags.should include(Tag.get(tag)) }
+    tags.each {|t| @post.tags.should include(Tag.get(t)) }
   end
   
   it "should be able to find the post with the tags" do
     do_tag
-    tags.each do |tag|
-      Post.find(:with => tag).should have(1).thing
-      Post.find(:with => tag).should include(@post)
+    tags.each do |t|
+      Post.find(:with => t).should have(1).thing
+      Post.find(:with => t).should include(@post)
     end
   end
 end

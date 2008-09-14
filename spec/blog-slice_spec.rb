@@ -49,7 +49,7 @@ describe "BlogSlice (module)" do
 
   it "should have an url helper method for slice-specific routes" do
     BlogSlice.url(:controller => 'main', :action => 'show', :format => 'html').should == "/blog-slice/main/show.html"
-    BlogSlice.url(:blog_slice_index, :format => 'html').should == "/blog-slice/index.html"
+    BlogSlice.url(:blog_slice_index).should == "/blog-slice/"
   end
   
   it "should have a config property (Hash)" do
