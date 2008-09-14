@@ -1,9 +1,6 @@
 require File.dirname(__FILE__) + '/spec_helper'
 
-describe "BlogSlice (module)" do
-  
-  it "should have proper specs"
-  
+describe "BlogSlice (module)" do  
   # Feel free to remove the specs below
   
   before :all do
@@ -40,9 +37,9 @@ describe "BlogSlice (module)" do
   end
   
   it "should have metadata properties" do
-    BlogSlice.description.should == "BlogSlice is a chunky Merb slice!"
+    BlogSlice.description.should == "Blog Slice is a very basic blogging system"
     BlogSlice.version.should == "0.0.1"
-    BlogSlice.author.should == "Maxime Guilbot"
+    BlogSlice.author.should == "Maxime Guilbot for Ekohe"
   end
   
   it "should have :routes and :named_routes properties" do

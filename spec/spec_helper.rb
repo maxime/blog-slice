@@ -42,3 +42,6 @@ Spec::Runner.configure do |config|
   config.include(Merb::Test::ControllerHelper)
   config.include(Merb::Test::SliceHelper)
 end
+
+DataMapper.setup(:default, "sqlite3::memory:")
+DataMapper.auto_migrate!

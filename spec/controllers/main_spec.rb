@@ -21,7 +21,6 @@ describe "BlogSlice::Main (controller)" do
   it "should have an index action" do
     controller = dispatch_to(BlogSlice::Main, :index)
     controller.status.should == 200
-    controller.body.should contain('BlogSlice')
   end
   
   it "should work with the default route" do
