@@ -23,7 +23,7 @@ module Merb
           end
 
           def self.rendering_engines
-            [["Textile", 'textile'],  ["MarkDown", 'markdown']]
+            [['textile', 'Textile'],  ['markdown', 'MarkDown']]
           end
         end
       end

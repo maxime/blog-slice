@@ -52,10 +52,7 @@ if defined?(Merb::Plugins)
     # @note prefix your named routes with :blog_slice_
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
-      scope.resource :posts
-      
-      scope.match('/').to(:controller => 'posts', :action => 'index').name(:blog_slice_index)
-      scope.match('/index.:format').to(:controller => 'posts', :action => 'index').name(:longer_blog_slice_index)
+      scope.resources :posts
     end
     
   end

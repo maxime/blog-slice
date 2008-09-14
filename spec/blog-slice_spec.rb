@@ -44,12 +44,12 @@ describe "BlogSlice (module)" do
   
   it "should have :routes and :named_routes properties" do
     BlogSlice.routes.should_not be_empty
-    BlogSlice.named_routes[:blog_slice_index].should be_kind_of(Merb::Router::Route)
+    BlogSlice.named_routes[:blog_slice_posts].should be_kind_of(Merb::Router::Route)
   end
 
   it "should have an url helper method for slice-specific routes" do
     BlogSlice.url(:controller => 'main', :action => 'show', :format => 'html').should == "/blog-slice/main/show.html"
-    BlogSlice.url(:blog_slice_index).should == "/blog-slice/"
+    BlogSlice.url(:blog_slice_posts).should == "/blog-slice/posts"
   end
   
   it "should have a config property (Hash)" do
