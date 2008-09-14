@@ -67,7 +67,7 @@ end
 # This spec should be here but should be in dm-is-taggable.
 # As dm-is-taggable very new, I prefer to make sure that everything is working as expected
 describe Post, "tagging" do
-  before do
+  before(:each) do
     Post.auto_migrate!
     @post = Post.create(:title => "My First Post")
   end
@@ -94,5 +94,29 @@ describe Post, "tagging" do
       Post.find(:with => t).should have(1).thing
       Post.find(:with => t).should include(@post)
     end
+  end
+  
+  it "should be able to get the taglist" do
+    do_tag
+    @post.taglist.should == "welcome, technology, english"
+  end
+  
+  it "should be able to tag with the taglist property" do
+    @post = Post.new(:title => "My First Post", :taglist => "welcome, technology, english")
+    @post.save
+    
+    # Check if the post is tagged with 3 tags
+    @post.tags.should have(3).things
+    # Check if it's really the same tags
+    tags.each {|t| @post.tags.should include(Tag.get(t)) }
+    
+    @post.taglist = "french, spanish"
+    @post.tags.reload
+    # Check if the post is tagged with 2 tags
+    @post.tags.should have(2).things
+    
+    # Check if it's really the same tags
+    @post.tags.should include(Tag.get('french'))   
+    @post.tags.should include(Tag.get('spanish'))   
   end
 end

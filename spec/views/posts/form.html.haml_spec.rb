@@ -31,4 +31,8 @@ describe "posts/form" do
   it "should have a select for selecting the rendering engine" do
     @body.should have_tag(:select, :id => 'post_rendering_engine')
   end
+  
+  it "should have a tag text field for the tags" do
+    @body.should have_tag(:input, :type => :text, :id => 'post_taglist')
+  end
 end

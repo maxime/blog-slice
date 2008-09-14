@@ -31,7 +31,8 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def update
-    if @post.update_attributes(params[:post])
+    updated = @post.update_attributes(params[:post])
+    if updated || !@post.dirty? 
       redirect url(:blog_slice_post, :id => @post.slug)
     else
       render :form

@@ -1,5 +1,8 @@
 %h1=h @post.title
 #content= @post.rendered_content
+#tags
+  Tags:
+  = @post.taglist
 
 - if authorized?
   %p

@@ -11,7 +11,7 @@ describe "posts/show authorized" do
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post')
+    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :taglist => 'animal, technology')
     @controller.instance_variable_set(:@post, post) 
     @body = @controller.render(:show)
   end
@@ -22,6 +22,10 @@ describe "posts/show authorized" do
   
   it "should display the blog post rendered content" do
     @body.should have_tag(:div, :id => 'content') {|div| div.should contain("This is my first blog post")}
+  end
+  
+  it "should display the tags" do
+    @body.should have_tag(:div, :id => 'tags') {|div| div.should contain("animal, technology")}
   end
   
   it "should display the edit link" do

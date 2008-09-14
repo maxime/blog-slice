@@ -300,6 +300,7 @@ describe BlogSlice::Posts, 'update action authorized' do
   before(:each) do
     @post = mock('post')
     @post.stub!(:slug).and_return('my-first-blog-post')
+    @post.stub!(:dirty?).and_return(true)
     Post.stub!(:first).and_return(@post)
   end
   
@@ -343,6 +344,11 @@ describe BlogSlice::Posts, 'update action authorized' do
   
   it "should redirect to the post if the update is successful" do
     successful_save.should redirect_to(url(:blog_slice_post, :id => @post.slug))
+  end
+  
+  it "should redirect to the post if nothing has changed" do
+    @post.should_receive(:dirty?).and_return(false)
+    unsuccessful_save.should redirect_to(url(:blog_slice_post, :id => @post.slug))
   end
   
   it "should render the form if the update failed" do

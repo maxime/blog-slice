@@ -1,3 +1,6 @@
 .post{:id => "post_#{post.id}"}
   %h2= link post.title, :to => url(:blog_slice_post, :id => post.slug)
   .content= post.rendered_content
+  .tags
+    Tags:
+    = post.taglist
