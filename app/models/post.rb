@@ -16,6 +16,7 @@ class Post
   
   is :taggable, :by => []
   
+  # Form definition for simple forms
   def self.form_definition
     {:attributes => [ {:title =>              {:control => :text_field}}, 
                       {:content =>            {:control => :text_area}},

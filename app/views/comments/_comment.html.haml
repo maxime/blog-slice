@@ -1,0 +1,8 @@
+.comment{:id => "comment_#{comment.id}"}
+  .author=h comment.author
+  .comment= comment.rendered_content
+  - if authorized?
+    .admin
+      = link 'Edit', :to => url(:edit_blog_slice_post_comment, :post_id => @post.slug, :id => comment.id)
+      = link 'Delete', :to => url(:blog_slice_post_comment, :post_id => @post.slug, :id => comment.id), :method => "delete", :confirm => "Are you sure?"
+    

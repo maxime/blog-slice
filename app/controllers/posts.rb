@@ -1,5 +1,5 @@
 class BlogSlice::Posts < BlogSlice::Application
-  provides :html, :xml
+  provides :html, :xml, :rss
   before :authorization_required, :exclude => [:index, :show]
   before :get_post, :only => [:show, :edit, :update, :destroy]
   
@@ -23,6 +23,8 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def show
+    @comments = @post.comments
+    @comment = @post.comments.new
     display @post
   end
   
@@ -42,6 +44,12 @@ class BlogSlice::Posts < BlogSlice::Application
   def destroy
     @post.destroy
     redirect url(:blog_slice_posts)
+  end
+  
+  def feed
+    only_provides :rss
+    @posts = Post.all(:limit => feed_options[:number_of_items], :order => [:created_at.desc])
+    render :layout => false
   end
   
   protected

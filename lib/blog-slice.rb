@@ -25,6 +25,8 @@ if defined?(Merb::Plugins)
     self.version = "0.0.1"
     self.author = "Maxime Guilbot for Ekohe"
     
+    Merb.add_mime_type :rss, nil, %w[text/xml]
+    
     # Stub classes loaded hook - runs before LoadClasses BootLoader
     # right after a slice's classes have been loaded internally.
     def self.loaded
@@ -52,7 +54,11 @@ if defined?(Merb::Plugins)
     # @note prefix your named routes with :blog_slice_
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
-      scope.resources :posts
+      scope.resources :posts do |posts|
+        posts.resources :comments
+      end
+      
+      scope.match("/feed").to(:controller => 'posts', :action => 'feed', :format => 'rss').name(:feed)
     end
     
   end
@@ -74,7 +80,7 @@ if defined?(Merb::Plugins)
   # Add dependencies for other BlogSlice classes below. Example:
   # dependency "blog-slice/other"
   use_orm :datamapper
-  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb_helpers", "merb-simple-forms"
+  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb_helpers", "merb-simple-forms", "merb-builder"
   
   dependencies "RedCloth", "BlueCloth"
 

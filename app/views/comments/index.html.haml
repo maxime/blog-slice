@@ -1,0 +1,5 @@
+%h1
+  Comments for
+  = link @post.title, :to => url(:blog_slice_post, :id => @post.slug)
+
+#comments= partial 'comment', :with => @comments

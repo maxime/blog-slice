@@ -3,6 +3,6 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
   %head
   %title Blog Slice
-  
+  %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "RSS 2.0", :href => '/blog-slice/feed'}
   %body
     = catch_content :for_layout

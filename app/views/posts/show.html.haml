@@ -8,3 +8,12 @@
   %p
     = link 'edit', :to => url(:edit_blog_slice_post, :id => @post.slug)
     = link 'delete', :to => url(:blog_slice_post, :id => @post.slug), :method => 'delete', :confirm => "Are you sure?"
+    
+.comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
+
+#comments= partial 'comments/comment', :with => @comments
+
+#new_comment_form
+  %h3 Leave a comment
+  = error_messages_for @comment
+  = render_form :comment

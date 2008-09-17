@@ -210,6 +210,12 @@ describe Post, 'show action' do
   before do
     @post = mock('post')
     Post.stub!(:first).and_return(@post)
+    
+    @comments = mock('comments')
+    @post.stub!(:comments).and_return(@comments)
+    
+    @new_comment = mock('new-comment')
+    @comments.stub!(:new).and_return(@new_comment)
   end
   
   def do_get
@@ -228,6 +234,10 @@ describe Post, 'show action' do
     do_get
   end
   
+  it "should assign the post to the view" do
+    do_get.assigns(:post).should == @post
+  end
+  
   it "should raise NotFound if the post isn't found" do
     Post.should_receive(:first).with(:slug => 'my-first-blog-post').and_return(nil)
     lambda { do_get }.should raise_error(Merb::ControllerExceptions::NotFound)
@@ -237,6 +247,20 @@ describe Post, 'show action' do
     do_get do |controller|
       controller.should_receive(:display).with(@post)
     end
+  end
+  
+  it "should get the comments of the post" do
+    @post.should_receive(:comments).twice.and_return(@comments)
+    do_get
+  end
+  
+  it "should assign the comments to the view" do
+    do_get.assigns(:comments).should == @comments
+  end
+  
+  it "should create a new comment object for the new comment form" do
+    @comments.should_receive(:new).with(no_args).and_return(@new_comment)
+    do_get
   end
 end
 
@@ -419,4 +443,37 @@ describe BlogSlice::Posts, 'destroy action not authorized' do
       end
     end.should raise_error(Merb::ControllerExceptions::Unauthorized)
   end
+end
+
+describe BlogSlice::Posts, 'feed' do
+  before do
+    @post = mock('post')
+    Post.stub!(:all).and_return([@post])
+  end
+  
+  def do_get
+    dispatch_to(BlogSlice::Posts, :feed) do |controller|
+      controller.stub!(:render)
+      yield controller if block_given?
+    end
+  end
+  
+  it "should have a route from /feed" do
+    request_to('/blog-slice/feed', :get).should route_to(BlogSlice::Posts, :feed)
+  end
+  
+  it "should get the 10 last posts from the database" do
+    Post.should_receive(:all).with(:limit => 10, :order => [:created_at.desc]).and_return([@post])
+    do_get
+  end
+  
+  it "should assign the posts list to the view" do
+    do_get.assigns(:posts).should == [@post]
+  end
+  
+  it "should render the feed xml" do
+    do_get do |controller|
+      controller.should_receive(:render).with(:layout => false)
+    end
+  end  
 end
