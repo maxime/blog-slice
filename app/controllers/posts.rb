@@ -33,8 +33,7 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def update
-    updated = @post.update_attributes(params[:post])
-    if updated || !@post.dirty? 
+    if @post.update_attributes(params[:post]) || !@post.dirty? 
       redirect url(:blog_slice_post, :id => @post.slug)
     else
       render :form
@@ -48,7 +47,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def feed
     only_provides :rss
-    @posts = Post.all(:limit => feed_options[:number_of_items], :order => [:created_at.desc])
+    @posts = Post.all(:limit => blog_options[:feed_number_of_items], :order => [:created_at.desc])
     render :layout => false
   end
   

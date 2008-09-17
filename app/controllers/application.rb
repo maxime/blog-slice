@@ -2,15 +2,16 @@ class BlogSlice::Application < Merb::Controller
   include Merb::Helpers::SimpleFormsHelpers
   controller_for_slice
   
-  def feed_options
+  def blog_options
     {
-      :number_of_items => 10,
-      :title => "Blog Slice News",
-      :link => "http://www.blogslice.com",
-      :description => "A Blog about Blog Slice",
+      :blog_title => "My Blog",
+      :feed_number_of_items => 10,
+      :feed_title => "Blog Slice News",
+      :feed_link => "http://www.blogslice.com",
+      :feed_description => "A Blog about Blog Slice",
       :host => "http://www.example.org",
       :feed_url => "/blog-slice/feed",
-      :language => "en-us"
+      :feed_language => "en-us"
     }
   end
   

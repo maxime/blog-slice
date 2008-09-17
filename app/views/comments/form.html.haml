@@ -1,3 +1,5 @@
+%h1= link @post.title, :to => url(:blog_slice_post, :id => @post.slug)
+  
 = error_messages_for @comment
 
 = render_form :comment

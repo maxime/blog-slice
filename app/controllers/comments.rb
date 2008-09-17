@@ -1,5 +1,6 @@
 class BlogSlice::Comments < BlogSlice::Application
   provides :html, :xml, :rss
+  before :authorization_required, :exclude => [:index, :show, :new, :create]
   before :get_post
   
   def index
@@ -13,12 +14,38 @@ class BlogSlice::Comments < BlogSlice::Application
   end
   
   def create
-    @comment = @post.comments.new(params[:comment])
+    @comment = Comment.new(params[:comment])
+    @comment.post = @post
     if @comment.save
-      redirect url(:blog_slice_post_comments, :post_id => @post.slug)
+      redirect url(:blog_slice_post, :id => @post.slug)
     else
       render :form
     end
+  end
+  
+  def edit
+    @comment = @post.comments.get(params[:id])
+    raise NotFound unless @comment
+    render :form
+  end
+  
+  def update
+    @comment = @post.comments.get(params[:id])
+    raise NotFound unless @comment
+
+    if @comment.update_attributes(params[:comment]) || !@comment.dirty?
+      redirect url(:blog_slice_post, :id => @post.slug)
+    else
+      render :form
+    end
+  end
+  
+  def destroy
+    @comment = @post.comments.get(params[:id])
+    raise NotFound unless @comment
+
+    @comment.destroy
+    redirect url(:blog_slice_post, :id => @post.slug)
   end
   
   protected

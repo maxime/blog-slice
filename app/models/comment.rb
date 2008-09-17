@@ -21,6 +21,7 @@ class Comment
                       {:email =>              {:control => :text_field}},
                       {:content =>            {:control => :text_area}}],
      :namespace => 'blog_slice',
-     :nested_within => 'posts'}
+     :nested_within => 'posts',
+     :cancel_url => false}
   end
 end
