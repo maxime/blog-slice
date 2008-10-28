@@ -20,8 +20,8 @@ class Comment
                       {:url =>                {:control => :text_field}},
                       {:email =>              {:control => :text_field}},
                       {:content =>            {:control => :text_area}}],
-     :namespace => 'blog_slice',
      :nested_within => 'posts',
+     :slice => true,
      :cancel_url => false}
   end
 end

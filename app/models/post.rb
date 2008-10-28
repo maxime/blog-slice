@@ -21,32 +21,7 @@ class Post
     {:attributes => [ {:title =>              {:control => :text_field}}, 
                       {:content =>            {:control => :text_area}},
                       {:rendering_engine =>   {:control => :select, :collection => Post.rendering_engines}},
-                      {:taglist =>            {:control => :text_field, :label => 'Tags'}}]}
-  end
-  
-  # Extra tagging functionalities
-  
-  after :save, :tag_now_with_taglist
-  
-  def taglist
-    @taglist || TagList.new(self.tags.collect{|t| t.name}).to_s
-  end
-  
-  def taglist=(ataglist)
-    # if the object is a new record, we will tag the object after save
-    # if the object isn't a new record, we tag the object now
-    @taglist = ataglist
-    tag_now_with_taglist unless new_record?
-    true
-  end
-  
-  def tag_now_with_taglist
-    return unless @taglist 
-    # Destroy all the taggings
-    self.taggings.destroy! unless self.new_record?
-
-    # Tag with the tag list
-    self.tag(:with => TagList.from(@taglist))
-    @taglist = nil   
+                      {:tags_list =>          {:control => :text_field, :label => 'Tags'}}],
+     :slice => true}
   end
 end

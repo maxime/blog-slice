@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "../..", 'spec_helper.rb')
 
 describe "comments/index authorized" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -41,24 +41,24 @@ describe "comments/index authorized" do
   end
   
   it "should display the comments" do
-    @body.should have_tag(:div, :id => "post_1").with_tag(:div, :class => 'author') {|div| div.should contain("Maxime Guilbot")}
-    @body.should have_tag(:div, :id => "post_2").with_tag(:div, :class => 'author') {|div| div.should contain("James Antony")}    
-    @body.should have_tag(:div, :id => "post_1").with_tag(:div, :class => 'comment') {|div| div.should contain("Very nice blog!")}
-    @body.should have_tag(:div, :id => "post_2").with_tag(:div, :class => 'comment') {|div| div.should contain("Very beautiful blog!")}    
+    @body.should have_tag(:div, :id => "comment_1").with_tag(:div, :class => 'author') {|div| div.should contain("Maxime Guilbot")}
+    @body.should have_tag(:div, :id => "comment_2").with_tag(:div, :class => 'author') {|div| div.should contain("James Antony")}    
+    @body.should have_tag(:div, :id => "comment_1").with_tag(:div, :class => 'comment') {|div| div.should contain("Very nice blog!")}
+    @body.should have_tag(:div, :id => "comment_2").with_tag(:div, :class => 'comment') {|div| div.should contain("Very beautiful blog!")}    
   end
   
   it "should display edit and delete links" do
-    @body.should have_tag(:div, :id => "post_1").with_tag(:a, :href => url(:edit_blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 1)) {|a| a.should contain("Edit")}
-    @body.should have_tag(:div, :id => "post_2").with_tag(:a, :href => url(:edit_blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 2)) {|a| a.should contain("Edit")}
+    @body.should have_tag(:div, :id => "comment_1").with_tag(:a, :href => '/posts/my-first-blog-post/comments/1/edit') {|a| a.should contain("Edit")}
+    @body.should have_tag(:div, :id => "comment_2").with_tag(:a, :href => '/posts/my-first-blog-post/comments/2/edit') {|a| a.should contain("Edit")}
 
-    @body.should have_tag(:div, :id => "post_1").with_tag(:a, :href => url(:blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 1), :method => 'delete') {|a| a.should contain("Delete")}
-    @body.should have_tag(:div, :id => "post_2").with_tag(:a, :href => url(:blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 2), :method => 'delete') {|a| a.should contain("Delete")}
+    @body.should have_tag(:div, :id => "comment_1").with_tag(:a, :href => '/posts/my-first-blog-post/comments/1', :method => 'delete') {|a| a.should contain("Delete")}
+    @body.should have_tag(:div, :id => "comment_2").with_tag(:a, :href => '/posts/my-first-blog-post/comments/2', :method => 'delete') {|a| a.should contain("Delete")}
   end
 end
 
 describe "comments/index not authorized" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -93,10 +93,10 @@ describe "comments/index not authorized" do
   end
   
   it "should not display edit and delete links" do
-    @body.should_not have_tag(:div, :id => "post_1").with_tag(:a, :href => url(:edit_blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 1)) {|a| a.should contain("Edit")}
-    @body.should_not have_tag(:div, :id => "post_2").with_tag(:a, :href => url(:edit_blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 2)) {|a| a.should contain("Edit")}
+    @body.should_not have_tag(:div, :id => "post_1").with_tag(:a, :href => '/posts/my-first-blog-post/comments/1/edit') {|a| a.should contain("Edit")}
+    @body.should_not have_tag(:div, :id => "post_2").with_tag(:a, :href => '/posts/my-first-blog-post/comments/2/edit') {|a| a.should contain("Edit")}
 
-    @body.should_not have_tag(:div, :id => "post_1").with_tag(:a, :href => url(:blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 1), :method => 'delete') {|a| a.should contain("Delete")}
-    @body.should_not have_tag(:div, :id => "post_2").with_tag(:a, :href => url(:blog_slice_post_comment, :post_id => 'my-first-blog-post', :id => 2), :method => 'delete') {|a| a.should contain("Delete")}
+    @body.should_not have_tag(:div, :id => "post_1").with_tag(:a, :href => '/posts/my-first-blog-post/comments/1', :method => 'delete') {|a| a.should contain("Delete")}
+    @body.should_not have_tag(:div, :id => "post_2").with_tag(:a, :href => '/posts/my-first-blog-post/comments/2', :method => 'delete') {|a| a.should contain("Delete")}
   end
 end

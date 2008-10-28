@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "../..", 'spec_helper.rb')
 
 describe "posts/form" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -17,7 +17,7 @@ describe "posts/form" do
   end
   
   it "should render a form for creating the post" do
-    @body.should have_tag(:form, :action => url(:blog_slice_posts), :method => 'post')
+    @body.should have_tag(:form, :action => '/posts', :method => 'post')
   end
   
   it "should have a text field for the title" do
@@ -33,6 +33,6 @@ describe "posts/form" do
   end
   
   it "should have a tag text field for the tags" do
-    @body.should have_tag(:input, :type => :text, :id => 'post_taglist')
+    @body.should have_tag(:input, :type => :text, :id => 'post_tags_list')
   end
 end

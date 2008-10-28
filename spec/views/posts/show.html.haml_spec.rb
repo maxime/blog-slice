@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "../..", 'spec_helper.rb')
 
 describe "posts/show authorized" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -27,7 +27,7 @@ describe "posts/show authorized" do
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :taglist => 'animal, technology')
+    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :tags_list => 'animal, technology')
     @controller.instance_variable_set(:@post, post) 
     @controller.instance_variable_set(:@comments, sample_comments)
     @controller.instance_variable_set(:@comment, Comment.new) 
@@ -47,11 +47,11 @@ describe "posts/show authorized" do
   end
   
   it "should display the edit link" do
-    @body.should have_tag(:a, :href => url(:edit_blog_slice_post, :id => 'my-first-post'))
+    @body.should have_tag(:a, :href => '/posts/my-first-post/edit')
   end
   
   it "should display the delete link" do
-    @body.should have_tag(:a, :href => url(:blog_slice_post, :id => 'my-first-post'), :method => 'delete')
+    @body.should have_tag(:a, :href => '/posts/my-first-post', :method => 'delete')
   end
   
   it "should display the number of comments" do
@@ -64,13 +64,13 @@ describe "posts/show authorized" do
   end
   
   it "should display the new comment form" do
-    @body.should have_tag(:form, :action => url(:blog_slice_post_comments, :post_id => 'my-first-post'))
+    @body.should have_tag(:form, :action => '/posts/my-first-post/comments')
   end
 end
 
 describe "posts/show not authorized" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -104,11 +104,11 @@ describe "posts/show not authorized" do
   end
   
   it "should not display the edit link" do
-    @body.should_not have_tag(:a, :href => url(:edit_blog_slice_post, :id => 'my-first-post'))
+    @body.should_not have_tag(:a, :href => '/post/my-first-post/edit')
   end
   
   it "should not display the delete link" do
-    @body.should_not have_tag(:a, :href => url(:blog_slice_post, :id => 'my-first-post'), :method => 'delete')
+    @body.should_not have_tag(:a, :href => '/post/my-first-post', :method => 'delete')
   end
 end
 

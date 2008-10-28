@@ -2,7 +2,7 @@ require File.join(File.dirname(__FILE__), "../..", 'spec_helper.rb')
 
 describe "comments/form" do 
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
 
   after :all do
@@ -19,7 +19,7 @@ describe "comments/form" do
   end
   
   it "should render a form for creating the post" do
-    @body.should have_tag(:form, :action => url(:blog_slice_post_comments, :post_id => @post.slug), :method => 'post')
+    @body.should have_tag(:form, :action => '/posts/my-first-post/comments', :method => 'post')
   end
   
   it "should have a text field for the author" do

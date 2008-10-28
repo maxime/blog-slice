@@ -5,7 +5,7 @@ describe "BlogSlice::Posts (controller)" do
   # Feel free to remove the specs below
   
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| add_slice(:BlogSlice, :controller_prefix => nil, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -23,26 +23,13 @@ describe "BlogSlice::Posts (controller)" do
     controller.status.should == 200
   end
   
-  it "should work with the default route" do
-    controller = get("/blog-slice/posts/index")
-    controller.should be_kind_of(BlogSlice::Posts)
-    controller.action_name.should == 'index'
-  end
-  
-  it "should work with the example named route" do
-    controller = get("/blog-slice/posts")
-    controller.should be_kind_of(BlogSlice::Posts)
-    controller.action_name.should == 'index'
-  end
-  
   it "should have routes in BlogSlice.routes" do
-    BlogSlice.routes.should_not be_empty
+    BlogSlice.named_routes.should_not be_empty
   end
   
   it "should have a slice_url helper method for slice-specific routes" do
-    controller = dispatch_to(BlogSlice::Posts, 'index')
-    controller.slice_url(:action => 'show', :format => 'html').should == "/blog-slice/posts/show.html"
-    controller.slice_url(:blog_slice_posts).should == "/blog-slice/posts"
+    controller = dispatch_to(BlogSlice::Posts, 'index') {|controller| controller.stub!(:display)}
+    controller.slice_url(:posts).should == "/posts"
   end
   
   it "should have helper methods for dealing with public paths" do
@@ -60,7 +47,15 @@ end
 
 
 describe BlogSlice::Posts, 'index action' do
-  before do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
     @post = mock('post')
     Post.stub!(:all).and_return([@post])
   end
@@ -72,8 +67,8 @@ describe BlogSlice::Posts, 'index action' do
     end
   end
   
-  it "should have a route from /posts/index" do 
-    request_to("/blog-slice/posts/index", :get).should route_to(BlogSlice::Posts, :index)   
+  it "should have a route from /posts" do 
+    request_to("/posts", :get).should route_to("BlogSlice/posts", :index)   
   end
   
   it "should get all the posts from the database" do
@@ -93,7 +88,15 @@ describe BlogSlice::Posts, 'index action' do
 end
 
 describe BlogSlice::Posts, 'new action authorized' do
-  before do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+
+  before :each do
     @post = mock('post')
     Post.stub!(:new).and_return(@post)
   end
@@ -106,7 +109,7 @@ describe BlogSlice::Posts, 'new action authorized' do
   end
   
   it "should have a route from /posts/new" do
-    request_to("/blog-slice/posts/new", :get).should route_to(BlogSlice::Posts, :new)     
+    request_to("/posts/new", :get).should route_to('BlogSlice/posts', :new)     
   end
   
   it "should create a new post object" do
@@ -138,7 +141,7 @@ end
 
 describe BlogSlice::Posts, 'create action' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -171,7 +174,7 @@ describe BlogSlice::Posts, 'create action' do
   end
 
   it "should have a route from /posts POST" do
-    request_to("/blog-slice/posts", :post).should route_to(BlogSlice::Posts, :create)     
+    request_to("/posts", :post).should route_to('BlogSlice/posts', :create)     
   end
   
   it "should create a new post object" do
@@ -185,7 +188,7 @@ describe BlogSlice::Posts, 'create action' do
   end
   
   it "should redirect to the post if successful" do
-    successful_save.should redirect_to(url(:blog_slice_post, :id => @post.slug))
+    successful_save.should redirect_to('/posts/my-first-blog-post')
   end
   
   it "should render the form again if unsuccesful" do
@@ -207,7 +210,15 @@ describe BlogSlice::Posts, 'create action not authorized' do
 end
 
 describe Post, 'show action' do
-  before do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
     @post = mock('post')
     Post.stub!(:first).and_return(@post)
     
@@ -226,7 +237,7 @@ describe Post, 'show action' do
   end
   
   it "should have a route from /posts/:slug" do
-    request_to("/blog-slice/posts/my-first-blog-post", :get).should route_to(BlogSlice::Posts, :show)  
+    request_to("/posts/my-first-blog-post", :get).should route_to('BlogSlice/posts', :show)  
   end
   
   it "should get the post from the database" do
@@ -265,7 +276,15 @@ describe Post, 'show action' do
 end
 
 describe Post, 'edit action authorized' do
-  before do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
     @post = mock('post')
     Post.stub!(:first).and_return(@post)
   end
@@ -278,7 +297,7 @@ describe Post, 'edit action authorized' do
   end
   
   it "should have a route from /posts/:slug/edit" do
-    request_to("/blog-slice/posts/my-first-blog-post/edit", :get).should route_to(BlogSlice::Posts, :edit)  
+    request_to("/posts/my-first-blog-post/edit", :get).should route_to('BlogSlice/posts', :edit)  
   end  
   
   it "should get the post from the database" do
@@ -314,7 +333,7 @@ end
 
 describe BlogSlice::Posts, 'update action authorized' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -348,7 +367,7 @@ describe BlogSlice::Posts, 'update action authorized' do
   end
   
   it "should have a route from /posts/my-first-post PUT" do
-    request_to('/blog-slice/posts/my-first-post', :put).should route_to(BlogSlice::Posts, :update)
+    request_to('/posts/my-first-post', :put).should route_to('BlogSlice/posts', :update)
   end
   
   it "should get the post from the database" do
@@ -367,12 +386,12 @@ describe BlogSlice::Posts, 'update action authorized' do
   end
   
   it "should redirect to the post if the update is successful" do
-    successful_save.should redirect_to(url(:blog_slice_post, :id => @post.slug))
+    successful_save.should redirect_to('/posts/my-first-blog-post')
   end
   
   it "should redirect to the post if nothing has changed" do
     @post.should_receive(:dirty?).and_return(false)
-    unsuccessful_save.should redirect_to(url(:blog_slice_post, :id => @post.slug))
+    unsuccessful_save.should redirect_to('/posts/my-first-blog-post')
   end
   
   it "should render the form if the update failed" do
@@ -394,7 +413,7 @@ end
 
 describe BlogSlice::Posts, 'destroy action authorized' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -412,7 +431,7 @@ describe BlogSlice::Posts, 'destroy action authorized' do
   end
   
   it "should have a route from /posts/my-first-post DELETE" do
-    request_to('/blog-slice/posts/my-first-post', :delete).should route_to(BlogSlice::Posts, :destroy)
+    request_to('/posts/my-first-post', :delete).should route_to('BlogSlice/posts', :destroy)
   end
   
   it "should get the post from the database" do
@@ -431,7 +450,7 @@ describe BlogSlice::Posts, 'destroy action authorized' do
   end
   
   it "should redirect to the post listing" do
-    do_destroy.should redirect_to(url(:blog_slice_posts))
+    do_destroy.should redirect_to('/posts')
   end
 end
 
@@ -446,7 +465,15 @@ describe BlogSlice::Posts, 'destroy action not authorized' do
 end
 
 describe BlogSlice::Posts, 'feed' do
-  before do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
     @post = mock('post')
     Post.stub!(:all).and_return([@post])
   end
@@ -459,7 +486,7 @@ describe BlogSlice::Posts, 'feed' do
   end
   
   it "should have a route from /feed" do
-    request_to('/blog-slice/feed', :get).should route_to(BlogSlice::Posts, :feed)
+    request_to('/feed', :get).should route_to('BlogSlice/posts', :feed)
   end
   
   it "should get the 10 last posts from the database" do

@@ -1,5 +1,7 @@
 class BlogSlice::Application < Merb::Controller
   include Merb::Helpers::SimpleFormsHelpers
+  include Merb::Helpers::LinkHelper
+    
   controller_for_slice
   
   def blog_options

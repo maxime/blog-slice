@@ -80,9 +80,8 @@ if defined?(Merb::Plugins)
   # Add dependencies for other BlogSlice classes below. Example:
   # dependency "blog-slice/other"
   use_orm :datamapper
-  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb_helpers", "merb-simple-forms", "merb-builder"
-  
-  dependencies "RedCloth", "BlueCloth"
+  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb-helpers", "merb-simple-forms", "merb_builder"
+  dependencies "RedCloth", "BlueCloth" 
 
   require 'blog-slice/text_rendering'
 end

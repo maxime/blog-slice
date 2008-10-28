@@ -4,7 +4,7 @@ describe "BlogSlice (module)" do
   # Feel free to remove the specs below
   
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -42,14 +42,9 @@ describe "BlogSlice (module)" do
     BlogSlice.author.should == "Maxime Guilbot for Ekohe"
   end
   
-  it "should have :routes and :named_routes properties" do
-    BlogSlice.routes.should_not be_empty
-    BlogSlice.named_routes[:blog_slice_posts].should be_kind_of(Merb::Router::Route)
-  end
-
-  it "should have an url helper method for slice-specific routes" do
-    BlogSlice.url(:controller => 'main', :action => 'show', :format => 'html').should == "/blog-slice/main/show.html"
-    BlogSlice.url(:blog_slice_posts).should == "/blog-slice/posts"
+  it "should have :named_routes property" do
+    BlogSlice.named_routes.should_not be_empty
+    BlogSlice.named_routes[:posts].should be_kind_of(Merb::Router::Route)
   end
   
   it "should have a config property (Hash)" do

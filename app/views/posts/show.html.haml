@@ -2,12 +2,12 @@
 #content= @post.rendered_content
 #tags
   Tags:
-  = @post.taglist
+  = @post.tags_list
 
 - if authorized?
   %p
-    = link 'edit', :to => url(:edit_blog_slice_post, :id => @post.slug)
-    = link 'delete', :to => url(:blog_slice_post, :id => @post.slug), :method => 'delete', :confirm => "Are you sure?"
+    = link 'edit', :to => slice_url(:edit_post, :id => @post.slug)
+    = link 'delete', :to => slice_url(:post, :id => @post.slug), :method => 'delete', :confirm => "Are you sure?"
     
 .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
 

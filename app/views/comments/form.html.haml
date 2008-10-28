@@ -1,4 +1,4 @@
-%h1= link @post.title, :to => url(:blog_slice_post, :id => @post.slug)
+%h1= link @post.title, :to => slice_url(:post, :id => @post.slug)
   
 = error_messages_for @comment
 

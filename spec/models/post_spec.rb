@@ -77,7 +77,7 @@ describe Post, "tagging" do
   end
   
   def do_tag
-    @post.tag(:with => tags)
+    @post.tag(tags)
   end
   
   it "should allow tagging a post" do
@@ -85,38 +85,41 @@ describe Post, "tagging" do
     # Check if the post is tagged with 3 tags
     @post.tags.should have(3).things
     # Check if it's really the same tags
-    tags.each {|t| @post.tags.should include(Tag.get(t)) }
+    tags.each {|t| @post.tags.should include(Tag.build(t)) }
   end
   
   it "should be able to find the post with the tags" do
     do_tag
     tags.each do |t|
-      Post.find(:with => t).should have(1).thing
-      Post.find(:with => t).should include(@post)
+      Post.tagged_with(t).should have(1).thing
+      Post.tagged_with(t).should include(@post)
     end
   end
   
-  it "should be able to get the taglist" do
+  it "should be able to get the tags_list" do
     do_tag
-    @post.taglist.should == "welcome, technology, english"
+    @post.tags_list.should include("welcome")
+    @post.tags_list.should include("technology")
+    @post.tags_list.should include("english")
   end
   
-  it "should be able to tag with the taglist property" do
-    @post = Post.new(:title => "My First Post", :taglist => "welcome, technology, english")
+  it "should be able to tag with the tags_list property" do
+    @post = Post.new(:title => "My First Post", :tags_list => "welcome, technology, english")
     @post.save
     
     # Check if the post is tagged with 3 tags
+    @post.tags.reload
     @post.tags.should have(3).things
     # Check if it's really the same tags
-    tags.each {|t| @post.tags.should include(Tag.get(t)) }
+    tags.each {|t| @post.tags.should include(Tag.build(t)) }
     
-    @post.taglist = "french, spanish"
+    @post.tags_list = "french, spanish"
     @post.tags.reload
     # Check if the post is tagged with 2 tags
     @post.tags.should have(2).things
     
     # Check if it's really the same tags
-    @post.tags.should include(Tag.get('french'))   
-    @post.tags.should include(Tag.get('spanish'))   
+    @post.tags.should include(Tag.build('french'))   
+    @post.tags.should include(Tag.build('spanish'))   
   end
 end

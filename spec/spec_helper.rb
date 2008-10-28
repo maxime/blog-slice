@@ -10,13 +10,19 @@ Merb::Plugins.config[:merb_slices][:search_path]   = File.join(File.dirname(__FI
 # Using Merb.root below makes sure that the correct root is set for
 # - testing standalone, without being installed as a gem and no host application
 # - testing from within the host application; its root will be used
+require 'dm-core'
+
+DataMapper.setup(:default, "sqlite3::memory:")
+
 Merb.start_environment(
   :testing => true, 
   :adapter => 'runner', 
   :environment => ENV['MERB_ENV'] || 'test',
-  :merb_root => Merb.root,
+  :merb_root => File.expand_path(File.join(File.dirname(__FILE__), '..')),
   :session_store => 'memory'
 )
+
+DataMapper.auto_migrate!
 
 module Merb
   module Test
@@ -29,7 +35,7 @@ module Merb
       
       # Whether the specs are being run from a host application or standalone
       def standalone?
-        Merb.root == ::BlogSlice.root
+        File.expand_path(Merb.root) == File.expand_path(::BlogSlice.root)
       end
       
     end
@@ -42,6 +48,3 @@ Spec::Runner.configure do |config|
   config.include(Merb::Test::ControllerHelper)
   config.include(Merb::Test::SliceHelper)
 end
-
-DataMapper.setup(:default, "sqlite3::memory:")
-DataMapper.auto_migrate!

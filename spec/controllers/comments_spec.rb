@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 
 describe BlogSlice::Comments, "index action" do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -24,7 +24,7 @@ describe BlogSlice::Comments, "index action" do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments :get" do
-    request_to('/blog-slice/posts/my-first-blog-post/comments', :get).should route_to(BlogSlice::Comments, :index)
+    request_to('/posts/my-first-blog-post/comments', :get).should route_to('BlogSlice/comments', :index)
   end
   
   it "should get the post" do
@@ -50,7 +50,7 @@ end
 
 describe BlogSlice::Comments, 'new action' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -74,7 +74,7 @@ describe BlogSlice::Comments, 'new action' do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments/new GET" do
-    request_to('/blog-slice/posts/my-first-blog-post/comments/new', :get).should route_to(BlogSlice::Comments, :new)
+    request_to('/posts/my-first-blog-post/comments/new', :get).should route_to('BlogSlice/comments', :new)
   end
   
   it "should get the post" do
@@ -102,7 +102,7 @@ end
 
 describe BlogSlice::Comments, 'create action' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -138,7 +138,7 @@ describe BlogSlice::Comments, 'create action' do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments POST" do
-    request_to('/blog-slice/posts/my-first-blog-post/comments', :post).should route_to(BlogSlice::Comments, :create)
+    request_to('/posts/my-first-blog-post/comments', :post).should route_to('BlogSlice/comments', :create)
   end
   
   it "should get the post" do
@@ -162,7 +162,7 @@ describe BlogSlice::Comments, 'create action' do
   end
   
   it "should redirect to the comments if successful" do
-    successful_save.should redirect_to(url(:blog_slice_post, :id => 'my-first-blog-post'))
+    successful_save.should redirect_to('/posts/my-first-blog-post')
   end
   
   it "should render the form if unsuccessful" do
@@ -175,7 +175,7 @@ end
 
 describe BlogSlice::Comments, 'edit action authorized' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -192,7 +192,7 @@ describe BlogSlice::Comments, 'edit action authorized' do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments/1/edit GET" do
-    request_to("/blog-slice/posts/my-first-blog-post/comments/1/edit", :get).should route_to(BlogSlice::Comments, :edit)
+    request_to("/posts/my-first-blog-post/comments/1/edit", :get).should route_to('BlogSlice/comments', :edit)
   end
   
   def do_get
@@ -256,7 +256,7 @@ end
 
 describe BlogSlice::Comments, 'update action authorized' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -275,7 +275,7 @@ describe BlogSlice::Comments, 'update action authorized' do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments/1 PUT" do
-    request_to("/blog-slice/posts/my-first-blog-post/comments/1", :put).should route_to(BlogSlice::Comments, :update)
+    request_to("/posts/my-first-blog-post/comments/1", :put).should route_to('BlogSlice/comments', :update)
   end
   
   def attributes
@@ -334,7 +334,7 @@ describe BlogSlice::Comments, 'update action authorized' do
   end
   
   it "should redirect to the blog post if successful" do
-    successful_save.should redirect_to(url(:blog_slice_post, :id => 'my-first-blog-post'))
+    successful_save.should redirect_to('/posts/my-first-blog-post')
   end
   
   it "should render the form if unsuccessful" do
@@ -356,7 +356,7 @@ end
 
 describe BlogSlice::Comments, 'delete action authorized' do
   before :all do
-    Merb::Router.prepare { |r| r.add_slice(:BlogSlice) } if standalone?
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
   end
   
   after :all do
@@ -375,7 +375,7 @@ describe BlogSlice::Comments, 'delete action authorized' do
   end
   
   it "should have a route from /posts/my-first-blog-post/comments/1 DELETE" do
-    request_to("/blog-slice/posts/my-first-blog-post/comments/1", :delete).should route_to(BlogSlice::Comments, :destroy)
+    request_to("/posts/my-first-blog-post/comments/1", :delete).should route_to('BlogSlice/comments', :destroy)
   end
   
   def do_delete
@@ -411,7 +411,7 @@ describe BlogSlice::Comments, 'delete action authorized' do
   end
   
   it "should redirect to the blog post" do
-    do_delete.should redirect_to(url(:blog_slice_post, :id => 'my-first-blog-post'))
+    do_delete.should redirect_to('/posts/my-first-blog-post')
   end
 end
 

@@ -1,7 +1,7 @@
-%h1 Blog Slice
+%h1=h blog_options[:blog_title]
 
 - if authorized?
-  %p= link 'Write a new post', :to => :new_blog_slice_post
+  %p= link 'Write a new post', :to => slice_url(:new_post)
 
 = partial :post, :with => @posts
 
