@@ -38,7 +38,7 @@ describe "BlogSlice (module)" do
   
   it "should have metadata properties" do
     BlogSlice.description.should == "Blog Slice is a very basic blogging system"
-    BlogSlice.version.should == "0.0.1"
+    BlogSlice.version.should == "0.9.10"
     BlogSlice.author.should == "Maxime Guilbot for Ekohe"
   end
   

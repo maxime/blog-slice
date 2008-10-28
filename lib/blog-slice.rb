@@ -22,7 +22,7 @@ if defined?(Merb::Plugins)
     
     # Slice metadata
     self.description = "Blog Slice is a very basic blogging system"
-    self.version = "0.0.1"
+    self.version = "0.9.10"
     self.author = "Maxime Guilbot for Ekohe"
     
     Merb.add_mime_type :rss, nil, %w[text/xml]

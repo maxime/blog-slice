@@ -10,7 +10,7 @@ AUTHOR = "Maxime Guilbot for Ekohe"
 EMAIL = "maxime@ekohe.com"
 HOMEPAGE = "http://merbivore.com/"
 SUMMARY = "Blog Slice is a very basic blogging system"
-GEM_VERSION = "0.9.6"
+GEM_VERSION = "0.9.10"
 
 spec = Gem::Specification.new do |s|
   s.rubyforge_project = 'merb'
@@ -24,7 +24,7 @@ spec = Gem::Specification.new do |s|
   s.author = AUTHOR
   s.email = EMAIL
   s.homepage = HOMEPAGE
-  s.add_dependency('merb-slices', '>= 0.9.6')
+  s.add_dependency('merb-slices', '>= 0.9.10')
   s.require_path = 'lib'
   s.files = %w(LICENSE README Rakefile TODO) + Dir.glob("{lib,spec,app,public,stubs}/**/*")
 end
@@ -35,7 +35,7 @@ end
 
 desc "Install BlogSlice as a gem"
 task :install => [:package] do
-  sh %{#{sudo} gem install pkg/#{NAME}-#{GEM_VERSION} --no-update-sources}
+  sh %{sudo gem install pkg/#{NAME}-#{GEM_VERSION} --no-update-sources}
 end
 
 namespace :jruby do
