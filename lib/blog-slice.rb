@@ -54,7 +54,7 @@ if defined?(Merb::Plugins)
     # @note prefix your named routes with :blog_slice_
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
-      scope.resources :posts do |posts|
+      scope.resources :posts, :identify => :slug do |posts|
         posts.resources :comments
       end
       
@@ -80,8 +80,9 @@ if defined?(Merb::Plugins)
   # Add dependencies for other BlogSlice classes below. Example:
   # dependency "blog-slice/other"
   use_orm :datamapper
-  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "dm-is-taggable", "merb-haml", "merb-helpers", "merb-simple-forms", "merb_builder"
+  dependencies "dm-is-taggable"
+  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "merb-haml", "merb-helpers", "merb-simple-forms", "merb_builder"
   dependencies "RedCloth", "BlueCloth" 
-
+  
   require 'blog-slice/text_rendering'
 end

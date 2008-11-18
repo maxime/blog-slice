@@ -110,8 +110,7 @@ describe BlogSlice::Comments, 'create action' do
   end
   
   before :each do
-    @post = mock('post')
-    @post.stub!(:slug).and_return('my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post')
     @comment = mock('comment')
     @comment.stub!(:post=).with(@post).and_return(true)
     Post.stub!(:first).and_return(@post)
@@ -264,8 +263,7 @@ describe BlogSlice::Comments, 'update action authorized' do
   end
   
   before :each do
-    @post = mock('post')
-    @post.stub!(:slug).and_return('my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post')
     Post.stub!(:first).and_return(@post)
     @comments = mock('comments')
     @post.stub!(:comments).and_return(@comments)
@@ -364,8 +362,7 @@ describe BlogSlice::Comments, 'delete action authorized' do
   end
   
   before :each do
-    @post = mock('post')
-    @post.stub!(:slug).and_return('my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post')
     Post.stub!(:first).and_return(@post)
     @comments = mock('comments')
     @post.stub!(:comments).and_return(@comments)

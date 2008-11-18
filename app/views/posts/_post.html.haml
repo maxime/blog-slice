@@ -1,5 +1,5 @@
 .post{:id => "post_#{post.id}"}
-  %h2= link post.title, :to => slice_url(:post, :id => post.slug)
+  %h2= link post.title, :to => resource(post)
   .content= post.rendered_content
   .tags
     Tags:

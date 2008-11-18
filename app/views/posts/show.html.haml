@@ -6,8 +6,8 @@
 
 - if authorized?
   %p
-    = link 'edit', :to => slice_url(:edit_post, :id => @post.slug)
-    = link 'delete', :to => slice_url(:post, :id => @post.slug), :method => 'delete', :confirm => "Are you sure?"
+    = link 'edit', :to => resource(@post, :edit)
+    = link 'delete', :to => resource(@post), :method => 'delete', :confirm => "Are you sure?"
     
 .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
 

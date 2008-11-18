@@ -10,17 +10,13 @@ describe "posts/show authorized" do
   end
   
   def sample_comments
-    first_comment = mock('first-comment')
-    first_comment.stub!(:id).and_return(1)
-    first_comment.stub!(:author).and_return("Maxime Guilbot")
-    first_comment.stub!(:url).and_return("http://www.ekohe.com")
-    first_comment.stub!(:rendered_content).and_return("Very nice blog!")
-        
-    second_comment = mock('second-comment')
-    second_comment.stub!(:id).and_return(2)
-    second_comment.stub!(:author).and_return("James Antony")
-    second_comment.stub!(:url).and_return("http://www.ekohe.com")
-    second_comment.stub!(:rendered_content).and_return("Very beautiful blog!")
+    first_comment = Comment.new(:id => 1, :author => "Maxime Guilbot",
+                                :url => "http://www.ekohe.com",
+                                :rendered_content => "Very nice blog!")
+                                
+    second_comment = Comment.new(:id => 2, :author => "James Antony",
+                                :url => "http://www.ekohe.com",
+                                :rendered_content => "Very beautiful blog!")
     
     [first_comment, second_comment]
   end
@@ -59,8 +55,8 @@ describe "posts/show authorized" do
   end
   
   it "should display the comments" do
-    @body.should have_tag(:div, :id => 'comments').with_tag(:div, :id => 'comment_1')
-    @body.should have_tag(:div, :id => 'comments').with_tag(:div, :id => 'comment_2')    
+    @body.should have_tag(:div, :id => 'comment_1')
+    @body.should have_tag(:div, :id => 'comment_2')    
   end
   
   it "should display the new comment form" do

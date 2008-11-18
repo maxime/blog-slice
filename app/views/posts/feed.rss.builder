@@ -14,8 +14,8 @@ xml.rss :version => "2.0", 'xmlns:atom' => "http://www.w3.org/2005/Atom" do |rss
           description.cdata!(post.rendered_content)
         end
         item.pubDate post.created_at.utc.rfc822
-        item.link(blog_options[:host] + slice_url(:post, :id => post.slug))
-        item.guid(blog_options[:host] + slice_url(:post, :id => post.slug))
+        item.link(blog_options[:host] + resource(post))
+        item.guid(blog_options[:host] + resource(post))
       end
     end
   end

@@ -29,7 +29,7 @@ describe "BlogSlice::Posts (controller)" do
   
   it "should have a slice_url helper method for slice-specific routes" do
     controller = dispatch_to(BlogSlice::Posts, 'index') {|controller| controller.stub!(:display)}
-    controller.slice_url(:posts).should == "/posts"
+    controller.slice_url(:posts).should == "/blog-slice/posts"
   end
   
   it "should have helper methods for dealing with public paths" do
@@ -149,8 +149,7 @@ describe BlogSlice::Posts, 'create action' do
   end
   
   before do
-    @post = mock('post')
-    @post.stub!(:slug).and_return('my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post')
     Post.stub!(:new).and_return(@post)
   end
   
@@ -341,8 +340,7 @@ describe BlogSlice::Posts, 'update action authorized' do
   end
   
   before(:each) do
-    @post = mock('post')
-    @post.stub!(:slug).and_return('my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post')
     @post.stub!(:dirty?).and_return(true)
     Post.stub!(:first).and_return(@post)
   end

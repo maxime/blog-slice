@@ -16,7 +16,7 @@ class BlogSlice::Posts < BlogSlice::Application
   def create
     @post = Post.new(params[:post])
     if @post.save
-      redirect slice_url(:post, :id => @post.slug)
+      redirect resource(@post)
     else
       render :form
     end
@@ -34,7 +34,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def update
     if @post.update_attributes(params[:post]) || !@post.dirty? 
-      redirect slice_url(:post, :id => @post.slug)
+      redirect resource(@post)
     else
       render :form
     end

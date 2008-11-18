@@ -17,7 +17,7 @@ class BlogSlice::Comments < BlogSlice::Application
     @comment = Comment.new(params[:comment])
     @comment.post = @post
     if @comment.save
-      redirect slice_url(:post, :id => @post.slug)
+      redirect resource(@post)
     else
       render :form
     end
@@ -34,7 +34,7 @@ class BlogSlice::Comments < BlogSlice::Application
     raise NotFound unless @comment
 
     if @comment.update_attributes(params[:comment]) || !@comment.dirty?
-      redirect slice_url(:post, :id => @post.slug)
+      redirect resource(@post)
     else
       render :form
     end
@@ -45,7 +45,7 @@ class BlogSlice::Comments < BlogSlice::Application
     raise NotFound unless @comment
 
     @comment.destroy
-    redirect slice_url(:post, :id => @post.slug)
+    redirect resource(@post)
   end
   
   protected
