@@ -29,7 +29,7 @@ describe "BlogSlice::Posts (controller)" do
   
   it "should have a slice_url helper method for slice-specific routes" do
     controller = dispatch_to(BlogSlice::Posts, 'index') {|controller| controller.stub!(:display)}
-    controller.slice_url(:posts).should == "/blog-slice/posts"
+    controller.slice_url(:posts).should == "/posts"
   end
   
   it "should have helper methods for dealing with public paths" do
