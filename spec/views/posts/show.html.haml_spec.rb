@@ -23,7 +23,9 @@ describe "posts/show authorized" do
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :tags_list => 'animal, technology')
+    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
+    post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
+    
     @controller.instance_variable_set(:@post, post) 
     @controller.instance_variable_set(:@comments, sample_comments)
     @controller.instance_variable_set(:@comment, Comment.new) 
@@ -39,7 +41,10 @@ describe "posts/show authorized" do
   end
   
   it "should display the tags" do
-    @body.should have_tag(:div, :id => 'tags') {|div| div.should contain("animal, technology")}
+    @body.should have_tag(:div, :id => 'tags') do |div|
+      div.should contain("animal")
+      div.should contain("technology")
+    end
   end
   
   it "should display the edit link" do
@@ -91,7 +96,9 @@ describe "posts/show not authorized" do
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post')
+    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
+    post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
+    
     @controller.instance_variable_set(:@post, post) 
     @controller.instance_variable_set(:@comments, sample_comments) 
     @controller.instance_variable_set(:@comment, Comment.new) 

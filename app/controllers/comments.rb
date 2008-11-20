@@ -51,7 +51,7 @@ class BlogSlice::Comments < BlogSlice::Application
   protected
   
   def get_post
-    @post = Post.first(:slug => params[:post_id])
+    @post = Post.first(:slug => params[:slug])
     raise NotFound unless @post
   end
 end

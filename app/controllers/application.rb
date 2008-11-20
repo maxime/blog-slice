@@ -1,7 +1,4 @@
 class BlogSlice::Application < Merb::Controller
-  include Merb::Helpers::SimpleFormsHelpers
-  include Merb::Helpers::LinkHelper
-    
   controller_for_slice
   
   def blog_options
@@ -12,7 +9,7 @@ class BlogSlice::Application < Merb::Controller
       :feed_link => "http://www.blogslice.com",
       :feed_description => "A Blog about Blog Slice",
       :host => "http://www.example.org",
-      :feed_url => "/blog-slice/feed",
+      :feed_url => "/feed",
       :feed_language => "en-us"
     }
   end

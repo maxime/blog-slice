@@ -3,8 +3,10 @@ class BlogSlice::Posts < BlogSlice::Application
   before :authorization_required, :exclude => [:index, :show]
   before :get_post, :only => [:show, :edit, :update, :destroy]
   
+  include Merb::BlogSlice::CommentsHelper
+  
   def index
-    @posts = Post.all
+    @posts = Post.paginate(:page => params[:page], :order => [:published_at.desc])
     display @posts
   end
   
@@ -24,7 +26,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def show
     @comments = @post.comments
-    @comment = @post.comments.new
+    @comment = Comment.new
     display @post
   end
   
@@ -54,7 +56,7 @@ class BlogSlice::Posts < BlogSlice::Application
   protected
   
   def get_post
-    @post = Post.first(:slug => params[:id])
+    @post = Post.first(:slug => params[:slug])
     raise NotFound unless @post    
   end
 end

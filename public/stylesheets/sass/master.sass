@@ -1,0 +1,216 @@
+!light_blue =                 #e4f2fd
+!lighter_blue =               #2583ad
+!blue =                       #264761
+!soft_blue =                  #328ab2
+!really_light_blue =          #cee1ef
+!really_light_blue2 =         #eaf3fa
+!grey =                       #555
+!dark_grey =                  #333
+!light_grey =                 #ccc
+!lighter_grey =               #d7d7d7
+!really_light_grey =          #f9f9f9
+!orange =                     #d54e21
+!margin =                     15px
+!gold =                       #dd8718
+
+!form_width =                 600px
+
+body
+  :font-family                Helvetica, Arial, "Lucida Sans Unicode", sans-serif
+  :font-size                  11px
+  :text-align                 center
+  
+#container
+  :text-align                 left
+  :width                      800px
+  :margin-left                auto
+  :margin-right               auto
+
+strong
+  :font-weight                bold
+
+p
+  :margin =                   !margin
+
+a
+  :color =                    !lighter_blue
+  :text-decoration =          none
+  &:hover
+    :color =                  !gold
+
+// Title
+
+h1, h2
+  :color =                    black
+  :font-weight                bold
+
+h1#title
+  :text-align                 center
+  :font-size                  3.6em
+  :letter-spacing             -0.03em
+  :padding-bottom =           !margin
+  :padding-top =              !margin  
+
+h1
+  :font-size                  2em
+  :line-height                1.2em
+  :margin-bottom              2px
+
+  a
+    :color                    black
+    &:hover
+      :color =                  !gold
+
+#application_title
+  :background =               !light_blue
+  :padding-top =              !margin
+  :padding-bottom =           !margin
+  
+  h1
+    :font-size =              36px
+    :margin-top =             0
+    :border                   none
+
+// Menu
+
+#menu
+  :background =               !light_blue
+
+  ul
+    :padding-top =            !margin / 2
+    :padding-bottom =         !margin / 2
+    :padding-left =           !margin
+    :list-style-type          none
+    :list-style-image         none
+    :border-bottom            1px solid #C6D9E9
+    li
+      :display                inline
+      :margin-right =         !margin * 2
+      a
+        :font-size            16px
+          
+
+// Tables
+
+table
+  :border =                   1px solid !light_grey
+  :margin =                   !margin
+  th, td
+    :font-size =              11px  
+    :border-bottom =          1px solid !light_grey
+  th
+    :background =             !dark_grey
+    :color =                  !lighter_grey
+    :padding =                0.4em
+    :padding-left =           1.2em
+  td
+    :padding =                1em
+    :padding-left =           1.2em
+    :padding-right =          1.2em
+  tr.odd
+    :background =             !really_light_grey
+    
+// Buttons
+=button
+  :line-height	              17px
+  :background-color           black
+  :border =                   1px solid !grey
+  :color                      white
+  :-moz-border-radius         2px
+  :-webkit-border-radius      2px
+  :font-size                  12px
+  :padding                    3px 5px 3px 5px
+  
+.new, .edit, .delete, .view_children
+  +button
+  
+// Forms
+
+form
+  :margin-left =              !margin
+  .row
+    :width =                  !form_width
+    label
+      :display                block
+      :background =           !really_light_blue2
+      :width                  100%
+      :padding                7px
+      :font-size              14px
+      :font-weight            bold
+      :color                  black
+      :margin-bottom =        !margin
+      :margin-top =           !margin
+    input[type=text]
+      :font-size              1.7em
+      :width                  100%
+      :border =               1px solid !light_grey
+      :padding =              6px
+  .submit
+    :margin-top =             !margin * 2
+
+// Headers
+
+#header
+  :width                      800px
+  :height                     147px
+  :background                 url('/slices/blog-slice/images/header.jpg') center center
+  :margin-bottom =            !margin
+  :border-top                 3px solid black
+
+.extra_info
+  :font-family                Georgia, "Times New Roman", Times, serif
+  :color =                    !grey
+  :padding-bottom =           !margin / 2
+  :margin-bottom =            !margin
+  :background                 url('/slices/blog-slice/images/black_horizontal_line.gif') left bottom no-repeat
+  a
+    :color =                  !grey
+  div
+    :display                  inline
+    
+// Content
+
+.post
+  :margin-bottom =            !margin * 3
+  :clear                      left
+
+#content
+  p
+    :margin-left              0
+   
+#content .post .content
+  :font-family                Georgia, "Times New Roman", Times, serif
+  :font-size                  1.2em
+  p
+    :margin-left               0
+
+// Tags
+
+.tags
+  :margin-top =               !margin
+  :padding-top =              !margin / 2
+  :background                 url('/slices/blog-slice/images/grey_horizontal_line.gif') left top no-repeat
+  h5
+    :font-weight               bold
+    :color =                   !grey
+    :float                     left
+    :display                   inline
+    :margin-right              4px
+  .tag
+    :display                   inline
+    :float                     left
+    a
+      :color =                 !grey
+      :padding                 2px 4px 2px 4px
+      &:hover
+        :background =          !grey
+        :color                 white
+  
+// Footer
+#footer
+  :font-size                  0.9em
+  :margin-top =               !margin * 3
+  :margin-bottom =            !margin
+  :padding-top =              !margin
+  :color =                    !grey
+  :border-top =               3px solid !light_grey

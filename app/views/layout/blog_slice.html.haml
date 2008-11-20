@@ -3,6 +3,23 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
   %head
     %title Blog Slice
-    %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "RSS 2.0", :href => '/blog-slice/feed'}
+    %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "RSS 2.0", :href => '/feed'}
+    %link{ :href => "/slices/blog-slice/stylesheets/reset.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    %link{ :href => "/slices/blog-slice/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    %link{ :href => "/slices/blog-slice/javascripts/themes/default/ui.all.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    - if ['new', 'edit', 'create', 'update'].include?(params[:action])
+      %script{:src => "/slices/blog-slice/javascripts/jquery-1.2.6.js", :type => "text/javascript", :charset => "utf-8"}
+      %script{:src => "/slices/blog-slice/javascripts/ui/ui.core.js", :type => "text/javascript", :charset => "utf-8"}  
+      %script{:src => "/slices/blog-slice/javascripts/ui/ui.datepicker.js", :type => "text/javascript", :charset => "utf-8"}        
+      %script{:src => "/slices/blog-slice/javascripts/jquery.timepicker.js", :type => "text/javascript", :charset => "utf-8"}
   %body
-    = catch_content :for_layout
+    #container
+      %h1#title= link blog_options[:blog_title], :to => slice_url(:posts)
+      #header
+      #content= catch_content :for_layout
+      #footer
+        This blog is powered by the
+        = link 'Blog Slice', :to => 'http://github.com/maxime/blog-slice'
+        %br
+        Header photo credits:
+        = link 'http://flickr.com/photos/mikehoho/504553194/', :to => 'http://flickr.com/photos/mikehoho/504553194/'

@@ -12,14 +12,15 @@ describe "posts/index authorized" do
   before(:each) do                    
     @controller = BlogSlice::Posts.new(fake_request) 
     first_post = Post.new(:id => 1, :slug => 'my-first-post', :title => "My First Post",
-                          :tags_list => 'english, technology',
-                          :rendered_content => '<b>This is my first post</b>')
-    
-    second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
-                           :tags_list => 'love, food',
-                           :rendered_content => '<strong>This is the second post of my blog</strong>')
+                          :rendered_content => '<b>This is my first post</b>', :published_at => Time.now)
+    first_post.stub!(:tags).and_return([Tag.build('english'), Tag.build('technology')])
 
-    @controller.instance_variable_set(:@posts, [first_post, second_post]) 
+    second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
+                           :rendered_content => '<strong>This is the second post of my blog</strong>', :published_at => Time.now)
+    second_post.stub!(:tags).and_return([Tag.build('love'), Tag.build('food')])
+    posts = [first_post, second_post]
+    posts.stub!(:total_pages).and_return(1)
+    @controller.instance_variable_set(:@posts, posts) 
     @controller.stub!(:authorized?).and_return(true)
     
     @controller.stub!(:blog_options).and_return(:blog_title => "My Own Blog")
@@ -51,10 +52,13 @@ describe "posts/index authorized" do
   end  
  
   it "should display the tags list" do
-    @body.should have_tag(:div, :class => 'tags') {|div| div.should contain("english, technology") }
-    @body.should have_tag(:div, :class => 'tags') {|div| div.should contain("love, food") }
+    @body.should have_tag(:div, :class => 'tags') do |div|
+      div.should contain("english")
+      div.should contain("technology")
+      div.should contain("love")
+      div.should contain("food")
+    end
   end
-  
  
   it "should have a link for creating a new post if authorized" do
     @body.should have_tag(:a, :href => '/posts/new')
@@ -73,23 +77,16 @@ describe "posts/index not authorized" do
   before(:each) do                    
     @controller = BlogSlice::Posts.new(fake_request) 
     
-    first_post = mock('first_post')
-    first_post.stub!(:id).and_return(1)
-    first_post.stub!(:slug).and_return('my-first-post')
-    first_post.stub!(:class).and_return(Post)
-    first_post.stub!(:title).and_return("My First Post")
-    first_post.stub!(:tags_list).and_return("english, technology")
-    first_post.stub!(:rendered_content).and_return("<b>This is my first post</b>")
-    
-    second_post = mock('second_post')
-    second_post.stub!(:id).and_return(2)
-    second_post.stub!(:slug).and_return('my-second-post')
-    second_post.stub!(:class).and_return(Post)
-    second_post.stub!(:title).and_return("My Second Post")
-    second_post.stub!(:tags_list).and_return("love, food")
-    second_post.stub!(:rendered_content).and_return("<strong>This is the second post of my blog</strong>")
-    
-    @controller.instance_variable_set(:@posts, [first_post, second_post]) 
+    first_post = Post.new(:id => 1, :slug => 'my-first-post', :title => "My First Post",
+                          :rendered_content => '<b>This is my first post</b>', :published_at => Time.now)
+    first_post.stub!(:tags).and_return([Tag.build('english'), Tag.build('technology')])
+
+    second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
+                           :rendered_content => '<strong>This is the second post of my blog</strong>', :published_at => Time.now)
+    second_post.stub!(:tags).and_return([Tag.build('love'), Tag.build('food')])
+    posts = [first_post, second_post]
+    posts.stub!(:total_pages).and_return(1)
+    @controller.instance_variable_set(:@posts, posts) 
     @controller.stub!(:authorized?).and_return(false)
     @body = @controller.render(:index) 
   end 

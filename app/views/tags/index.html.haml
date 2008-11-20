@@ -1,0 +1,9 @@
+%h1
+  = link blog_options[:blog_title], :to => slice_url(:posts)
+  \/
+  Tags
+
+#tags
+  - @tags.each do |tag|
+    - unless tag.posts.empty?
+      %span{:class => "size_#{tag.size}"}= link tag.name, :to => resource(tag)

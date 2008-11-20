@@ -55,8 +55,10 @@ if defined?(Merb::Plugins)
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
       scope.resources :posts, :identify => :slug do |posts|
-        posts.resources :comments
+        posts.resources :comments, :identify => :id
       end
+      
+      scope.resources :tags, :identify => :slug
       
       scope.match("/feed").to(:controller => 'posts', :action => 'feed', :format => 'rss').name(:feed)
     end
@@ -79,10 +81,19 @@ if defined?(Merb::Plugins)
   
   # Add dependencies for other BlogSlice classes below. Example:
   # dependency "blog-slice/other"
-  use_orm :datamapper
-  dependencies "dm-is-taggable"
-  dependencies "dm-validations", "dm-timestamps", "dm-is-slug", "merb-haml", "merb-helpers", "merb-simple-forms", "merb_builder"
-  dependencies "RedCloth", "BlueCloth" 
+  # dependency "dm-core"
+
+  dependency "dm-is-slug"
+  dependency "dm-is-taggable"
+  dependency "dm-validations"
+  dependency "dm-timestamps"
+  dependency "merb-haml"
+  dependency "merb-helpers"
+  dependency "merb-simple-forms"
+  dependency "RedCloth"
+  dependency "BlueCloth"
+  dependency "merb_builder"
+  require "will_paginate"
   
   require 'blog-slice/text_rendering'
 end

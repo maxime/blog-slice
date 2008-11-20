@@ -12,27 +12,18 @@ describe "BlogSlice::Posts (controller)" do
     Merb::Router.reset! if standalone?
   end
   
-  it "should have access to the slice module" do
-    controller = dispatch_to(BlogSlice::Posts, :index)
-    controller.slice.should == BlogSlice
-    controller.slice.should == BlogSlice::Posts.slice
-  end
-  
-  it "should have an index action" do
-    controller = dispatch_to(BlogSlice::Posts, :index)
-    controller.status.should == 200
-  end
+#  it "should have access to the slice module" do
+#    controller = dispatch_to(BlogSlice::Posts, :index)
+#    controller.slice.should == BlogSlice
+#    controller.slice.should == BlogSlice::Posts.slice
+#  end
   
   it "should have routes in BlogSlice.routes" do
     BlogSlice.named_routes.should_not be_empty
   end
   
-  it "should have a slice_url helper method for slice-specific routes" do
-    controller = dispatch_to(BlogSlice::Posts, 'index') {|controller| controller.stub!(:display)}
-    controller.slice_url(:posts).should == "/posts"
-  end
-  
   it "should have helper methods for dealing with public paths" do
+    Post.all.destroy!
     controller = dispatch_to(BlogSlice::Posts, :index)
     controller.public_path_for(:image).should == "/slices/blog-slice/images"
     controller.public_path_for(:javascript).should == "/slices/blog-slice/javascripts"
@@ -57,7 +48,7 @@ describe BlogSlice::Posts, 'index action' do
   
   before :each do
     @post = mock('post')
-    Post.stub!(:all).and_return([@post])
+    Post.stub!(:paginate).and_return([@post])
   end
   
   def do_get
@@ -72,7 +63,7 @@ describe BlogSlice::Posts, 'index action' do
   end
   
   it "should get all the posts from the database" do
-    Post.should_receive(:all).with(no_args).and_return([@post])
+    Post.should_receive(:paginate).with(:page => nil, :order => [:published_at.desc]).and_return([@post])
     do_get
   end
   
@@ -225,11 +216,11 @@ describe Post, 'show action' do
     @post.stub!(:comments).and_return(@comments)
     
     @new_comment = mock('new-comment')
-    @comments.stub!(:new).and_return(@new_comment)
+    Comment.stub!(:new).and_return(@new_comment)
   end
   
   def do_get
-    dispatch_to(BlogSlice::Posts, :show, :id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Posts, :show, :slug => 'my-first-blog-post') do |controller|
       controller.stub!(:display)
       yield controller if block_given?
     end
@@ -260,7 +251,7 @@ describe Post, 'show action' do
   end
   
   it "should get the comments of the post" do
-    @post.should_receive(:comments).twice.and_return(@comments)
+    @post.should_receive(:comments).once.and_return(@comments)
     do_get
   end
   
@@ -269,7 +260,7 @@ describe Post, 'show action' do
   end
   
   it "should create a new comment object for the new comment form" do
-    @comments.should_receive(:new).with(no_args).and_return(@new_comment)
+    Comment.should_receive(:new).with(no_args).and_return(@new_comment)
     do_get
   end
 end
@@ -289,7 +280,7 @@ describe Post, 'edit action authorized' do
   end
   
   def do_get
-    dispatch_to(BlogSlice::Posts, :edit, :id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Posts, :edit, :slug => 'my-first-blog-post') do |controller|
       controller.stub!(:render)
       yield controller if block_given?
     end
@@ -351,14 +342,14 @@ describe BlogSlice::Posts, 'update action authorized' do
   
   def successful_save
     @post.stub!(:update_attributes).and_return(true)
-    dispatch_to(BlogSlice::Posts, :update, {:id => 'my-first-blog-post', :post => attributes}) do |controller|
+    dispatch_to(BlogSlice::Posts, :update, {:slug => 'my-first-blog-post', :post => attributes}) do |controller|
       yield controller if block_given?
     end
   end
   
   def unsuccessful_save
     @post.stub!(:update_attributes).and_return(false)
-    dispatch_to(BlogSlice::Posts, :update, {:id => 'my-first-blog-post', :post => attributes}) do |controller|
+    dispatch_to(BlogSlice::Posts, :update, {:slug => 'my-first-blog-post', :post => attributes}) do |controller|
       controller.stub!(:render)
       yield controller if block_given?
     end
@@ -425,7 +416,7 @@ describe BlogSlice::Posts, 'destroy action authorized' do
   end
   
   def do_destroy
-    dispatch_to(BlogSlice::Posts, :destroy, :id => 'my-first-blog-post')
+    dispatch_to(BlogSlice::Posts, :destroy, :slug => 'my-first-blog-post')
   end
   
   it "should have a route from /posts/my-first-post DELETE" do

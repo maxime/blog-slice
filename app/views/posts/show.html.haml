@@ -1,13 +1,26 @@
-%h1=h @post.title
-#content= @post.rendered_content
-#tags
-  Tags:
-  = @post.tags_list
+- comment_status = ((@post.comments.size == 1) ? "One Comment" : (((@post.comments.size==0) ? 'No' : @post.comments.size.to_s) + ' Comments'))
+
+%h1= link @post.title, :to => resource(@post)
+
+.extra_info
+  .published_at
+    = relative_date(@post.published_at).capitalize
+  ·
+  .comments_count
+    = link comment_status, :to => resource(@post)
+
+#content.content= @post.rendered_content
+
+#tags.tags
+  %h5 Tagged:
+  - @post.tags.each do |tag|
+    .tag= link tag.name, :to => resource(tag)
+
 
 - if authorized?
   %p
-    = link 'edit', :to => resource(@post, :edit)
-    = link 'delete', :to => resource(@post), :method => 'delete', :confirm => "Are you sure?"
+    = link 'Edit', :to => resource(@post, :edit), :class => 'action edit'
+    = link 'Delete', :to => resource(@post), :method => 'delete', :confirm => "Are you sure?", :class => 'action delete'
     
 .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
 

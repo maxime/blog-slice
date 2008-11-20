@@ -17,7 +17,7 @@ describe BlogSlice::Comments, "index action" do
   end
   
   def do_get
-    dispatch_to(BlogSlice::Comments, :index, :post_id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Comments, :index, :slug => 'my-first-blog-post') do |controller|
       controller.stub!(:display)
       yield controller if block_given?
     end
@@ -67,7 +67,7 @@ describe BlogSlice::Comments, 'new action' do
   end
   
   def do_get
-    dispatch_to(BlogSlice::Comments, :new, :post_id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Comments, :new, :slug => 'my-first-blog-post') do |controller|
       controller.stub!(:render)
       yield controller if block_given?
     end
@@ -123,14 +123,14 @@ describe BlogSlice::Comments, 'create action' do
   
   def successful_save
     @comment.stub!(:save).and_return(true)
-    dispatch_to(BlogSlice::Comments, :create, :comment => attributes, :post_id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Comments, :create, :comment => attributes, :slug => 'my-first-blog-post') do |controller|
       yield controller if block_given?
     end
   end
   
   def unsuccessful_save
     @comment.stub!(:save).and_return(false)
-    dispatch_to(BlogSlice::Comments, :create, :comment => attributes, :post_id => 'my-first-blog-post') do |controller|
+    dispatch_to(BlogSlice::Comments, :create, :comment => attributes, :slug => 'my-first-blog-post') do |controller|
       controller.stub!(:render)
       yield controller if block_given?
     end
@@ -195,7 +195,7 @@ describe BlogSlice::Comments, 'edit action authorized' do
   end
   
   def do_get
-    dispatch_to(BlogSlice::Comments, :edit, :post_id => 'my-first-blog-post', :id => "1") do |controller|
+    dispatch_to(BlogSlice::Comments, :edit, :slug => 'my-first-blog-post', :id => "1") do |controller|
       controller.stub!(:authorized).and_return(true)
       controller.stub!(:render)
       yield controller if block_given?
@@ -282,14 +282,14 @@ describe BlogSlice::Comments, 'update action authorized' do
   
   def successful_save
     @comment.stub!(:update_attributes).and_return(true)
-    dispatch_to(BlogSlice::Comments, :update, :comment => attributes, :post_id => 'my-first-blog-post', :id => "1") do |controller|
+    dispatch_to(BlogSlice::Comments, :update, :comment => attributes, :slug => 'my-first-blog-post', :id => "1") do |controller|
       yield controller if block_given?
     end
   end
   
   def unsuccessful_save
     @comment.stub!(:update_attributes).and_return(false)
-    dispatch_to(BlogSlice::Comments, :update, :comment => attributes, :post_id => 'my-first-blog-post', :id => "1") do |controller|
+    dispatch_to(BlogSlice::Comments, :update, :comment => attributes, :slug => 'my-first-blog-post', :id => "1") do |controller|
       controller.stub!(:render)
       yield controller if block_given?
     end
@@ -376,7 +376,7 @@ describe BlogSlice::Comments, 'delete action authorized' do
   end
   
   def do_delete
-    dispatch_to(BlogSlice::Comments, :destroy, :post_id => 'my-first-blog-post', :id => "1") do |controller|
+    dispatch_to(BlogSlice::Comments, :destroy, :slug => 'my-first-blog-post', :id => "1") do |controller|
       yield controller if block_given?
     end
   end

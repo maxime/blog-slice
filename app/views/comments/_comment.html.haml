@@ -3,6 +3,6 @@
   .comment= comment.rendered_content
   - if authorized?
     .admin
-      = link 'Edit', :to => resource(@post, comment, :edit)
-      = link 'Delete', :to => resource(@post, comment), :method => "delete", :confirm => "Are you sure?"
+      = link 'Edit', :to => resource(@post, comment, :edit), :class => 'action edit'
+      = link 'Delete', :to => resource(@post, comment), :method => "delete", :confirm => "Are you sure?", :class => 'action delete'
     

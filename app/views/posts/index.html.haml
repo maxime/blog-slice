@@ -1,7 +1,6 @@
-%h1=h blog_options[:blog_title]
-
 - if authorized?
-  %p= link 'Write a new post', :to => slice_url(:new_post)
+  %p= link 'Write a new post', :to => slice_url(:new_post), :class => 'action new'
 
 = partial :post, :with => @posts
 
+= will_paginate @posts

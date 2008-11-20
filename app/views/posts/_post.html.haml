@@ -1,6 +1,14 @@
+- comment_status = ((post.comments.size == 1) ? "One Comment" : (((post.comments.size==0) ? 'No' : post.comments.size.to_s) + ' Comments'))
 .post{:id => "post_#{post.id}"}
-  %h2= link post.title, :to => resource(post)
+  %h1= link post.title, :to => resource(post)
+  .extra_info
+    .published_at
+      = relative_date(post.published_at).capitalize
+    ·
+    .comments_count
+      = link comment_status, :to => resource(post)
   .content= post.rendered_content
   .tags
-    Tags:
-    = post.tags_list
+    %h5 Tagged:
+    - post.tags.each do |tag|
+      .tag= link tag.name, :to => resource(tag)

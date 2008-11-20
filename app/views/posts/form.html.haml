@@ -1,3 +1,11 @@
+%h1
+  = link blog_options[:blog_title], :to => slice_url(:posts)
+  - unless @post.new_record?
+    \/
+    = link @post.title, :to => resource(@post)
+  \/
+  = @post.new_record? ? "New Post" : "Edit"
+  
 = error_messages_for @post
 
 = render_form :post

@@ -7,21 +7,17 @@ class Post
   property :title, String, :nullable => false
   property :content, Text # Formatted text
   
+  property :published_at, Time
+
   property :created_at, Time
   property :updated_at, Time
   
   has n, :comments
   
   is :slug, :source => :title
+  is :taggable
   
-  is :taggable, :by => []
-  
-  # Form definition for simple forms
-  def self.form_definition
-    {:attributes => [ {:title =>              {:control => :text_field}}, 
-                      {:content =>            {:control => :text_area}},
-                      {:rendering_engine =>   {:control => :select, :collection => Post.rendering_engines}},
-                      {:tags_list =>          {:control => :text_field, :label => 'Tags'}}],
-     :slice => true}
+  def self.per_page
+    10
   end
 end

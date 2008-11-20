@@ -14,6 +14,8 @@ require 'dm-core'
 
 DataMapper.setup(:default, "sqlite3::memory:")
 
+use_orm :datamapper
+
 Merb.start_environment(
   :testing => true, 
   :adapter => 'runner', 

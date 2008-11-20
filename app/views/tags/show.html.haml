@@ -1,0 +1,10 @@
+%h1
+  = link blog_options[:blog_title], :to => slice_url(:posts)
+  \/
+  = link 'Tags', :to => slice_url(:tags)
+  \/
+  = @tag.name
+  
+= partial 'posts/post', :with => @posts
+
+= will_paginate @posts
