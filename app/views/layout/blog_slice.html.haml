@@ -2,7 +2,9 @@
 !!!
 %html{:xmlns => "http://www.w3.org/1999/xhtml", 'xml:lang' => "en", :lang => "en"}
   %head
-    %title Blog Slice
+    %title
+      - default_title = (blog_options[:page_title] ? blog_options[:page_title] : blog_options[:blog_title])
+      = @title ? "#{@title} &laquo; #{default_title}" : default_title
     %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "RSS 2.0", :href => '/feed'}
     %link{ :href => "/slices/blog-slice/stylesheets/reset.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
     %link{ :href => "/slices/blog-slice/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
@@ -15,7 +17,7 @@
   %body
     #container
       %h1#title= link blog_options[:blog_title], :to => slice_url(:posts)
-      #header
+      #header{:onclick => "location.href='/';"}
       #content= catch_content :for_layout
       #footer
         This blog is powered by the

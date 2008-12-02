@@ -120,7 +120,8 @@ form {
   height: 147px;
   background: url('/slices/blog-slice/images/header.jpg') center center;
   margin-bottom: 15px;
-  border-top: 3px solid black; }
+  border-top: 3px solid black;
+  cursor: pointer; }
 
 .extra_info {
   font-family: Georgia, "Times New Roman", Times, serif;

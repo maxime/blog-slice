@@ -12,6 +12,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def new
     @post = Post.new
+    @title = "Write a new post"
     render :form
   end
   
@@ -31,10 +32,12 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def edit
+    @title = "Edit &laquo; #{@title}"
     render :form
   end
   
   def update
+    @title = "Edit &laquo; #{@title}"
     if @post.update_attributes(params[:post]) || !@post.dirty? 
       redirect resource(@post)
     else
@@ -57,6 +60,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def get_post
     @post = Post.first(:slug => params[:slug])
+    @title = @post.title
     raise NotFound unless @post    
   end
 end

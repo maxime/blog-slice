@@ -1,20 +1,21 @@
 - comment_status = ((@post.comments.size == 1) ? "One Comment" : (((@post.comments.size==0) ? 'No' : @post.comments.size.to_s) + ' Comments'))
 
-%h1= link @post.title, :to => resource(@post)
+.post{:id => "post_#{@post.id}"}
+  %h1= link @post.title, :to => resource(@post)
 
-.extra_info
-  .published_at
-    = relative_date(@post.published_at).capitalize
-  ·
-  .comments_count
-    = link comment_status, :to => resource(@post)
+  .extra_info
+    .published_at
+      = relative_date(@post.published_at).capitalize
+    ·
+    .comments_count
+      = link comment_status, :to => resource(@post)
 
-#content.content= @post.rendered_content
+  #content.content= @post.rendered_content
 
-#tags.tags
-  %h5 Tagged:
-  - @post.tags.each do |tag|
-    .tag= link tag.name, :to => resource(tag)
+  #tags.tags
+    %h5 Tagged:
+    - @post.tags.each do |tag|
+      .tag= link tag.name, :to => resource(tag)
 
 
 - if authorized?
