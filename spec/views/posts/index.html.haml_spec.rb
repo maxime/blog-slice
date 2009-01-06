@@ -13,10 +13,12 @@ describe "posts/index authorized" do
     @controller = BlogSlice::Posts.new(fake_request) 
     first_post = Post.new(:id => 1, :slug => 'my-first-post', :title => "My First Post",
                           :rendered_content => '<b>This is my first post</b>', :published_at => Time.now)
+    first_post.stub!(:comments).and_return([])
     first_post.stub!(:tags).and_return([Tag.build('english'), Tag.build('technology')])
 
     second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
                            :rendered_content => '<strong>This is the second post of my blog</strong>', :published_at => Time.now)
+    second_post.stub!(:comments).and_return([])
     second_post.stub!(:tags).and_return([Tag.build('love'), Tag.build('food')])
     posts = [first_post, second_post]
     posts.stub!(:total_pages).and_return(1)
@@ -37,8 +39,8 @@ describe "posts/index authorized" do
   end
  
   it "should display the posts titles" do
-    @body.should have_tag(:h2) {|h2| h2.should contain("My First Post")}
-    @body.should have_tag(:h2) {|h2| h2.should contain("My Second Post")}
+    @body.should have_tag(:h1) {|h1| h1.should contain("My First Post")}
+    @body.should have_tag(:h1) {|h1| h1.should contain("My Second Post")}
   end
 
   it "should have links to the post show action" do
@@ -79,10 +81,12 @@ describe "posts/index not authorized" do
     
     first_post = Post.new(:id => 1, :slug => 'my-first-post', :title => "My First Post",
                           :rendered_content => '<b>This is my first post</b>', :published_at => Time.now)
+    first_post.stub!(:comments).and_return([])
     first_post.stub!(:tags).and_return([Tag.build('english'), Tag.build('technology')])
 
     second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
                            :rendered_content => '<strong>This is the second post of my blog</strong>', :published_at => Time.now)
+    second_post.stub!(:comments).and_return([])
     second_post.stub!(:tags).and_return([Tag.build('love'), Tag.build('food')])
     posts = [first_post, second_post]
     posts.stub!(:total_pages).and_return(1)

@@ -10,7 +10,7 @@ describe Post do
   
   it "should use textile as default rendering engine" do
     p = Post.create(:title => "My new post")
-    p.rendering_engine = 'textile'
+    p.rendering_engine.should == 'textile'
   end
 
   it "should have the title, content, rendered_content, rendering_type and timestamps properties" do

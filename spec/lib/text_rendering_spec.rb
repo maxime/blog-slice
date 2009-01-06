@@ -21,6 +21,10 @@ describe TextRendering do
     it "should be BlueCloth if the markdown rendering engine is specified" do
       Article.new(:rendering_engine => 'markdown').rendering_class.should == BlueCloth
     end
+    
+    it "should be nil if the rendering engine is invalid" do
+      Article.new(:rendering_engine => "bla").rendering_class.should == nil
+    end
   end
 
   describe "rendering" do
@@ -34,6 +38,12 @@ describe TextRendering do
       article = Article.new(:content => "Hello World!\n====================", :rendering_engine => 'markdown')
       article.valid?
       article.rendered_content.should == "<h1>Hello World!</h1>"
+    end
+    
+    it "should render the content as it is if the specified rendering engine is unknown" do
+      article = Article.new(:content => "<b>bla</b>", :rendering_engine => 'bla')
+      article.valid?
+      article.rendered_content.should == "<b>bla</b>"
     end
   end
 end
