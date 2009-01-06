@@ -3,7 +3,7 @@ module Merb
     module TextRendering
       def self.included(base)
         base.module_eval do
-          property :rendered_content, DataMapper::Types::Text, :lazy => false, :writer => :protected  # Rendered html
+          property :rendered_content, DataMapper::Types::Text, :lazy => false  # Rendered html
           property :rendering_engine, String, :nullable => false, :default => 'textile' # Textile, Markdown, etc.
         
           before :valid?, :render_content
