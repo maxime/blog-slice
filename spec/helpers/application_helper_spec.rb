@@ -29,12 +29,12 @@ end
 
 describe ApplicationHelper, "app_path_for(:something, 'file')" do
   it "should be /slices/blog-slice/something/file" do
-    app_path_for(:image, 'file').should == '/Users/maxime/Documents/ekohe/blog-slice/public/slices/blog-slice/images/file'
+    app_path_for(:image, 'file').should == File.expand_path(File.join(File.dirname(__FILE__), '/../../public/slices/blog-slice/images/file'))
   end
 end
 
 describe ApplicationHelper, "slice_path_for(:something, 'file')" do
   it "should be /slices/blog-slice/something/file" do
-    slice_path_for(:image, 'file').should == '/Users/maxime/Documents/ekohe/blog-slice/public/images/file'
+    slice_path_for(:image, 'file').should == File.expand_path(File.join(File.dirname(__FILE__), '/../../public/images/file'))
   end
 end
