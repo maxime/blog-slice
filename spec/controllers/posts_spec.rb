@@ -210,6 +210,7 @@ describe Post, 'show action' do
   
   before :each do
     @post = mock('post')
+    @post.stub!(:title).and_return("My First Blog Post")
     Post.stub!(:first).and_return(@post)
     
     @comments = mock('comments')
@@ -276,6 +277,7 @@ describe Post, 'edit action authorized' do
   
   before :each do
     @post = mock('post')
+    @post.stub!(:title).and_return("My First Blog Post")
     Post.stub!(:first).and_return(@post)
   end
   
@@ -331,7 +333,7 @@ describe BlogSlice::Posts, 'update action authorized' do
   end
   
   before(:each) do
-    @post = Post.new(:slug => 'my-first-blog-post')
+    @post = Post.new(:slug => 'my-first-blog-post', :title => "My First Blog Post")
     @post.stub!(:dirty?).and_return(true)
     Post.stub!(:first).and_return(@post)
   end
@@ -411,6 +413,7 @@ describe BlogSlice::Posts, 'destroy action authorized' do
   
   before(:each) do
     @post = mock('post')
+    @post.stub!(:title).and_return("My First Blog Post")
     @post.stub!(:destroy)
     Post.stub!(:first).and_return(@post)
   end

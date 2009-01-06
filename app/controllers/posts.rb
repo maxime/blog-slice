@@ -60,7 +60,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def get_post
     @post = Post.first(:slug => params[:slug])
-    @title = @post.title
     raise NotFound unless @post    
+    @title = @post.title
   end
 end
