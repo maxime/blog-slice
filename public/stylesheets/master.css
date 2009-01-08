@@ -83,6 +83,12 @@ table {
   table tr.odd {
     background: #f9f9f9; }
 
+table.ui-datepicker {
+  margin: 0; }
+  table.ui-datepicker tr th, table.ui-datepicker tr td {
+    padding: 0;
+    border-bottom: none; }
+
 .new, .edit, .delete, .view_children {
   line-height: 17px;
   background-color: black;
@@ -93,27 +99,60 @@ table {
   font-size: 12px;
   padding: 3px 5px 3px 5px; }
 
-form {
-  margin-left: 15px; }
-  form .row {
-    width: 600px; }
-    form .row label {
-      display: block;
-      background: #eaf3fa;
-      width: 100%;
-      padding: 7px;
-      font-size: 14px;
-      font-weight: bold;
-      color: black;
-      margin-bottom: 15px;
-      margin-top: 15px; }
-    form .row input[type=text] {
-      font-size: 1.7em;
-      width: 100%;
-      border: 1px solid #cccccc;
-      padding: 6px; }
-  form .submit {
-    margin-top: 30px; }
+form .row {
+  width: 600px; }
+  form .row label {
+    display: block;
+    background: #eaf3fa;
+    width: 100%;
+    padding: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
+    margin-top: 15px; }
+  form .row input[type=text], form .row textarea {
+    font-size: 1.5em;
+    width: 100%;
+    border: 1px solid #cccccc;
+    padding: 6px; }
+  form .row textarea {
+    height: 150px; }
+  form .row select {
+    font-size: 1.5em; }
+form .explanation {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  color: #555555; }
+form .submit {
+  margin-top: 30px;
+  font-size: 1.5em; }
+form .errors {
+  margin-top: 7px;
+  margin-bottom: 7px;
+  color: #ad254b;
+  font-weight: bold; }
+form .has_errors input[type=text], form .has_errors textarea {
+  border: 1px solid #ad254b; }
+
+#message {
+  margin: 15px;
+  width: 615px; }
+  #message div {
+    padding: 7px;
+    font-weight: bold; }
+  #message #notice {
+    color: #25ad6f;
+    border: 1px solid #d7d7d7;
+    background: #e4fdf2; }
+  #message #error {
+    color: #ad254b;
+    border: 1px solid #d7d7d7;
+    background: #fde4eb; }
+
+form div input#post_published_at_date {
+  width: 200px;
+  margin-right: 30px; }
 
 #header {
   width: 800px;
@@ -166,6 +205,19 @@ form {
       .tags .tag a:hover {
         background: #555555;
         color: white; }
+
+.comments_number {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-top: 60px;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #888888; }
+
+#comments_part {
+  width: 470px; }
+  #comments_part #comments .comment {
+    margin-top: 30px;
+    margin-bottom: 30px; }
 
 #footer {
   font-size: 0.9em;

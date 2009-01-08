@@ -10,8 +10,16 @@
 !lighter_grey =               #d7d7d7
 !really_light_grey =          #f9f9f9
 !orange =                     #d54e21
-!margin =                     15px
 !gold =                       #dd8718
+
+!green =                      #25ad6f
+!really_light_green =         #e4fdf2
+
+!red =                        #ad254b
+!really_light_red =           #fde4eb
+
+!margin =                     15px
+
 
 !form_width =                 600px
 
@@ -109,7 +117,16 @@ table
     :padding-right =          1.2em
   tr.odd
     :background =             !really_light_grey
-    
+
+// Fixes for ui date picker
+table.ui-datepicker
+  :margin                     0
+  tr
+    th,td
+      :padding                0
+      :border-bottom          none 
+
+
 // Buttons
 =button
   :line-height	              17px
@@ -123,11 +140,9 @@ table
   
 .new, .edit, .delete, .view_children
   +button
-  
-// Forms
 
+// Forms  
 form
-  :margin-left =              !margin
   .row
     :width =                  !form_width
     label
@@ -140,13 +155,51 @@ form
       :color                  black
       :margin-bottom =        !margin
       :margin-top =           !margin
-    input[type=text]
-      :font-size              1.7em
+    input[type=text], textarea
+      :font-size              1.5em
       :width                  100%
       :border =               1px solid !light_grey
       :padding =              6px
+    textarea
+      :height =               150px
+    select
+      :font-size =            1.5em
+  .explanation
+    :margin-top =             !margin / 2
+    :margin-bottom =          !margin / 2
+    :color =                  !grey
   .submit
     :margin-top =             !margin * 2
+    :font-size =              1.5em
+  .errors
+    :margin-top =             !margin / 2
+    :margin-bottom =          !margin / 2
+    :color =                  !red
+    :font-weight =            bold
+  .has_errors
+    input[type=text], textarea
+      :border =               1px solid !red
+
+#message
+  :margin =                   !margin
+  :width =                    !form_width + !margin
+  div
+    :padding =                !margin / 2
+    :font-weight              bold
+  #notice
+    :color =                  !green
+    :border =                 1px solid !lighter_grey
+    :background =             !really_light_green
+  #error
+    :color =                  !red
+    :border =                 1px solid !lighter_grey
+    :background =             !really_light_red
+
+form
+  div
+    input#post_published_at_date
+      :width                  200px
+      :margin-right =         !margin * 2
 
 // Headers
 
@@ -206,7 +259,32 @@ form
       &:hover
         :background =          !grey
         :color                 white
+
+// Comments
+
+.comments_number
+  :font-size                   1.5em
+  :font-weight                 bold
+  :margin-top =                !margin * 4
+  :margin-bottom =             !margin
+  :border-bottom =             1px solid #888
+
+#comments_part
+  :width =                     470px
   
+  #comments
+    .comment
+      :margin-top =            !margin * 2
+      :margin-bottom =         !margin
+      :padding-bottom =        !margin
+      :background              url('/slices/blog-slice/images/grey_horizontal_line.gif') left bottom repeat-x
+
+#new_comment_form
+  h3
+    :font-size                   1.5em
+    :font-weight                 bold
+    
+
 // Footer
 #footer
   :font-size                  0.9em

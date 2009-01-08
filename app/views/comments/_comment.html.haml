@@ -1,6 +1,6 @@
 .comment{:id => "comment_#{comment.id}"}
   .author=h comment.author
-  .comment= comment.rendered_content
+  .content= comment.rendered_content
   - if authorized?
     .admin
       = link 'Edit', :to => resource(@post, comment, :edit), :class => 'action edit'
