@@ -1,8 +1,14 @@
 .comment{:id => "comment_#{comment.id}"}
-  .author=h comment.author
+  .author
+    - if comment.url.empty?
+      =h comment.author
+    - else
+      = link comment.author, :to => comment.url
+    %span.date
+      \//
+      =h comment.created_at.strftime("%B %d, %T at %I:%M %p").downcase.capitalize
   .content= comment.rendered_content
   - if authorized?
     .admin
       = link 'Edit', :to => resource(@post, comment, :edit), :class => 'action edit'
       = link 'Delete', :to => resource(@post, comment), :method => "delete", :confirm => "Are you sure?", :class => 'action delete'
-    

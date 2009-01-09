@@ -274,10 +274,24 @@ form
   
   #comments
     .comment
-      :margin-top =            !margin * 2
+      :margin-top =            !margin 
       :margin-bottom =         !margin
       :padding-bottom =        !margin
       :background              url('/slices/blog-slice/images/grey_horizontal_line.gif') left bottom repeat-x
+      .author
+        :font-family           Georgia, "Times New Roman", Times, serif
+        :font-size =           1.3em
+        :font-weight =         bold
+        .date
+          :color =             !grey
+          :font-size =         0.8em
+          :font-weight =       normal
+      .content
+        :font-family           Georgia, "Times New Roman", Times, serif
+        :font-size             1.2em
+        :margin-left =         !margin
+        p
+          :margin-left         0
 
 #new_comment_form
   h3

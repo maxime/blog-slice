@@ -12,11 +12,11 @@ describe "posts/show authorized" do
   def sample_comments
     first_comment = Comment.new(:id => 1, :author => "Maxime Guilbot",
                                 :url => "http://www.ekohe.com",
-                                :rendered_content => "Very nice blog!")
+                                :rendered_content => "Very nice blog!", :created_at => Time.now)
                                 
     second_comment = Comment.new(:id => 2, :author => "James Antony",
                                 :url => "http://www.ekohe.com",
-                                :rendered_content => "Very beautiful blog!")
+                                :rendered_content => "Very beautiful blog!", :created_at => Time.now)
     
     [first_comment, second_comment]
   end
@@ -84,12 +84,14 @@ describe "posts/show not authorized" do
     first_comment.stub!(:author).and_return("Maxime Guilbot")
     first_comment.stub!(:url).and_return("http://www.ekohe.com")
     first_comment.stub!(:rendered_content).and_return("Very nice blog!")
-        
+    first_comment.stub!(:created_at).and_return(Time.now)
+    
     second_comment = mock('second-comment')
     second_comment.stub!(:id).and_return(2)
     second_comment.stub!(:author).and_return("James Antony")
     second_comment.stub!(:url).and_return("http://www.ekohe.com")
     second_comment.stub!(:rendered_content).and_return("Very beautiful blog!")
+    second_comment.stub!(:created_at).and_return(Time.now)
     
     [first_comment, second_comment]
   end

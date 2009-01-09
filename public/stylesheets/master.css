@@ -216,8 +216,28 @@ form div input#post_published_at_date {
 #comments_part {
   width: 470px; }
   #comments_part #comments .comment {
-    margin-top: 30px;
-    margin-bottom: 30px; }
+    margin-top: 15px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    background: url('/slices/blog-slice/images/grey_horizontal_line.gif') left bottom repeat-x; }
+    #comments_part #comments .comment .author {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.3em;
+      font-weight: bold; }
+      #comments_part #comments .comment .author .date {
+        color: #555555;
+        font-size: 0.8em;
+        font-weight: normal; }
+    #comments_part #comments .comment .content {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.2em;
+      margin-left: 15px; }
+      #comments_part #comments .comment .content p {
+        margin-left: 0; }
+
+#new_comment_form h3 {
+  font-size: 1.5em;
+  font-weight: bold; }
 
 #footer {
   font-size: 0.9em;
