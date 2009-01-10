@@ -78,31 +78,31 @@ describe "posts/show not authorized" do
     Merb::Router.reset! if standalone?
   end
   
-  def sample_comments
-    first_comment = mock('first-comment')
-    first_comment.stub!(:id).and_return(1)
-    first_comment.stub!(:author).and_return("Maxime Guilbot")
-    first_comment.stub!(:url).and_return("http://www.ekohe.com")
-    first_comment.stub!(:rendered_content).and_return("Very nice blog!")
-    first_comment.stub!(:created_at).and_return(Time.now)
+  def create_comments
+    first_comment = Comment.create(:author => "Maxime Guilbot",
+                                   :url => "http://www.ekohe.com",
+                                   :content => "Very nice post!",
+                                   :approved => true,
+                                   :post_id => @post.id,
+                                   :created_at => Time.now)
     
-    second_comment = mock('second-comment')
-    second_comment.stub!(:id).and_return(2)
-    second_comment.stub!(:author).and_return("James Antony")
-    second_comment.stub!(:url).and_return("http://www.ekohe.com")
-    second_comment.stub!(:rendered_content).and_return("Very beautiful blog!")
-    second_comment.stub!(:created_at).and_return(Time.now)
-    
-    [first_comment, second_comment]
+    second_comment = Comment.create(:author => "James Antony",
+                                    :url => "http://www.ekohe.com",
+                                    :content => "F*cking website!!",
+                                    :approved => false,
+                                    :post_id => @post.id,
+                                    :created_at => Time.now)
   end
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
-    post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
-    
-    @controller.instance_variable_set(:@post, post) 
-    @controller.instance_variable_set(:@comments, sample_comments) 
+    Post.all.destroy!
+    Comment.all.destroy!
+    @post = Post.create(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
+    @post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
+    create_comments
+    @controller.instance_variable_set(:@post, @post) 
+    @controller.instance_variable_set(:@comments, @post.comments) 
     @controller.instance_variable_set(:@comment, Comment.new) 
     @controller.stub!(:authorized?).and_return(false)
     @body = @controller.render(:show)
@@ -114,6 +114,11 @@ describe "posts/show not authorized" do
   
   it "should not display the delete link" do
     @body.should_not have_tag(:a, :href => '/post/my-first-post', :method => 'delete')
+  end
+  
+  it "should not display not approved comments" do
+    @body.should_not have_tag(:div, :id => "comment_2")
+    @body.should_not contain("F*cking")
   end
 end
 

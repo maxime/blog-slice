@@ -12,7 +12,12 @@ describe "posts/form" do
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
     post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first post</b>')
-    @controller.instance_variable_set(:@post, post) 
+    @controller.instance_variable_set(:@post, post)
+    
+    Category.all.destroy!
+    information_technology = Category.create(:name => "Information Technology")
+    chinese = Category.create(:name => 'Chinese')
+    
     @body = @controller.render(:form)
   end
   
@@ -34,5 +39,9 @@ describe "posts/form" do
   
   it "should have a tag text field for the tags" do
     @body.should have_tag(:input, :type => :text, :id => 'post_tags_list')
+  end
+  
+  it "should have a multiple checkboxes for selecting categories" do
+    @body.should have_tag(:input, :type => 'checkbox', :name => 'post[categories_ids][]')
   end
 end

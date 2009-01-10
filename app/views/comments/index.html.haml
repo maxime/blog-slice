@@ -1,5 +1,15 @@
-%h1
+- throw_content :head do
+  %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "Comments RSS 2.0", :href => resource(@post, :comments, :feed)}
+
+- throw_content :title do
   Comments for
   = link @post.title, :to => resource(@post)
-
-#comments= partial 'comment', :with => @comments
+  
+#comments_part
+  .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
+  
+  #comments= partial 'comment', :with => @comments
+  
+  #new_comment_form
+    %h3 Leave a comment
+    = render_form :comment

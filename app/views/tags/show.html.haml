@@ -1,6 +1,4 @@
-%h1
-  = link blog_options[:blog_title], :to => slice_url(:posts)
-  \/
+- throw_content :title do
   = link 'Tags', :to => slice_url(:tags)
   \/
   = @tag.name

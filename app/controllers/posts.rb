@@ -1,6 +1,6 @@
 class BlogSlice::Posts < BlogSlice::Application
   provides :html, :xml, :rss
-  before :authorization_required, :exclude => [:index, :show]
+  before :authorization_required, :exclude => [:index, :show, :feed]
   before :get_post, :only => [:show, :edit, :update, :destroy]
   
   include Merb::BlogSlice::CommentsHelper
@@ -19,7 +19,7 @@ class BlogSlice::Posts < BlogSlice::Application
   def create
     @post = Post.new(params[:post])
     if @post.save
-      redirect resource(@post)
+      redirect resource(@post), :message => {:notice => "Post was successfully created"}
     else
       render :form
     end
@@ -39,7 +39,7 @@ class BlogSlice::Posts < BlogSlice::Application
   def update
     @title = "Edit &laquo; #{@title}"
     if @post.update_attributes(params[:post]) || !@post.dirty? 
-      redirect resource(@post)
+      redirect resource(@post), :message => {:notice => "Post was successfully updated"}
     else
       render :form
     end

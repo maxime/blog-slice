@@ -1,5 +1,6 @@
-%h1= link @post.title, :to => resource(@post)
- 
-= error_messages_for @comment
+- throw_content :title do
+  = link @post.title, :to => resource(@post)
 
-= render_form :comment
+#new_comment_form
+  %h3 Leave a comment
+  = render_form :comment

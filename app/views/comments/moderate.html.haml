@@ -1,0 +1,11 @@
+- throw_content :title do
+  Comments Moderation
+
+
+- if @comments.empty?
+  %p No comments to approve for the moment
+- else
+  #comments_part    
+    .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
+    #comments= partial 'comments/comment', :with => @comments
+

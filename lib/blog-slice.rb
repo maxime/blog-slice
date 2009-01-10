@@ -55,12 +55,17 @@ if defined?(Merb::Plugins)
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
       scope.resources :posts, :identify => :slug do |posts|
-        posts.resources :comments, :identify => :id
+        posts.resources :comments, :identify => :id do |comments|
+          comments.collection :feed
+          comments.member :approve, :method => :post
+        end
       end
       
+      scope.resources :categories, :identify => :slug
       scope.resources :tags, :identify => :slug
       
       scope.match("/feed").to(:controller => 'posts', :action => 'feed', :format => 'rss').name(:feed)
+      scope.match("/moderate_comments").to(:controller => 'comments', :action => 'moderate').name(:moderate_comments)
     end
     
   end
@@ -93,6 +98,7 @@ if defined?(Merb::Plugins)
   dependency "RedCloth"
   dependency "BlueCloth"
   dependency "merb_builder"
+  dependency "merb-mailer"
   require "will_paginate"
   
   require 'blog-slice/text_rendering'

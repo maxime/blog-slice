@@ -1,0 +1,9 @@
+- throw_content :title do
+  = link "Categories", :to => resource(:categories)
+  - unless @category.new_record?
+    \/
+    = link @category.name, :to => resource(@category)
+  \/
+  = @category.new_record? ? "Create" : "Edit"
+
+= render_form :category

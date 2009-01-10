@@ -41,6 +41,11 @@ h1 {
     h1 a:hover {
       color: #dd8718; }
 
+h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  margin-bottom: 15px; }
+
 #application_title {
   background: #e4f2fd;
   padding-top: 15px;
@@ -49,6 +54,18 @@ h1 {
     font-size: 36px;
     margin-top: 0;
     border: none; }
+
+#message {
+  margin: 0;
+  width: 615px; }
+  #message div {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin-bottom: 15px; }
+  #message #notice {
+    color: #25ad6f; }
+  #message #error {
+    color: #ad254b; }
 
 #menu {
   background: #e4f2fd; }
@@ -120,6 +137,9 @@ form .row {
     height: 150px; }
   form .row select {
     font-size: 1.5em; }
+  form .row .option {
+    font-size: 1.2em;
+    margin-bottom: 3px; }
 form .explanation {
   margin-top: 7px;
   margin-bottom: 7px;
@@ -134,21 +154,6 @@ form .errors {
   font-weight: bold; }
 form .has_errors input[type=text], form .has_errors textarea {
   border: 1px solid #ad254b; }
-
-#message {
-  margin: 15px;
-  width: 615px; }
-  #message div {
-    padding: 7px;
-    font-weight: bold; }
-  #message #notice {
-    color: #25ad6f;
-    border: 1px solid #d7d7d7;
-    background: #e4fdf2; }
-  #message #error {
-    color: #ad254b;
-    border: 1px solid #d7d7d7;
-    background: #fde4eb; }
 
 form div input#post_published_at_date {
   width: 200px;
@@ -186,31 +191,41 @@ form div input#post_published_at_date {
   #content .post .content p {
     margin-left: 0; }
 
-.tags {
+.tags, .categories {
   margin-top: 15px;
   padding-top: 7px;
   background: url('/slices/blog-slice/images/grey_horizontal_line.gif') left top no-repeat; }
-  .tags h5 {
+  .tags h5,   .categories h5 {
+    font-family: Georgia, "Times New Roman", Times, serif;
     font-weight: bold;
+    font-size: 1.1em;
     color: #555555;
     float: left;
     display: inline;
-    margin-right: 4px; }
-  .tags .tag {
+    margin-right: 4px;
+    padding: 2px 4px 2px 4px; }
+  .tags .element,   .categories .element {
+    font-family: Georgia, "Times New Roman", Times, serif;
+    font-size: 1.1em;
     display: inline;
-    float: left; }
-    .tags .tag a {
+    float: left;
+    margin-top: 2px; }
+    .tags .element a,     .categories .element a {
       color: #555555;
       padding: 2px 4px 2px 4px; }
-      .tags .tag a:hover {
+      .tags .element a:hover,       .categories .element a:hover {
         background: #555555;
         color: white; }
+
+.tags {
+  background: none; }
 
 .comments_number {
   font-size: 1.5em;
   font-weight: bold;
   margin-top: 60px;
   margin-bottom: 15px;
+  padding-bottom: 7px;
   border-bottom: 1px solid #888888; }
 
 #comments_part {
@@ -225,6 +240,7 @@ form div input#post_published_at_date {
       font-size: 1.3em;
       font-weight: bold; }
       #comments_part #comments .comment .author .date {
+        font-family: Helvetica, Arial, "Lucida Sans Unicode", sans-serif;
         color: #555555;
         font-size: 0.8em;
         font-weight: normal; }
@@ -237,7 +253,27 @@ form div input#post_published_at_date {
 
 #new_comment_form h3 {
   font-size: 1.5em;
-  font-weight: bold; }
+  font-weight: bold;
+  margin-bottom: 15px; }
+#new_comment_form .form .row {
+  width: 456px; }
+  #new_comment_form .form .row label {
+    background: none;
+    margin-bottom: 0;
+    margin-top: 5px;
+    padding-left: 0; }
+  #new_comment_form .form .row input[type=text], #new_comment_form .form .row textarea {
+    font-size: 1.2em;
+    width: 100%;
+    border: 1px solid #cccccc;
+    padding: 3px 4px 3px 3px; }
+  #new_comment_form .form .row textarea {
+    height: 50px; }
+#new_comment_form .form .submit {
+  margin-top: 15px;
+  font-size: 1.2em; }
+#new_comment_form .form .has_errors input[type=text], #new_comment_form .form .has_errors textarea {
+  border: 1px solid #ad254b; }
 
 #footer {
   font-size: 0.9em;

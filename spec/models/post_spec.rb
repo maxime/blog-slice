@@ -24,6 +24,43 @@ describe Post do
     Post.properties.collect{|p| p.name}.should include(:slug)
   end
   
+  it "should have a categories_ids= helper to mass-assign categories" do
+    Category.all.destroy!
+    information_technology = Category.create(:name => "Information Technology")
+    chinese = Category.create(:name => 'Chinese')
+    
+    p = Post.create(  :title => "My new post",
+                      :published_at => Time.now,
+                      :content => "Hi!",
+                      :categories_ids => [information_technology.id, chinese.id])
+    p.categories.should have(2).things
+    p.categories.should include(information_technology)
+    p.categories.should include(chinese)
+    
+    p.categories_ids = [information_technology.id]
+    
+    p.reload
+    
+    p.categories.should have(1).thing
+    p.categories.should include(information_technology)
+    p.categories.should_not include(chinese)
+  end
+  
+  it "should have a categories_ids helper to get the ids of the categories associated" do
+    Category.all.destroy!
+    information_technology = Category.create(:name => "Information Technology")
+    chinese = Category.create(:name => 'Chinese')
+    
+    p = Post.create(  :title => "My new post",
+                      :published_at => Time.now,
+                      :content => "Hi!",
+                      :categories_ids => [information_technology.id, chinese.id])
+
+    p.categories_ids.should have(2).things
+    p.categories_ids.should include(chinese.id)
+    p.categories_ids.should include(information_technology.id)
+  end
+  
   describe "comments" do
     before do
       @post = Post.create(:title => 'My First Blog Post')
@@ -64,7 +101,14 @@ describe Post do
   end
 end
 
-# This spec should be here but should be in dm-is-taggable.
+describe Post, "associations" do
+  it "should belongs to many categories" do
+    Post.relationships.should be_has_key(:categories)
+    Post.relationships[:categories].parent_model.should == Post
+    Post.relationships[:categories].child_model.should == CategoryPost
+  end
+end
+
 # As dm-is-taggable very new, I prefer to make sure that everything is working as expected
 describe Post, "tagging" do
   before(:each) do

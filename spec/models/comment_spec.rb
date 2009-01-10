@@ -26,16 +26,26 @@ describe Comment do
     it "should require the author name" do
       @comment.author = nil
       @comment.should_not be_valid
+      @comment.errors.on(:author).should include("Name is required")
     end
     
     it "should require the email address" do
-      @comment.email = nil
+      @comment.email = ''
       @comment.should_not be_valid
+      @comment.errors.on(:email).should include("Mail is required")
+      @comment.errors.on(:email).should_not include("Mail is invalid")
+    end
+    
+    it "should require a valid email address" do
+      @comment.email = 'bla'
+      @comment.should_not be_valid
+      @comment.errors.on(:email).should include("Mail is invalid")
     end
     
     it "should require the comment content" do
       @comment.content = nil
       @comment.should_not be_valid
+      @comment.errors.on(:content).should include("Comment is required")
     end
   end
   

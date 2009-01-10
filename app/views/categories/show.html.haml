@@ -1,0 +1,15 @@
+- throw_content :title do
+  - if authorized?
+    = link "Categories", :to => resource(:categories)
+    \/
+  - else
+    Posts categorized as
+  = @category.name
+
+- if authorized?
+  %p= link 'Edit', :to => resource(@category, :edit), :class => 'edit action'
+
+
+= partial 'posts/post', :with => @posts
+
+= will_paginate @posts

@@ -1,0 +1,4 @@
+%ul#menu
+  - if respond_to?(:menu_items)
+    - menu_items.each do |label, url|
+      %li= link label, :to => url

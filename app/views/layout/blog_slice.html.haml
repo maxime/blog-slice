@@ -9,6 +9,7 @@
     %link{ :href => "/slices/blog-slice/stylesheets/reset.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
     %link{ :href => "/slices/blog-slice/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
     %link{ :href => "/slices/blog-slice/javascripts/themes/default/ui.all.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    = catch_content :head
     - if ['new', 'edit', 'create', 'update'].include?(params[:action])
       %script{:src => "/slices/blog-slice/javascripts/jquery-1.2.6.js", :type => "text/javascript", :charset => "utf-8"}
       %script{:src => "/slices/blog-slice/javascripts/ui/ui.core.js", :type => "text/javascript", :charset => "utf-8"}  
@@ -18,6 +19,8 @@
     #container
       %h1#title= link blog_options[:blog_title], :to => slice_url(:posts)
       #header{:onclick => "location.href='/';"}
+      %h1= catch_content :title
+      #messages= partial 'layout/messages'
       #content= catch_content :for_layout
       #footer
         This blog is powered by the

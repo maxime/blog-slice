@@ -472,6 +472,7 @@ describe BlogSlice::Posts, 'feed' do
   
   def do_get
     dispatch_to(BlogSlice::Posts, :feed) do |controller|
+      controller.stub!(:authorized?).and_return(false)
       controller.stub!(:render)
       yield controller if block_given?
     end

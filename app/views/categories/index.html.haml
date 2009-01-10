@@ -1,0 +1,20 @@
+- throw_content :title do
+  Categories
+
+- if @categories.size > 0 
+  - for category in @categories
+    %div{:id => "category_#{category.id}", :class => cycle('odd', 'even')}
+      %h2.name= link category.name, :to => resource(category)
+      - if authorized?
+        %p
+          = link 'Edit', :to => resource(category, :edit), :class => 'edit action'
+          = link 'Delete', :to => resource(category), :method => :delete, :confirm => "Are you sure?", :class => 'delete action'
+  - if authorized?
+    %p= link 'New', :to => resource(:categories, :new), :class => 'new action'
+- else
+  %p
+    - if authorized?
+      No category yet, 
+      = link 'create one?', :to => resource(:categories, :new)
+    - else
+      Nothing yet

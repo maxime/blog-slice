@@ -1,0 +1,20 @@
+%p Hello,
+
+%p
+  = @comment.author
+  = "(#{@comment.email})"
+  left a comment on your post
+  %a{:href => (BlogSlice::Application.new(nil).blog_options[:host] + '/posts/' + @post.slug)}= @post.title
+  at
+  = @comment.created_at
+
+%p Comment:
+
+%div= @comment.content
+
+- if BlogSlice::Application.new(nil).comment_options[:moderate]
+  %p
+    You can approve this comment by visiting
+    %a{:href => (BlogSlice::Application.new(nil).blog_options[:host] + "/moderate_comments")} this page.
+    
+%p Your blog mailer.

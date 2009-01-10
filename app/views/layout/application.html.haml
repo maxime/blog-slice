@@ -1,0 +1,19 @@
+!!! Strict
+%html{ html_attrs("en_us") }
+  %head
+    %title Awesome application
+    %meta{ :content => "text/html; charset=utf-8", "http-equiv" => "content-type" }/
+    %link{ :href => "/stylesheets/reset.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    %link{ :href => "/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    %link{ :href => "/javascripts/themes/default/ui.all.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
+    %script{:src => "/javascripts/jquery-1.2.6.js", :type => "text/javascript", :charset => "utf-8"}
+    %script{:src => "/javascripts/ui/ui.core.js", :type => "text/javascript", :charset => "utf-8"}  
+    %script{:src => "/javascripts/ui/ui.datepicker.js", :type => "text/javascript", :charset => "utf-8"}        
+    %script{:src => "/javascripts/jquery.timepicker.js", :type => "text/javascript", :charset => "utf-8"}        
+  %body
+    #application_title
+      %h1 Awesome Application
+    
+    #menu= partial 'layout/menu'
+
+    = catch_content :for_layout

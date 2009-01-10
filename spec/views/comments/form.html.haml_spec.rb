@@ -23,18 +23,18 @@ describe "comments/form" do
   end
   
   it "should have a text field for the author" do
-    @body.should have_tag(:input, :type => :text, :id => 'comment_author')
+    @body.should have_tag(:input, :type => :text, :name => 'comment[author]')
   end
   
   it "should have a text field for the url" do
-    @body.should have_tag(:input, :type => :text, :id => 'comment_url')
+    @body.should have_tag(:input, :type => :text, :name => 'comment[url]')
   end
   
   it "should have a text field for the email" do
-    @body.should have_tag(:input, :type => :text, :id => 'comment_email')
+    @body.should have_tag(:input, :type => :text, :name => 'comment[email]')
   end
   
   it "should have a text area for the content" do
-    @body.should have_tag(:textarea, :id => 'comment_content')
+    @body.should have_tag(:textarea, :name => 'comment[content]')
   end
 end

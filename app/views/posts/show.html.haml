@@ -1,3 +1,5 @@
+- throw_content :head do
+  %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "Comments RSS 2.0", :href => resource(@post, :comments, :feed)}
 - comment_status = ((@post.comments.size == 1) ? "One Comment" : (((@post.comments.size==0) ? 'No' : @post.comments.size.to_s) + ' Comments'))
 
 .post{:id => "post_#{@post.id}"}
@@ -12,10 +14,18 @@
 
   #content.content= @post.rendered_content
 
+  #categories.categories
+    %h5 Categories:
+    - @post.categories.each do |category|
+      .element= link category.name, :to => resource(category)
+    - if @post.categories.empty?
+      None
   #tags.tags
     %h5 Tagged:
     - @post.tags.each do |tag|
-      .tag= link tag.name, :to => resource(tag)
+      .element= link tag.name, :to => resource(tag)
+    - if @post.tags.empty?
+      None
 
 
 - if authorized?
@@ -30,5 +40,4 @@
 
   #new_comment_form
     %h3 Leave a comment
-    = error_messages_for @comment
     = render_form :comment

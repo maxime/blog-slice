@@ -8,7 +8,15 @@
     .comments_count
       = link comment_status, :to => resource(post)
   .content= post.rendered_content
+  .categories
+    %h5 Categories:
+    - post.categories.each do |category|
+      .element= link category.name, :to => resource(category)
+    - if post.categories.empty?
+      None
   .tags
     %h5 Tagged:
     - post.tags.each do |tag|
-      .tag= link tag.name, :to => resource(tag)
+      .element= link tag.name, :to => resource(tag)
+    - if post.tags.empty?
+      None
