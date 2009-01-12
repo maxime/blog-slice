@@ -7,16 +7,20 @@
     ·
     .comments_count
       = link comment_status, :to => resource(post)
+    - if authorized?
+      ·
+      .views_count
+        = "#{post.views_count || 0} view" + ((post.views_count != 1) ? 's' : '')
   .content= post.rendered_content
   .categories
     %h5 Categories:
     - post.categories.each do |category|
       .element= link category.name, :to => resource(category)
     - if post.categories.empty?
-      None
+      .element None
   .tags
     %h5 Tagged:
     - post.tags.each do |tag|
       .element= link tag.name, :to => resource(tag)
     - if post.tags.empty?
-      None
+      .element None

@@ -8,17 +8,21 @@
     %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "RSS 2.0", :href => '/feed'}
     %link{ :href => "/slices/blog-slice/stylesheets/reset.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
     %link{ :href => "/slices/blog-slice/stylesheets/master.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
-    %link{ :href => "/slices/blog-slice/javascripts/themes/default/ui.all.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
     = catch_content :head
-    - if ['new', 'edit', 'create', 'update'].include?(params[:action])
+    - if ['new', 'edit', 'create', 'update', 'dashboard'].include?(params[:action])
       %script{:src => "/slices/blog-slice/javascripts/jquery-1.2.6.js", :type => "text/javascript", :charset => "utf-8"}
+      %script{:src => "/slices/blog-slice/javascripts/jquery.inplace.min.js", :type => "text/javascript", :charset => "utf-8"}
       %script{:src => "/slices/blog-slice/javascripts/ui/ui.core.js", :type => "text/javascript", :charset => "utf-8"}  
       %script{:src => "/slices/blog-slice/javascripts/ui/ui.datepicker.js", :type => "text/javascript", :charset => "utf-8"}        
       %script{:src => "/slices/blog-slice/javascripts/jquery.timepicker.js", :type => "text/javascript", :charset => "utf-8"}
+      %link{ :href => "/slices/blog-slice/javascripts/themes/default/ui.all.css", :rel => "stylesheet", :media => "screen", :type => "text/css", :charset => "utf-8" }
   %body
     #container
+      - if authorized?
+        #dashboard_link
+          = link 'Dashboard', :to => slice_url(:dashboard)
       %h1#title= link blog_options[:blog_title], :to => slice_url(:posts)
-      #header{:onclick => "location.href='/';"}
+      #header{:onclick => "location.href='#{slice_url(:posts)}';"}
       %h1= catch_content :title
       #messages= partial 'layout/messages'
       #content= catch_content :for_layout

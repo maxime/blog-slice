@@ -12,12 +12,6 @@ describe "BlogSlice::Posts (controller)" do
     Merb::Router.reset! if standalone?
   end
   
-#  it "should have access to the slice module" do
-#    controller = dispatch_to(BlogSlice::Posts, :index)
-#    controller.slice.should == BlogSlice
-#    controller.slice.should == BlogSlice::Posts.slice
-#  end
-  
   it "should have routes in BlogSlice.routes" do
     BlogSlice.named_routes.should_not be_empty
   end
@@ -63,7 +57,10 @@ describe BlogSlice::Posts, 'index action' do
   end
   
   it "should get all the posts from the database" do
-    Post.should_receive(:paginate).with(:page => nil, :order => [:published_at.desc]).and_return([@post])
+    # TODO: fix this to test the :published_at.lt => Time.now
+    # Right now, there is a bug in the Hash class or in Datamapper: {:published_at.lt => 0} != {:published_at.lt => 0}
+    # 
+    Post.should_receive(:paginate).with(hash_including(:order => [:published_at.desc], :page => nil)).and_return([@post])
     do_get
   end
   
@@ -211,6 +208,9 @@ describe Post, 'show action' do
   before :each do
     @post = mock('post')
     @post.stub!(:title).and_return("My First Blog Post")
+    @post.stub!(:views_count).and_return(0)
+    @post.stub!(:update_attributes)
+    @post.stub!(:published_at).and_return(2.days.ago)
     Post.stub!(:first).and_return(@post)
     
     @comments = mock('comments')
@@ -245,6 +245,11 @@ describe Post, 'show action' do
     lambda { do_get }.should raise_error(Merb::ControllerExceptions::NotFound)
   end
   
+  it "should raise NotFound if the post published at is in the future" do
+    @post.stub!(:published_at).and_return(Time.now + 2.days)
+    lambda { do_get }.should raise_error(Merb::ControllerExceptions::NotFound)    
+  end
+  
   it "should display the post" do
     do_get do |controller|
       controller.should_receive(:display).with(@post)
@@ -262,6 +267,11 @@ describe Post, 'show action' do
   
   it "should create a new comment object for the new comment form" do
     Comment.should_receive(:new).with(no_args).and_return(@new_comment)
+    do_get
+  end
+  
+  it "should increment the views count" do
+    @post.should_receive(:update_attributes).with(:views_count => 1)
     do_get
   end
 end
@@ -483,7 +493,7 @@ describe BlogSlice::Posts, 'feed' do
   end
   
   it "should get the 10 last posts from the database" do
-    Post.should_receive(:all).with(:limit => 10, :order => [:created_at.desc]).and_return([@post])
+    Post.should_receive(:all).with(hash_including(:limit => 10, :order => [:created_at.desc])).and_return([@post])
     do_get
   end
   

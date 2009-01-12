@@ -4,6 +4,7 @@ body {
   text-align: center; }
 
 #container {
+  position: relative;
   text-align: left;
   width: 800px;
   margin-left: auto;
@@ -117,7 +118,8 @@ table.ui-datepicker {
   padding: 3px 5px 3px 5px; }
 
 form .row {
-  width: 600px; }
+  width: 600px;
+  font-size: 1.2em; }
   form .row label {
     display: block;
     background: #eaf3fa;
@@ -129,16 +131,15 @@ form .row {
     margin-bottom: 15px;
     margin-top: 15px; }
   form .row input[type=text], form .row textarea {
-    font-size: 1.5em;
+    font-size: 1.25em;
     width: 100%;
     border: 1px solid #cccccc;
     padding: 6px; }
   form .row textarea {
     height: 150px; }
   form .row select {
-    font-size: 1.5em; }
+    font-size: 1.25em; }
   form .row .option {
-    font-size: 1.2em;
     margin-bottom: 3px; }
 form .explanation {
   margin-top: 7px;
@@ -255,25 +256,27 @@ form div input#post_published_at_date {
   font-size: 1.5em;
   font-weight: bold;
   margin-bottom: 15px; }
-#new_comment_form .form .row {
-  width: 456px; }
-  #new_comment_form .form .row label {
-    background: none;
-    margin-bottom: 0;
-    margin-top: 5px;
-    padding-left: 0; }
-  #new_comment_form .form .row input[type=text], #new_comment_form .form .row textarea {
-    font-size: 1.2em;
-    width: 100%;
-    border: 1px solid #cccccc;
-    padding: 3px 4px 3px 3px; }
-  #new_comment_form .form .row textarea {
-    height: 50px; }
-#new_comment_form .form .submit {
-  margin-top: 15px;
-  font-size: 1.2em; }
-#new_comment_form .form .has_errors input[type=text], #new_comment_form .form .has_errors textarea {
-  border: 1px solid #ad254b; }
+#new_comment_form .form {
+  font-size: 1em; }
+  #new_comment_form .form .row {
+    width: 456px; }
+    #new_comment_form .form .row label {
+      background: none;
+      margin-bottom: 0;
+      margin-top: 5px;
+      padding-left: 0; }
+    #new_comment_form .form .row input[type=text], #new_comment_form .form .row textarea {
+      font-size: 1.2em;
+      width: 100%;
+      border: 1px solid #cccccc;
+      padding: 3px 4px 3px 3px; }
+    #new_comment_form .form .row textarea {
+      height: 50px; }
+  #new_comment_form .form .submit {
+    margin-top: 15px;
+    font-size: 1.2em; }
+  #new_comment_form .form .has_errors input[type=text], #new_comment_form .form .has_errors textarea {
+    border: 1px solid #ad254b; }
 
 #footer {
   font-size: 0.9em;
@@ -282,3 +285,98 @@ form div input#post_published_at_date {
   padding-top: 15px;
   color: #555555;
   border-top: 3px solid #cccccc; }
+
+#dashboard_link {
+  position: absolute;
+  top: 15px;
+  left: 0; }
+
+#dashboard {
+  width: 100%;
+  overflow: auto; }
+  #dashboard .left, #dashboard .right {
+    width: 400px;
+    overflow: auto; }
+    #dashboard .left .block,     #dashboard .right .block {
+      position: relative;
+      display: inline;
+      float: left;
+      width: 386px;
+      min-height: 50px;
+      margin-bottom: 15px;
+      border: 1px solid #cccccc; }
+      #dashboard .left .block .title,       #dashboard .right .block .title {
+        background-color: #f9f9f9;
+        font-size: 1.3em;
+        font-family: Helvetica, Arial, "Lucida Sans Unicode", sans-serif;
+        font-weight: bold;
+        padding: 5px;
+        border-bottom: 1px solid #d7d7d7; }
+        #dashboard .left .block .title .link,         #dashboard .right .block .title .link {
+          display: inline;
+          float: right;
+          margin-right: 15px;
+          font-size: 14px;
+          font-weight: normal;
+          font-family: Georgia, "Times New Roman", Times, serif; }
+      #dashboard .left .block .body,       #dashboard .right .block .body {
+        font-family: Georgia, "Times New Roman", Times, serif;
+        padding: 5px;
+        font-size: 1.2em; }
+  #dashboard .left {
+    display: inline;
+    float: left; }
+  #dashboard .right {
+    display: inline;
+    float: right; }
+    #dashboard .right .block {
+      margin-left: 7px; }
+
+.row {
+  overflow: auto;
+  width: 100%; }
+  .row div {
+    display: inline;
+    float: left; }
+  .row .post_title, .row .comment {
+    font-size: 1em;
+    width: 200px; }
+  .row .date, .row .author {
+    font-size: 0.8em;
+    width: 75px; }
+  .row .comments_count {
+    font-size: 0.8em;
+    width: 75px; }
+
+.details {
+  margin-top: 15px;
+  font-size: 0.8em;
+  color: #555555; }
+
+#tags .size_1 {
+  font-size: 1em; }
+#tags .size_2 {
+  font-size: 1.1em; }
+#tags .size_3 {
+  font-size: 1.2em; }
+#tags .size_4 {
+  font-size: 1.3em; }
+#tags .size_5 {
+  font-size: 1.4em; }
+#tags .size_6 {
+  font-size: 1.5em; }
+#tags .size_7 {
+  font-size: 1.6em; }
+#tags .size_8 {
+  font-size: 1.7em; }
+
+.pagination .previous_page, .pagination .next_page {
+  font-weight: bold; }
+.pagination .disabled {
+  color: #555555; }
+.pagination em {
+  color: black;
+  padding: 3px 4px; }
+.pagination a {
+  padding: 3px 4px;
+  border: 1px solid #cccccc; }

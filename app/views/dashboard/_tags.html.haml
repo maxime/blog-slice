@@ -1,0 +1,12 @@
+.block
+  .title Tags
+  .body
+    - Tag.all(:order => [:name.asc]).each do |tag|
+      - unless tag.posts.empty?
+        %span{:class => "size_#{tag.size}", :id => "tag_#{tag.id}"}= tag.name
+        :javascript
+          $('#tag_#{tag.id}').editInPlace({
+          url: '#{resource(tag)}',
+          params: "_method=put"
+          });
+    .details Click to edit

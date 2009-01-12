@@ -28,6 +28,7 @@ body
   :text-align                 center
   
 #container
+  :position                   relative
   :text-align                 left
   :width                      800px
   :margin-left                auto
@@ -162,6 +163,7 @@ table.ui-datepicker
 form
   .row
     :width =                  !form_width
+    :font-size                1.2em
     label
       :display                block
       :background =           !really_light_blue2
@@ -173,16 +175,15 @@ form
       :margin-bottom =        !margin
       :margin-top =           !margin
     input[type=text], textarea
-      :font-size              1.5em
+      :font-size              1.25em
       :width                  100%
       :border =               1px solid !light_grey
       :padding =              6px
     textarea
       :height =               150px
     select
-      :font-size =            1.5em
+      :font-size =            1.25em
     .option
-      :font-size              1.2em
       :margin-bottom          3px
   .explanation
     :margin-top =             !margin / 2
@@ -315,6 +316,7 @@ form
     :font-weight                 bold
     :margin-bottom =             !margin
   .form
+    :font-size                   1em
     .row
       :width                     456px
       label
@@ -344,3 +346,108 @@ form
   :padding-top =              !margin
   :color =                    !grey
   :border-top =               3px solid !light_grey
+  
+// Dashboard
+  
+#dashboard_link
+  :position                   absolute
+  :top =                     !margin
+  :left                       0
+
+#dashboard  
+  :width                      100%
+  :overflow                   auto
+  .left, .right
+    :width                      400px
+    :overflow                   auto
+    .block
+      :position                 relative
+      :display                  inline
+      :float                    left
+      :width =                  400px - 14px
+      :min-height               50px
+      :margin-bottom =          !margin
+      :border =                 1px solid !light_grey
+      .title
+        :background-color =     !really_light_grey
+        :font-size =            1.3em
+        :font-family            Helvetica, Arial, "Lucida Sans Unicode", sans-serif
+        :font-weight            bold
+        :padding                5px
+        :border-bottom =        1px solid !lighter_grey
+        .link
+          :display              inline
+          :float                right
+          :margin-right =       !margin
+          :font-size            14px
+          :font-weight          normal
+          :font-family          Georgia, "Times New Roman", Times, serif
+      .body
+        :font-family            Georgia, "Times New Roman", Times, serif
+        :padding                5px
+        :font-size =            1.2em
+  .left
+    :display                  inline
+    :float                    left
+  .right
+    :display                  inline
+    :float                    right
+    .block
+      :margin-left =          !margin / 2
+.row
+  :overflow                   auto
+  :width                      100%
+  div
+    :display                  inline
+    :float                    left
+  .post_title, .comment
+    :font-size                1em
+    :width                    200px
+  .date, .author
+    :font-size                0.8em
+    :width                    75px
+  .comments_count
+    :font-size                0.8em
+    :width                    75px
+
+.details
+  :margin-top =               !margin
+  :font-size                  0.8em
+  :color =                    !grey  
+
+// Tag cloud
+
+#tags
+  .size_1
+    :font-size                1em
+  .size_2
+    :font-size                1.1em
+  .size_3
+    :font-size                1.2em
+  .size_4
+    :font-size                1.3em
+  .size_5
+    :font-size                1.4em
+  .size_6
+    :font-size                1.5em
+  .size_7
+    :font-size                1.6em
+  .size_8
+    :font-size                1.7em
+  
+
+// Pagination
+
+.pagination
+  .previous_page, .next_page
+    :font-weight              bold
+  .disabled
+    :color =                  !grey
+    
+  em
+    :color                    black
+    :padding                  3px 4px
+  a
+    :padding                  3px 4px
+    :border =                 1px solid !light_grey
+    

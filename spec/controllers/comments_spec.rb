@@ -115,6 +115,8 @@ describe BlogSlice::Comments, 'create action' do
     @comment.stub!(:post=).with(@post).and_return(true)
     @comment.stub!(:approved=).and_return(true)
     @comment.stub!(:approved).and_return(true)
+    @comment.stub!(:ip_address=).and_return(true)
+    
     Post.stub!(:first).and_return(@post)
     Comment.stub!(:new).and_return(@comment)
   end
@@ -218,6 +220,25 @@ describe BlogSlice::Comments, 'create action' do
       controller.stub!(:authorized?).and_return(true)
       controller.stub!(:comment_options).and_return({:moderate => true})
     end
+  end
+  
+  it "should send an email if notification is enabled" do
+    successful_save do |controller|
+      controller.stub!(:comment_options).and_return({:notify_on_creation => true, :notify_on_creation_sender => "yourblog@email.com"})
+      controller.should_receive(:send_mail)
+    end
+  end
+  
+  it "should not send an email if notification is disabled" do
+    successful_save do |controller|
+      controller.stub!(:comment_options).and_return({:notify_on_creation => false})
+      controller.should_not_receive(:send_mail)
+    end  
+  end
+  
+  it "should save the remote ip address" do
+    @comment.should_receive(:ip_address=).with("127.0.0.1")
+    successful_save
   end
 end
 

@@ -11,7 +11,11 @@
     ·
     .comments_count
       = link comment_status, :to => resource(@post)
-
+    - if authorized?
+      ·
+      .views_count
+        = "#{@post.views_count || 0} view" + ((@post.views_count != 1) ? 's' : '')
+    
   #content.content= @post.rendered_content
 
   #categories.categories
@@ -19,13 +23,13 @@
     - @post.categories.each do |category|
       .element= link category.name, :to => resource(category)
     - if @post.categories.empty?
-      None
+      .element None
   #tags.tags
     %h5 Tagged:
     - @post.tags.each do |tag|
       .element= link tag.name, :to => resource(tag)
     - if @post.tags.empty?
-      None
+      .element None
 
 
 - if authorized?
@@ -33,11 +37,12 @@
     = link 'Edit', :to => resource(@post, :edit), :class => 'action edit'
     = link 'Delete', :to => resource(@post), :method => 'delete', :confirm => "Are you sure?", :class => 'action delete'
 
-#comments_part    
-  .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
+- if @post.allow_comments
+  #comments_part    
+    .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
 
-  #comments= partial 'comments/comment', :with => @comments
+    #comments= partial 'comments/comment', :with => @comments
 
-  #new_comment_form
-    %h3 Leave a comment
-    = render_form :comment
+    #new_comment_form
+      %h3 Leave a comment
+      = render_form :comment

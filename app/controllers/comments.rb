@@ -16,14 +16,15 @@ class BlogSlice::Comments < BlogSlice::Application
   def create
     @comment = Comment.new(negative_captcha_params(:comment))
     @comment.post = @post
-    
+    @comment.ip_address = request.remote_ip
+
     @comment.approved = authorized? || !comment_options[:moderate]
     
     if @comment.save
       
       if comment_options[:notify_on_creation]
         send_mail(BlogSlice::CommentMailer, :notify, {
-              :from => comment_options[:notify_on_creation_sender],
+              :from => (comment_options[:notify_on_creation_sender] || "sender@email.com"),
               :to => comment_options[:notify_on_creation],
               :subject => "New comment on your post #{@post.title}"},
               {:comment => @comment, :post => @post })

@@ -8,11 +8,15 @@ class Post
   property :content, Text
   
   property :published_at, Time
+  property :views_count, Integer, :default => 0
+
+  property :allow_comments, Boolean, :default => true
+  property :allow_trackbacks, Boolean, :default => true
 
   property :created_at, Time
   property :updated_at, Time
   
-  has n, :comments, :approved => true
+  has n, :comments, :approved => true, :order => [:created_at.desc]
   
   is :slug, :source => :title
   is :taggable

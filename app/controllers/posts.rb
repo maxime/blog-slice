@@ -6,7 +6,7 @@ class BlogSlice::Posts < BlogSlice::Application
   include Merb::BlogSlice::CommentsHelper
   
   def index
-    @posts = Post.paginate(:page => params[:page], :order => [:published_at.desc])
+    @posts = Post.paginate(:published_at.lt => Time.now, :page => params[:page], :order => [:published_at.desc])
     display @posts
   end
   
@@ -26,6 +26,12 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def show
+    # Increase view count
+    @post.update_attributes(:views_count => ((@post.views_count || 0) + 1))
+    
+    # If the post published at in the future, raise NotFound
+    raise NotFound if @post.published_at > Time.now
+    
     @comments = @post.comments
     @comment = Comment.new
     display @post
@@ -52,7 +58,7 @@ class BlogSlice::Posts < BlogSlice::Application
   
   def feed
     only_provides :rss
-    @posts = Post.all(:limit => blog_options[:feed_number_of_items], :order => [:created_at.desc])
+    @posts = Post.all(:published_at.lt => Time.now, :limit => blog_options[:feed_number_of_items], :order => [:created_at.desc])
     render :layout => false
   end
   

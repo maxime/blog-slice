@@ -54,6 +54,8 @@ if defined?(Merb::Plugins)
     # @note prefix your named routes with :blog_slice_
     #   to avoid potential conflicts with global named routes.
     def self.setup_router(scope)
+      scope.match("/").to(:controller => 'posts', :action => 'index').name(:posts)
+
       scope.resources :posts, :identify => :slug do |posts|
         posts.resources :comments, :identify => :id do |comments|
           comments.collection :feed
@@ -65,6 +67,7 @@ if defined?(Merb::Plugins)
       scope.resources :tags, :identify => :slug
       
       scope.match("/feed").to(:controller => 'posts', :action => 'feed', :format => 'rss').name(:feed)
+      scope.match("/dashboard").to(:controller => 'dashboard', :action => 'dashboard').name(:dashboard)
       scope.match("/moderate_comments").to(:controller => 'comments', :action => 'moderate').name(:moderate_comments)
     end
     
@@ -92,6 +95,7 @@ if defined?(Merb::Plugins)
   dependency "dm-is-taggable"
   dependency "dm-validations"
   dependency "dm-timestamps"
+  dependency "dm-sweatshop"
   dependency "merb-haml"
   dependency "merb-helpers"
   dependency "merb-simple-forms"

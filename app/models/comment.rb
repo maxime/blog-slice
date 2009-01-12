@@ -11,8 +11,10 @@ class Comment
   
   property :approved, Boolean # comment moderation
   
+  property :ip_address, String
+
   property :created_at, Time
-  property :updated_at, Time
+  property :updated_at, Time  
   
   belongs_to :post
   

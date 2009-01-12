@@ -15,7 +15,16 @@ describe Post do
 
   it "should have the title, content, rendered_content, rendering_type and timestamps properties" do
     properties_name = Post.properties.collect{|p| p.name}
-    [:title, :content, :rendered_content, :rendering_engine, :created_at, :updated_at].each do |column|
+    [ :title,
+      :content, 
+      :rendered_content, 
+      :rendering_engine, 
+      :published_at,
+      :views_count, 
+      :allow_comments,
+      :allow_trackbacks,
+      :created_at, 
+      :updated_at].each do |column|
       properties_name.should include(column)
     end
   end

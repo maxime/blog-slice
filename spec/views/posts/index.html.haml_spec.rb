@@ -61,42 +61,4 @@ describe "posts/index authorized" do
       div.should contain("food")
     end
   end
- 
-  it "should have a link for creating a new post if authorized" do
-    @body.should have_tag(:a, :href => '/posts/new')
-  end
-end
-
-describe "posts/index not authorized" do 
-  before :all do
-    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
-  end
-
-  after :all do
-    Merb::Router.reset! if standalone?
-  end
-  
-  before(:each) do                    
-    @controller = BlogSlice::Posts.new(fake_request) 
-    
-    first_post = Post.new(:id => 1, :slug => 'my-first-post', :title => "My First Post",
-                          :rendered_content => '<b>This is my first post</b>', :published_at => Time.now)
-    first_post.stub!(:comments).and_return([])
-    first_post.stub!(:tags).and_return([Tag.build('english'), Tag.build('technology')])
-
-    second_post = Post.new(:id => 2, :slug => 'my-second-post', :title => "My Second Post",
-                           :rendered_content => '<strong>This is the second post of my blog</strong>', :published_at => Time.now)
-    second_post.stub!(:comments).and_return([])
-    second_post.stub!(:tags).and_return([Tag.build('love'), Tag.build('food')])
-    posts = [first_post, second_post]
-    posts.stub!(:total_pages).and_return(1)
-    @controller.instance_variable_set(:@posts, posts) 
-    @controller.stub!(:authorized?).and_return(false)
-    @body = @controller.render(:index) 
-  end 
-
- 
- it "should not have a link for creating a new post if not authorized" do
-   @body.should_not have_tag(:a, :href => '/posts/new')  
- end
 end

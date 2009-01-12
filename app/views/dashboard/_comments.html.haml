@@ -1,0 +1,12 @@
+.block
+  .title
+    - if comment_options[:moderate]
+      .link= link 'Moderate comments', :to => slice_url(:moderate_comments)
+    Comments
+  .body
+    - Comment.all(:limit => 10, :order => [:created_at.desc]).each do |comment|
+      .row
+        .comment= link comment.content.truncate(20), :to => (resource(comment.post) + "#comment_#{comment.id}")
+        .author= comment.author.truncate(18)
+        .date= relative_date(comment.created_at).capitalize
+        

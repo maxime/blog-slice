@@ -23,24 +23,29 @@ describe "posts/show authorized" do
   
   before :each do                    
     @controller = BlogSlice::Posts.new(fake_request)
-    post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
-    post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
-    
-    @controller.instance_variable_set(:@post, post) 
+    @post = Post.new(:title => 'My First Post', :rendered_content => '<b>This is my first blog post</b>', :slug => 'my-first-post', :published_at => Time.now)
+    @post.stub!(:tags).and_return([Tag.build('animal'), Tag.build('technology')])
+  end
+  
+  def render
+    @controller.instance_variable_set(:@post, @post) 
     @controller.instance_variable_set(:@comments, sample_comments)
     @controller.instance_variable_set(:@comment, Comment.new) 
     @body = @controller.render(:show)
   end
   
   it "should display the blog post title" do
+    render
     @body.should have_tag(:h1) {|h1| h1.should contain("My First Post")}
   end
   
   it "should display the blog post rendered content" do
+    render
     @body.should have_tag(:div, :id => 'content') {|div| div.should contain("This is my first blog post")}
   end
   
   it "should display the tags" do
+    render
     @body.should have_tag(:div, :id => 'tags') do |div|
       div.should contain("animal")
       div.should contain("technology")
@@ -48,24 +53,41 @@ describe "posts/show authorized" do
   end
   
   it "should display the edit link" do
+    render
     @body.should have_tag(:a, :href => '/posts/my-first-post/edit')
   end
   
   it "should display the delete link" do
+    render
     @body.should have_tag(:a, :href => '/posts/my-first-post', :method => 'delete')
   end
   
-  it "should display the number of comments" do
+  it "should display the number of comments if enabled" do
+    render
     @body.should have_tag(:div, :class => 'comments_number') {|div| div.should contain("2 Comments")}
   end
   
-  it "should display the comments" do
+  it "should display the comments if enabled" do
+    render
     @body.should have_tag(:div, :id => 'comment_1')
     @body.should have_tag(:div, :id => 'comment_2')    
   end
   
-  it "should display the new comment form" do
+  it "should display the new comment form if enabled" do
+    render
     @body.should have_tag(:form, :action => '/posts/my-first-post/comments')
+  end
+  
+  it "should not display the comments if disabled" do
+    @post.allow_comments = false
+    render
+    @body.should_not have_tag(:div, :class => 'comments_number')
+  end
+
+  it "should not display the new comment form if disabled" do
+    @post.allow_comments = false
+    render
+    @body.should_not have_tag(:form, :action => '/posts/my-first-post/comments')
   end
 end
 

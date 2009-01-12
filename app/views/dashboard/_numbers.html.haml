@@ -1,0 +1,17 @@
+.block
+  .title At a glance
+  .body
+    .row
+      = Post.count
+      = (Post.count==1) ? "post" : "posts"
+    .row
+      = Comment.count
+      = (Comment.count==1) ? "comment" : "comments"
+    .row
+      = Tag.count
+      = (Tag.count==1) ? "tag" : "tags"
+    .row
+      = Category.count
+      = (Category.count==1) ? "category" : "categories"
+      
+    = link 'Manage Categories', :to => resource(:categories)

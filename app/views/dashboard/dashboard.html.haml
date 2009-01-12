@@ -1,0 +1,13 @@
+- throw_content :title do
+  Dashboard
+
+%p
+  = link 'Visit site', :to => resource(:posts)
+
+#dashboard
+  .left
+    = partial 'numbers'
+    = partial 'posts'
+  .right
+    = partial 'tags'
+    = partial 'comments'

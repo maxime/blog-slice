@@ -1,10 +1,3 @@
-- if authorized?
-  %p
-    = link 'Write a new post', :to => slice_url(:new_post), :class => 'action new'
-    = link 'Manage Categories', :to => resource(:categories), :class => 'action new'
-    - if comment_options[:moderate]
-      = link 'Moderate Comments', :to => slice_url(:moderate_comments), :class => 'action new'
-  
 = partial :post, :with => @posts
 
 = will_paginate @posts

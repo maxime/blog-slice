@@ -23,6 +23,8 @@ Merb.start_environment(
   :session_store => 'memory'
 )
 
+Merb::Mailer.delivery_method = :test_send
+
 DataMapper.auto_migrate!
 
 module Merb
