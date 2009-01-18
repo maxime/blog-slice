@@ -13,6 +13,10 @@ class Post
   property :allow_comments, Boolean, :default => true
   property :allow_trackbacks, Boolean, :default => true
 
+  property :status, Integer, :default => 0
+
+  STATUS = [:published, :draft, :pending_review]
+
   property :created_at, Time
   property :updated_at, Time
   
@@ -22,6 +26,12 @@ class Post
   is :taggable
   
   has n, :categories, :through => Resource
+
+  has n, :linkbacks
+  
+  has n, :incoming_linkbacks, :class_name => 'Linkback', :direction => true
+  has n, :outgoing_linkbacks, :class_name => 'Linkback', :direction => false
+  
   
   def categories_ids=(ids)
     new_categories = ids.collect{ |id| Category.get(id)}
@@ -42,6 +52,16 @@ class Post
 
   def categories_ids
     self.categories.collect{|category| category.id}
+  end
+  
+  def status_name
+    Extlib::Inflection.humanize(STATUS[self.status].to_s)
+  end
+  
+  STATUS.each do |status|
+    define_method("#{status}?") do
+      self.status == STATUS.index(status)
+    end
   end
   
   def self.per_page

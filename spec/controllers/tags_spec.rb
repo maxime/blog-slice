@@ -92,3 +92,65 @@ describe BlogSlice::Tags, 'show action' do
     do_show.assigns(:posts) == @posts    
   end
 end
+
+
+describe BlogSlice::Tags, 'update action' do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
+    @tag = Tag.new(:id => 1, :name => "Chocolate", :slug => "chocolate")
+    Tag.stub!(:first).and_return(@tag)
+    
+    @tag.stub!(:name=).and_return(true)
+    @tag.stub!(:save).and_return(true)
+    @tag.stub!(:name).and_return('Sweet')
+  end
+  
+  def do_update
+    dispatch_to(BlogSlice::Tags, :update, :slug => 'chocolate', :update_value => 'Sweet') do |controller|
+      controller.stub!(:render)
+      yield controller if block_given?
+    end
+  end
+  
+  it "should have a route from /tags/chocolate PUT" do
+    request_to('/tags/chocolate', :put).should route_to('BlogSlice/Tags', :update).with(:slug => 'chocolate')
+  end
+  
+  it "should get the tag from the database" do
+    Tag.should_receive(:first).with(:slug => 'chocolate').and_return(@tag)
+    do_update
+  end
+  
+  it "should raise NotFound if the tag isn't found" do
+    Tag.stub!(:first).and_return(nil)
+    lambda { do_update }.should raise_error(Merb::ControllerExceptions::NotFound)
+  end
+  
+  it "should set the tag name" do
+    @tag.should_receive(:name=).with("Sweet")
+    do_update
+  end
+  
+  it "should render the tag name if the update is successful" do
+    do_update.body.should == "Sweet"
+  end
+  
+  it "should render the update template if the update isn't successful" do
+    @tag.stub!(:save).and_return(false)
+    
+    do_update do |controller|
+      controller.should_receive(:render).with(:update, :status => 500, :layout => false)
+    end
+  end
+  
+  it "should assigns the tag to the view" do
+    do_update.assigns(:tag) == @tag
+  end
+end

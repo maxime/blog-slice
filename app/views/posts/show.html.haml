@@ -3,8 +3,12 @@
 - comment_status = ((@post.comments.size == 1) ? "One Comment" : (((@post.comments.size==0) ? 'No' : @post.comments.size.to_s) + ' Comments'))
 
 .post{:id => "post_#{@post.id}"}
-  %h1= link @post.title, :to => resource(@post)
-
+  %h1
+    %a{:href => resource(@post)}
+      =h @post.title
+      - if authorized? and !@post.published?
+        = " [#{@post.status_name}]"
+        
   .extra_info
     .published_at
       = relative_date(@post.published_at).capitalize
@@ -30,7 +34,11 @@
       .element= link tag.name, :to => resource(tag)
     - if @post.tags.empty?
       .element None
-
+  - if @post.allow_trackbacks
+    #trackback
+      You can
+      = link 'trackback', :to => resource(@post, :trackback)
+      this post from your own site.
 
 - if authorized?
   %p
@@ -46,3 +54,4 @@
     #new_comment_form
       %h3 Leave a comment
       = render_form :comment
+%p= link 'Linkbacks', :to => url(:post_linkbacks, @post), :class => 'action view_children'

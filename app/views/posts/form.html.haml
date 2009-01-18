@@ -1,5 +1,5 @@
 - throw_content :title do
-  = link blog_options[:blog_title], :to => slice_url(:posts)
+  = link "Dashboard", :to => slice_url(:dashboard)
   - unless @post.new_record?
     \/
     = link @post.title, :to => resource(@post)

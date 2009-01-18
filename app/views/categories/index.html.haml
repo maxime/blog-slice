@@ -1,4 +1,7 @@
 - throw_content :title do
+  - if authorized?
+    = link "Dashboard", :to => slice_url(:dashboard)
+    \/
   Categories
 
 - if @categories.size > 0 

@@ -1,0 +1,14 @@
+%h1
+  - if @post
+    = link 'Posts', :to => resource(:posts)
+    \/
+    = link @post.title, :to => resource(@post)
+    \/
+  = link "Linkbacks", :to => (@post ? resource(@post, :linkbacks) : url(:linkbacks))
+  - unless @linkback.new_record?
+    \/
+    = link @linkback.identify, :to => resource(@post, @linkback)
+  \/
+  = @linkback.new_record? ? "Create" : "Edit"
+
+= render_form :linkback, linkback_form_definition.merge(:nested_within => (@post ? Extlib::Inflection.underscore(@post.class.to_s).intern : nil))

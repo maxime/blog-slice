@@ -8,11 +8,7 @@ describe BlogSlice::Dashboard, 'dashboard' do
   after :all do
     Merb::Router.reset! if standalone?
   end
-  
-  before :each do
-    
-  end
-  
+
   def do_get
     dispatch_to(BlogSlice::Dashboard, :dashboard) do |controller|
       controller.stub!(:render)
@@ -23,4 +19,8 @@ describe BlogSlice::Dashboard, 'dashboard' do
   it "should have a route from /dashboard GET" do
     request_to('/dashboard', :get).should route_to('BlogSlice/dashboard', :dashboard)
   end
+  
+  it "should be successful" do
+    do_get.should be_successful
+  end 
 end

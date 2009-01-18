@@ -60,7 +60,7 @@ describe BlogSlice::Posts, 'index action' do
     # TODO: fix this to test the :published_at.lt => Time.now
     # Right now, there is a bug in the Hash class or in Datamapper: {:published_at.lt => 0} != {:published_at.lt => 0}
     # 
-    Post.should_receive(:paginate).with(hash_including(:order => [:published_at.desc], :page => nil)).and_return([@post])
+    Post.should_receive(:paginate).with(hash_including(:status => 0, :order => [:published_at.desc], :page => nil)).and_return([@post])
     do_get
   end
   
@@ -250,6 +250,23 @@ describe Post, 'show action' do
     lambda { do_get }.should raise_error(Merb::ControllerExceptions::NotFound)    
   end
   
+  it "should raise NotFound if the post is a draft and if not authorized" do
+    @post.stub!(:status).and_return(1)
+    lambda do
+      do_get do |controller|
+        controller.stub!(:authorized?).and_return(false)
+      end
+    end.should raise_error(Merb::ControllerExceptions::NotFound)    
+  end
+  
+  it "should not raise NotFound if the post is a draft and if authorized" do
+    @post.stub!(:status).and_return(1)
+    lambda do
+      do_get do |controller|
+        controller.stub!(:authorized?).and_return(true)
+      end
+    end.should_not raise_error(Merb::ControllerExceptions::NotFound)    
+  end
   it "should display the post" do
     do_get do |controller|
       controller.should_receive(:display).with(@post)
@@ -506,4 +523,84 @@ describe BlogSlice::Posts, 'feed' do
       controller.should_receive(:render).with(:layout => false)
     end
   end  
+end
+
+describe BlogSlice::Posts, 'trackback' do
+  before :all do
+    Merb::Router.prepare { |r| slice(:BlogSlice, :name_prefix => nil, :path_prefix => nil, :default_routes => false) } if standalone?
+  end
+  
+  after :all do
+    Merb::Router.reset! if standalone?
+  end
+  
+  before :each do
+    @post = mock('post')
+    @post.stub!(:title).and_return("my blog post")
+    Post.stub!(:first).and_return(@post)
+    
+    @linkback = mock('linkback')
+    Linkback.stub!(:new).and_return(@linkback)
+    @linkback.stub!(:save).and_return(true)
+  end
+  
+  def do_get
+    dispatch_to(BlogSlice::Posts, :trackback, :slug => 'my-blog-post', :method => 'get') do |controller|
+      controller.stub!(:authorized?).and_return(false)
+      controller.stub!(:render)
+      yield controller if block_given?
+    end
+  end
+  
+  def do_post
+    dispatch_to(BlogSlice::Posts, :trackback, {:slug => 'my-blog-post',
+                                              :url => 'http://www.ekohe.com'},
+                                              {:request_method => 'post'}) do |controller|
+      controller.stub!(:authorized?).and_return(false)
+      controller.stub!(:render)
+      yield controller if block_given?
+    end
+  end
+  
+  it "should have a route from /posts/my-blog-post/trackback GET" do
+    request_to('/posts/my-blog-post/trackback', :get).should route_to('BlogSlice/posts', :trackback)
+    request_to('/posts/my-blog-post/trackback', :post).should route_to('BlogSlice/posts', :trackback)
+  end
+  
+  it "should get the post from the database" do
+    Post.should_receive(:first).with(:slug => 'my-blog-post').and_return(@post)
+    do_get
+  end
+  
+  it "should render the template if the request is a GET and not try to create a linkback" do
+    Linkback.should_not_receive(:new)
+    
+    do_get do |controller|
+      controller.should_receive(:render).with(:trackback_help)
+    end
+  end
+  
+  it "should create a linkback of type trackback" do
+    Linkback.should_receive(:new).with(:type => 'trackback', :source_url => 'http://www.ekohe.com', :direction => true)
+    do_post
+  end
+  
+  it "should try to save the linkback" do
+    @linkback.should_receive(:save).and_return(true)
+    do_post
+  end
+  
+  it "should render the success template if successful" do
+    @linkback.stub!(:save).and_return(true)
+    do_post do |controller|
+      controller.should_receive(:render).with(:trackback_success, {:layout=>false, :format=>:xml})
+    end
+  end
+  
+  it "should render the success failure if successful" do
+    @linkback.stub!(:save).and_return(false)
+    do_post do |controller|
+      controller.should_receive(:render).with(:trackback_failure, {:layout=>false, :format=>:xml})
+    end
+  end
 end

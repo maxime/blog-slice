@@ -13,7 +13,7 @@ describe Post do
     p.rendering_engine.should == 'textile'
   end
 
-  it "should have the title, content, rendered_content, rendering_type and timestamps properties" do
+  it "should have the title, content, rendered_content, rendering_type, status and timestamps properties" do
     properties_name = Post.properties.collect{|p| p.name}
     [ :title,
       :content, 
@@ -23,6 +23,7 @@ describe Post do
       :views_count, 
       :allow_comments,
       :allow_trackbacks,
+      :status,
       :created_at, 
       :updated_at].each do |column|
       properties_name.should include(column)
@@ -108,6 +109,41 @@ describe Post do
       @post.comments.should be_empty
     end
   end
+  
+  describe "status" do
+    it "should have a status_name property to display a human readable status" do
+      @post = Post.new(:status => 0)
+      @post.status_name.should == "Published"
+      
+      @post.status = 1
+      @post.status_name.should == "Draft"
+      
+      @post.status = 2
+      @post.status_name.should == "Pending review"
+    end
+    
+    it "should be published by default" do
+      @post = Post.new
+      @post.status_name.should == "Published"
+    end
+    
+    it "should have draft? published? and pending_review? helpers" do
+      @post = Post.new
+      @post.should be_published
+      @post.should_not be_pending_review
+      @post.should_not be_draft
+      
+      @post.status = 1
+      @post.should be_draft
+      @post.should_not be_pending_review
+      @post.should_not be_published
+      
+      @post.status = 2
+      @post.should be_pending_review
+      @post.should_not be_draft
+      @post.should_not be_published
+    end
+  end
 end
 
 describe Post, "associations" do
@@ -115,6 +151,32 @@ describe Post, "associations" do
     Post.relationships.should be_has_key(:categories)
     Post.relationships[:categories].parent_model.should == Post
     Post.relationships[:categories].child_model.should == CategoryPost
+  end
+  
+  it "should have many linkbacks" do
+    Post.relationships.should be_has_key(:linkbacks)
+    Post.relationships[:linkbacks].parent_model.should == Post
+    Post.relationships[:linkbacks].child_model.should == Linkback
+  end
+  
+  it "should have many incoming_linkbacks" do
+    Post.relationships.should be_has_key(:incoming_linkbacks)
+    Post.relationships[:incoming_linkbacks].parent_model.should == Post
+    Post.relationships[:incoming_linkbacks].child_model.should == Linkback
+    
+    @post = Post.create(:title => "Bla")
+    Linkback.create(:source_url => 'ekohe.com', :type => 'trackback', :direction => true, :post_id => @post.id)
+    @post.reload
+    
+    @post.linkbacks.should have(1).thing
+    @post.incoming_linkbacks.should have(1).thing
+    @post.outgoing_linkbacks.should be_empty
+  end
+    
+  it "should have many outgoing_linkbacks" do
+    Post.relationships.should be_has_key(:outgoing_linkbacks)
+    Post.relationships[:outgoing_linkbacks].parent_model.should == Post
+    Post.relationships[:outgoing_linkbacks].child_model.should == Linkback
   end
 end
 

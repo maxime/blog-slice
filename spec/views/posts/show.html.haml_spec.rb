@@ -89,6 +89,18 @@ describe "posts/show authorized" do
     render
     @body.should_not have_tag(:form, :action => '/posts/my-first-post/comments')
   end
+  
+  it 'should display Draft if the post is a draft' do
+    @post.status = 1
+    render
+    @body.should contain("Draft")
+  end
+
+  it 'should display Pending review if the post is pending review' do
+    @post.status = 2
+    render
+    @body.should contain("Pending review")
+  end
 end
 
 describe "posts/show not authorized" do 
@@ -127,20 +139,38 @@ describe "posts/show not authorized" do
     @controller.instance_variable_set(:@comments, @post.comments) 
     @controller.instance_variable_set(:@comment, Comment.new) 
     @controller.stub!(:authorized?).and_return(false)
-    @body = @controller.render(:show)
+  end
+  
+  def render
+    @body = @controller.render(:show)    
   end
   
   it "should not display the edit link" do
+    render
     @body.should_not have_tag(:a, :href => '/post/my-first-post/edit')
   end
   
   it "should not display the delete link" do
+    render
     @body.should_not have_tag(:a, :href => '/post/my-first-post', :method => 'delete')
   end
   
   it "should not display not approved comments" do
+    render
     @body.should_not have_tag(:div, :id => "comment_2")
     @body.should_not contain("F*cking")
+  end
+  
+  it "should not display the trackback url if not allowed" do
+    @post.allow_trackbacks = false
+    render
+    @body.should_not have_tag(:a, :href => '/posts/my-first-post/trackback')
+  end
+  
+  it "should display the trackback url if allowed" do
+    @post.allow_trackbacks = true
+    render
+    @body.should have_tag(:a, :href => '/posts/my-first-post/trackback')
   end
 end
 

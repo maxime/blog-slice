@@ -1,0 +1,12 @@
+- @drafts = Post.all(:limit => 10, :order => [:created_at.desc], :status => Post::STATUS.index(:draft))
+.block
+  .title
+    Drafts
+  .body
+    - if @drafts.empty?
+      No drafts yet
+    - @drafts.each do |post|
+      .row.post
+        .post_title= link post.title.truncate(30), :to => resource(post)
+        .date= relative_date(post.published_at).capitalize
+        .link= link 'Edit', :to => resource(post, :edit)

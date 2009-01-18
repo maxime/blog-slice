@@ -1,0 +1,47 @@
+%h1
+  - if @post
+    = link 'Posts', :to => resource(:posts)
+    \/
+    = link @post.title, :to => resource(@post)
+    \/
+  Linkbacks
+
+- if @linkbacks.size > 0 
+  %table
+    %tr
+      %th Blog name
+      %th Target url
+      %th Title
+      %th Source url
+      %th Type
+      %th Excerpt
+      - unless @post
+        %th Post
+      %th
+    - for linkback in @linkbacks
+      %tr{:id => "linkback_#{linkback.id}"}
+        %td
+          %strong= link linkback.blog_name, :to => (@post ? resource(@post, linkback) : resource(linkback))
+        %td.target_url=h linkback.target_url
+        %td.title=h linkback.title
+        %td.source_url=h linkback.source_url
+        %td.type=h linkback.type
+        %td.excerpt=h linkback.excerpt
+        - unless @post
+          / Why there is a clone here? to force the association proxy to give me the real object
+          %td= link linkback.post.identify, :to => resource(linkback.post.clone) if linkback.post 
+        %td
+          = link 'Edit', :to => (@post ? resource(@post, linkback, :edit) : resource(linkback, :edit)), :class => 'edit action'
+          = link 'Delete', :to => (@post ? resource(@post, linkback) : resource(linkback)), :method => 'delete', :confirm => 'Are you sure?', :class => 'delete action'
+
+  %p= link 'New', :to => (@post ? resource(@post, :linkbacks, :new) : url(:new_linkback)), :class => 'new action'
+- else
+  %p
+    %span<>
+      No linkback yet
+    - if @post
+      &nbsp;
+      %span<>
+        for this post
+    ,
+    = link 'create one?', :to => (@post ? resource(@post, :linkbacks, :new) : url(:new_linkback))

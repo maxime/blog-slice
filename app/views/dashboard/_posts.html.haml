@@ -3,11 +3,14 @@
     .link= link 'Write a new post', :to => slice_url(:new_post)
     Posts
   .body
-    - Post.all(:limit => 10, :order => [:created_at.desc]).each do |post|
-      .row
+    - Post.all(:limit => 10, :order => [:published_at.desc]).each do |post|
+      .row.post
         .post_title= link post.title.truncate(30), :to => resource(post)
         .date= relative_date(post.published_at).capitalize
-        .comments_count
-          = ((post.comments.size == 1) ? "One Comment" : (((post.comments.size==0) ? 'No' : post.comments.size.to_s) + ' Comments'))
-          
+        - if post.published?
+          .comments_count
+            = ((post.comments.size == 1) ? "One Comment" : (((post.comments.size==0) ? 'No' : post.comments.size.to_s) + ' Comments'))
+        - else
+          .link
+            = link post.status_name, :to => resource(post, :edit)
     

@@ -1,0 +1,36 @@
+%h1
+  - if @post
+    = link 'Posts', :to => resource(:posts)
+    \/
+    = link @post.title, :to => resource(@post)
+    \/
+  = link "Linkbacks", :to => (@post ? resource(@post, :linkbacks) : resource(:linkbacks))
+  \/
+  = @linkback.blog_name
+
+%p= link 'Edit', :to => (@post ? resource(@post, @linkback, :edit) : resource(@linkback, :edit)), :class => 'edit action'
+
+
+%p#blog_name
+  %strong Blog name
+  =h @linkback.blog_name
+
+%p#target_url
+  %strong Target url
+  =h @linkback.target_url
+
+%p#title
+  %strong Title
+  =h @linkback.title
+
+%p#source_url
+  %strong Source url
+  =h @linkback.source_url
+
+%p#type
+  %strong Type
+  =h @linkback.type
+
+%p#excerpt
+  %strong Excerpt
+  =h @linkback.excerpt

@@ -315,7 +315,6 @@ form div input#post_published_at_date {
         #dashboard .left .block .title .link,         #dashboard .right .block .title .link {
           display: inline;
           float: right;
-          margin-right: 15px;
           font-size: 14px;
           font-weight: normal;
           font-family: Georgia, "Times New Roman", Times, serif; }
@@ -323,6 +322,11 @@ form div input#post_published_at_date {
         font-family: Georgia, "Times New Roman", Times, serif;
         padding: 5px;
         font-size: 1.2em; }
+      #dashboard .left .block .left, #dashboard .left .block .right,       #dashboard .right .block .left, #dashboard .right .block .right {
+        width: 180px;
+        overflow: auto; }
+      #dashboard .left .block .right .row,       #dashboard .right .block .right .row {
+        text-align: right; }
   #dashboard .left {
     display: inline;
     float: left; }
@@ -331,22 +335,37 @@ form div input#post_published_at_date {
     float: right; }
     #dashboard .right .block {
       margin-left: 7px; }
-
-.row {
-  overflow: auto;
-  width: 100%; }
-  .row div {
-    display: inline;
-    float: left; }
-  .row .post_title, .row .comment {
-    font-size: 1em;
-    width: 200px; }
-  .row .date, .row .author {
-    font-size: 0.8em;
-    width: 75px; }
-  .row .comments_count {
-    font-size: 0.8em;
-    width: 75px; }
+  #dashboard .row {
+    margin-top: 4px;
+    margin-bottom: 3px;
+    width: 100%;
+    overflow: hidden; }
+    #dashboard .row div {
+      display: inline;
+      float: left; }
+    #dashboard .row .post_title, #dashboard .row .comment {
+      font-size: 1em;
+      width: 200px; }
+    #dashboard .row .comment {
+      width: 150px; }
+    #dashboard .row .date, #dashboard .row .author {
+      font-size: 0.8em;
+      width: 75px; }
+    #dashboard .row .author {
+      width: 125px; }
+    #dashboard .row .comments_count {
+      font-size: 0.8em;
+      width: 75px; }
+    #dashboard .row .link {
+      font-size: 0.8em;
+      float: right;
+      text-align: right; }
+  #dashboard .post .post_title {
+    width: 210px; }
+  #dashboard .post .date {
+    width: 90px; }
+  #dashboard .post .comments_count {
+    text-align: right; }
 
 .details {
   margin-top: 15px;

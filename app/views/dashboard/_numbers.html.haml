@@ -1,17 +1,26 @@
 .block
   .title At a glance
   .body
-    .row
-      = Post.count
-      = (Post.count==1) ? "post" : "posts"
-    .row
-      = Comment.count
-      = (Comment.count==1) ? "comment" : "comments"
-    .row
-      = Tag.count
-      = (Tag.count==1) ? "tag" : "tags"
-    .row
-      = Category.count
-      = (Category.count==1) ? "category" : "categories"
+    .left
+      .row
+        = Post.count
+        = (Post.count==1) ? "post" : "posts"
+      .row
+        = Comment.count
+        = (Comment.count==1) ? "comment" : "comments"
+      .row
+        = Tag.count
+        = (Tag.count==1) ? "tag" : "tags"
       
-    = link 'Manage Categories', :to => resource(:categories)
+    .right
+      .row
+        %a{:href => resource(:categories)}
+          = Category.count
+          = (Category.count==1) ? "category" : "categories"
+    
+      - if comment_options[:moderate]
+        .row
+          %a{:href => slice_url(:moderate_comments)}
+            = Comment.count(:approved => false)
+            = (Comment.count(:approved => false)==1) ? "comment" : "comments"
+            awaiting moderation

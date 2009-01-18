@@ -61,8 +61,13 @@ if defined?(Merb::Plugins)
           comments.collection :feed
           comments.member :approve, :method => :post
         end
+
+        posts.resources :linkbacks
+
+        posts.member :trackback
       end
       
+      scope.resources :linkbacks
       scope.resources :categories, :identify => :slug
       scope.resources :tags, :identify => :slug
       

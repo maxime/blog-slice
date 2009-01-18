@@ -6,8 +6,8 @@
 
 #dashboard
   .left
-    = partial 'numbers'
-    = partial 'posts'
+    - @dashboard[:left].each do |p|
+      = partial p
   .right
-    = partial 'tags'
-    = partial 'comments'
+    - @dashboard[:right].each do |p|
+      = partial p

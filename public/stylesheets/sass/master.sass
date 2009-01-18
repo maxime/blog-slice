@@ -378,7 +378,6 @@ form
         .link
           :display              inline
           :float                right
-          :margin-right =       !margin
           :font-size            14px
           :font-weight          normal
           :font-family          Georgia, "Times New Roman", Times, serif
@@ -386,6 +385,12 @@ form
         :font-family            Georgia, "Times New Roman", Times, serif
         :padding                5px
         :font-size =            1.2em
+      .left, .right
+        :width                  180px
+        :overflow               auto
+      .right
+        .row
+          :text-align           right
   .left
     :display                  inline
     :float                    left
@@ -394,21 +399,39 @@ form
     :float                    right
     .block
       :margin-left =          !margin / 2
-.row
-  :overflow                   auto
-  :width                      100%
-  div
-    :display                  inline
-    :float                    left
-  .post_title, .comment
-    :font-size                1em
-    :width                    200px
-  .date, .author
-    :font-size                0.8em
-    :width                    75px
-  .comments_count
-    :font-size                0.8em
-    :width                    75px
+  .row
+    :margin-top                 4px
+    :margin-bottom              3px
+    :width                      100%
+    :overflow                   hidden
+    div
+      :display                  inline
+      :float                    left
+    .post_title, .comment
+      :font-size                1em
+      :width                    200px
+    .comment
+      :width                    150px
+    .date, .author
+      :font-size                0.8em
+      :width                    75px
+    .author
+      :width                    125px
+    .comments_count
+      :font-size                0.8em
+      :width                    75px
+    .link
+      :font-size                0.8em
+      :float                    right
+      :text-align               right
+
+  .post
+    .post_title
+      :width                    210px
+    .date
+      :width                    90px
+    .comments_count
+      :text-align               right
 
 .details
   :margin-top =               !margin
