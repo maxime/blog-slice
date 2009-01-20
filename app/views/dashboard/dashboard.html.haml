@@ -1,8 +1,6 @@
 - throw_content :title do
+  = link "#{blog_options[:blog_title]}'s", :to => resource(:posts), :title => "Visit Site"
   Dashboard
-
-%p
-  = link 'Visit site', :to => resource(:posts)
 
 #dashboard
   .left

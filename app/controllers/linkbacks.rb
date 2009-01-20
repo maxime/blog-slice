@@ -1,5 +1,6 @@
 class BlogSlice::Linkbacks < BlogSlice::Application
   before :get_post
+  before :authorization_required
   # provides :xml, :yaml, :js
 
   def index
@@ -13,40 +14,6 @@ class BlogSlice::Linkbacks < BlogSlice::Application
     display @linkback
   end
 
-  def new
-    only_provides :html
-    @linkback = Linkback.new
-    display @linkback, :form
-  end
-
-  def edit
-    only_provides :html
-    @linkback = (@post ? @post.linkbacks.get(params[:id]) : Linkback.get(params[:id]))
-    raise NotFound unless @linkback
-    display @linkback, :form
-  end
-
-  def create
-    @linkback = Linkback.new(params[:linkback])
-    @linkback.post = @post
-    if @linkback.save
-      redirect (@post ? resource(@post, @linkback) : resource(@linkback)), :message => {:notice => "Linkback was successfully created"}
-    else
-      message[:error] = "Linkback failed to be created"
-      display @linkback, :form
-    end
-  end
-
-  def update
-    @linkback = (@post ? @post.linkbacks.get(params[:id]) : Linkback.get(params[:id]))
-    raise NotFound unless @linkback
-    if @linkback.update_attributes(params[:linkback])
-      redirect (@post ? resource(@post, @linkback) : resource(@linkback))
-    else
-      display @linkback, :form
-    end
-  end
-
   def destroy
     @linkback = (@post ? @post.linkbacks.get(params[:id]) : Linkback.get(params[:id]))
     raise NotFound unless @linkback
@@ -55,6 +22,14 @@ class BlogSlice::Linkbacks < BlogSlice::Application
     else
       raise InternalServerError
     end
+  end
+
+  def approve
+    @linkback = (@post ? @post.linkbacks.get(params[:id]) : Linkback.get(params[:id]))
+    raise NotFound unless @linkback
+
+    @linkback.update_attributes(:approved => true)
+    redirect slice_url(:dashboard), :message => {:notice => "Linkback has been approved"}
   end
   
   protected

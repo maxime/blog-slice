@@ -62,12 +62,16 @@ if defined?(Merb::Plugins)
           comments.member :approve, :method => :post
         end
 
-        posts.resources :linkbacks
+        posts.resources :linkbacks do |linkbacks|
+          linkbacks.member :approve, :method => :post
+        end
 
         posts.member :trackback
       end
       
-      scope.resources :linkbacks
+      scope.resources :linkbacks do |linkbacks|
+        linkbacks.member :approve, :method => :post        
+      end
       scope.resources :categories, :identify => :slug
       scope.resources :tags, :identify => :slug
       

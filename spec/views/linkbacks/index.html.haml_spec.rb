@@ -12,8 +12,8 @@ describe "linkbacks/index" do
   before(:each) do                    
     @controller = BlogSlice::Linkbacks.new(fake_request)
     
-    @first_linkback = Linkback.new({:type=>"absciss", :target_url=>"gastrostaxis", :title=>"usually", :source_url=>"Cymodoceaceae", :excerpt=>"Incidence pasteurism reedish plumoseness gangan sanctity", :id=>0, :blog_name=>"costochondral"})
-    @second_linkback = Linkback.new({:type=>"antipathize", :target_url=>"forthcut", :title=>"boattail", :source_url=>"pistillid", :excerpt=>"Dixit delegable missmark rhinobatus tallowmaking consilience hectocotylize foster ureic conjubilant pyroligneous paean prelumbar transdermic alicia driveboat coscinodiscaceae mockernut escortage", :id=>1, :blog_name=>"Orion"})
+    @first_linkback = Linkback.new({:type=>"absciss", :target_url=>"gastrostaxis", :title=>"usually", :source_url=>"Cymodoceaceae", :excerpt=>"Incidence pasteurism reedish plumoseness gangan sanctity", :id=>0, :blog_name=>"costochondral", :approved => false})
+    @second_linkback = Linkback.new({:type=>"antipathize", :target_url=>"forthcut", :title=>"boattail", :source_url=>"pistillid", :excerpt=>"Dixit delegable missmark rhinobatus tallowmaking consilience hectocotylize foster ureic conjubilant pyroligneous paean prelumbar transdermic alicia driveboat coscinodiscaceae mockernut escortage", :id=>1, :blog_name=>"Orion", :approved => true})
     
     @linkbacks = [@first_linkback, @second_linkback]
     
@@ -62,9 +62,9 @@ describe "linkbacks/index, post as parent" do
     @post = Post.new(:slug => 'my-first-blog-post')
     @controller.instance_variable_set(:@post, @post)
     
-    @first_linkback = Linkback.new({:type=>"sylvanitic", :target_url=>"unharmonize", :title=>"misalienate", :source_url=>"tane", :excerpt=>"Disconcertment crumblet mineralizable loris plutonian precool amphicoelous brotheler loxodromism ice benzine chieftainship sporadic shikimic commutate embryonically", :id=>1, :blog_name=>"relieved"})
+    @first_linkback = Linkback.new({:type=>"sylvanitic", :target_url=>"unharmonize", :title=>"misalienate", :source_url=>"tane", :excerpt=>"Disconcertment crumblet mineralizable loris plutonian precool amphicoelous brotheler loxodromism ice benzine chieftainship sporadic shikimic commutate embryonically", :id=>1, :blog_name=>"relieved", :approved => true})
     @first_linkback.stub!(:post).and_return(@post)
-    @second_linkback = Linkback.new({:type=>"glimmerous", :target_url=>"heterogony", :title=>"precedentless", :source_url=>"fomes", :excerpt=>"Gormandize vaticanic ooecial blattiform narratory bepart shelleyana mercaptids transpalmar anticontagionist microphthalmus unseparable internode", :id=>4, :blog_name=>"Megaric"})
+    @second_linkback = Linkback.new({:type=>"glimmerous", :target_url=>"heterogony", :title=>"precedentless", :source_url=>"fomes", :excerpt=>"Gormandize vaticanic ooecial blattiform narratory bepart shelleyana mercaptids transpalmar anticontagionist microphthalmus unseparable internode", :id=>4, :blog_name=>"Megaric", :approved => false})
     @second_linkback.stub!(:post).and_return(@post)
     
     @linkbacks = [@first_linkback, @second_linkback]

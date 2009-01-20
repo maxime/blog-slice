@@ -1,0 +1,10 @@
+.linkback{:id => "linkback_#{linkback.id}"}
+  %a{:name => "linkback_#{linkback.id}"}
+  .linkback_title
+    = link linkback.title.truncate(50), :to => linkback.source_url, :rel => 'nofollow', :target => '_blank'
+    %span.date
+      \//
+      = linkback.created_at.strftime("%B %d, %Y at %I:%M %p").downcase.capitalize
+  - if authorized?
+    .admin
+      = link 'Delete', :to => resource((@post || linkback.post), linkback), :method => "delete", :confirm => "Are you sure?", :class => 'action delete'

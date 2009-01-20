@@ -49,8 +49,8 @@ describe "posts/form" do
     @body.should have_tag(:input, :type => 'checkbox', :name => 'post[allow_comments]')
   end
   
-  it "should have a checkbox for enabling and disabling trackbacks" do
-    @body.should have_tag(:input, :type => 'checkbox', :name => 'post[allow_trackbacks]')
+  it "should have a checkbox for enabling and disabling linkbacks" do
+    @body.should have_tag(:input, :type => 'checkbox', :name => 'post[allow_linkbacks]')
   end
   
   it "should have a select for selecting the status" do

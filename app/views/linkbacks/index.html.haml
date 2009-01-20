@@ -1,4 +1,4 @@
-%h1
+- throw_content :title do
   - if @post
     = link 'Posts', :to => resource(:posts)
     \/
@@ -31,17 +31,11 @@
           / Why there is a clone here? to force the association proxy to give me the real object
           %td= link linkback.post.identify, :to => resource(linkback.post.clone) if linkback.post 
         %td
-          = link 'Edit', :to => (@post ? resource(@post, linkback, :edit) : resource(linkback, :edit)), :class => 'edit action'
+          - unless linkback.approved
+            = link 'Approve', :to => (@post ? resource(@post, linkback, :approve) : resource(linkback, :approve)), :method => 'post', :class => 'edit action'
           = link 'Delete', :to => (@post ? resource(@post, linkback) : resource(linkback)), :method => 'delete', :confirm => 'Are you sure?', :class => 'delete action'
 
-  %p= link 'New', :to => (@post ? resource(@post, :linkbacks, :new) : url(:new_linkback)), :class => 'new action'
 - else
   %p
     %span<>
       No linkback yet
-    - if @post
-      &nbsp;
-      %span<>
-        for this post
-    ,
-    = link 'create one?', :to => (@post ? resource(@post, :linkbacks, :new) : url(:new_linkback))

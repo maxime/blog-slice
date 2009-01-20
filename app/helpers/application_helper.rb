@@ -58,6 +58,13 @@ module Merb
         ::BlogSlice.slice_path_for(type, *segments)
       end
       
+      def pluralize(word, number)
+        if number == 1
+          "#{number} #{word}"
+        else
+          "#{number} #{Extlib::Inflection.pluralize(word)}"
+        end
+      end
     end
   end
 end

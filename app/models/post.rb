@@ -11,7 +11,7 @@ class Post
   property :views_count, Integer, :default => 0
 
   property :allow_comments, Boolean, :default => true
-  property :allow_trackbacks, Boolean, :default => true
+  property :allow_linkbacks, Boolean, :default => true
 
   property :status, Integer, :default => 0
 

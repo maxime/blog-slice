@@ -34,6 +34,9 @@ class BlogSlice::Posts < BlogSlice::Application
     
     @comments = @post.comments
     @comment = Comment.new
+    
+    @linkbacks = @post.linkbacks.all(:approved => true, :order => [:created_at.desc])
+    
     display @post
   end
   
@@ -68,7 +71,7 @@ class BlogSlice::Posts < BlogSlice::Application
     if request.method == :get
       render :trackback_help
     elsif request.method == :post
-      attributes = {:source_url => params[:url], :type => 'trackback', :direction => true}
+      attributes = {:source_url => params[:url], :type => 'trackback', :direction => true, :post_id => @post.id}
       
       [:title, :excerpt, :blog_name].each do |key|
         attributes.merge!({key => params[key]}) if params[key] and !params[key].empty?

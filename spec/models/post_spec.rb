@@ -22,7 +22,7 @@ describe Post do
       :published_at,
       :views_count, 
       :allow_comments,
-      :allow_trackbacks,
+      :allow_linkbacks,
       :status,
       :created_at, 
       :updated_at].each do |column|

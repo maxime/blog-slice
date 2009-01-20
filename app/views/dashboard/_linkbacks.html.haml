@@ -1,0 +1,25 @@
+- @linkbacks = Linkback.all(:limit => 50, :order => [:created_at.desc], :approved => false)
+.block
+  .title
+    Linkbacks
+  .body
+    - if @linkbacks.empty?
+      You don't have any new linkback.
+    - @linkbacks.each do |linkback|
+      .row.linkback
+        - @title = (linkback.title || '').truncate(30)
+        .first_column
+          .source_title= link @title, :to => linkback.source_url
+          .type= linkback.type
+        .second_column
+          .target_post
+            - if linkback.post
+              = link linkback.post.title.truncate(30), :to => resource(linkback.post)
+          .created_at
+            - if linkback.created_at
+              = relative_date(linkback.created_at).capitalize
+        .third_column
+          - if linkback.post
+            = link 'Show', :to => resource(linkback.post, linkback)
+            = link 'Approve', :to => resource(linkback.post, linkback, :approve), :method => 'post'
+            = link 'Ignore', :to => resource(linkback.post, linkback), :method => 'delete', :confirm => "Are you sure?"

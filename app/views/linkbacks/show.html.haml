@@ -1,4 +1,4 @@
-%h1
+- throw_content :title do
   - if @post
     = link 'Posts', :to => resource(:posts)
     \/
@@ -7,9 +7,6 @@
   = link "Linkbacks", :to => (@post ? resource(@post, :linkbacks) : resource(:linkbacks))
   \/
   = @linkback.blog_name
-
-%p= link 'Edit', :to => (@post ? resource(@post, @linkback, :edit) : resource(@linkback, :edit)), :class => 'edit action'
-
 
 %p#blog_name
   %strong Blog name

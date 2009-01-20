@@ -1,5 +1,6 @@
 class Linkback
   include DataMapper::Resource
+  include DataMapper::Timestamp
   
   property :id, Serial
   property :blog_name, String
@@ -11,6 +12,9 @@ class Linkback
   property :approved, Boolean, :default => false
   
   property :direction, Boolean, :default => true # true is incoming, false is outgoing
+  
+  property :created_at, Time
+  property :updated_at, Time
   
   belongs_to :post
   

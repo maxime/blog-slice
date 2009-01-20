@@ -1,1 +1,16 @@
-%p You can use the trackback feature when you blog about this post.
+- throw_content :title do
+  = link @post.title, :to => resource(@post)
+  \/
+  Trackback URL
+
+%p You can send a trackback with your blogging platform if you write a blog article about this post.
+
+%p The trackback URL for this post is:
+
+%p
+  %input.trackback_url{:type => 'text', :value => (blog_options[:host] + resource(@post, :trackback)), :size => 90}
+
+%p
+  To know more about Trackback, check out this&nbsp;
+  %a{:href => 'http://en.wikipedia.org/wiki/Trackback', :target => '_blank'}> wikipedia article
+  \.

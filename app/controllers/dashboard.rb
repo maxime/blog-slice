@@ -3,7 +3,7 @@ class BlogSlice::Dashboard < BlogSlice::Application
   before :authorization_required
   
   def dashboard
-    @dashboard = {:left => [:numbers, :posts, :drafts], :right => [:tags, :comments]}
+    @dashboard = {:left => [:numbers, :posts, :drafts, :linkbacks], :right => [:tags, :comments]}
     render
   end
 end

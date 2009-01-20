@@ -218,6 +218,10 @@ describe Post, 'show action' do
     
     @new_comment = mock('new-comment')
     Comment.stub!(:new).and_return(@new_comment)
+    
+    @linkbacks = mock('linkbacks')
+    @post.stub!(:linkbacks).and_return(@linkbacks)
+    @linkbacks.stub!(:all).and_return([])
   end
   
   def do_get
@@ -275,6 +279,12 @@ describe Post, 'show action' do
   
   it "should get the comments of the post" do
     @post.should_receive(:comments).once.and_return(@comments)
+    do_get
+  end
+  
+  it "should get the approved linkbacks of the post" do
+    @post.should_receive(:linkbacks).once.and_return(@linkbacks)
+    @linkbacks.should_receive(:all).with(:approved => true, :order => [:created_at.desc]).and_return([])
     do_get
   end
   
@@ -537,6 +547,7 @@ describe BlogSlice::Posts, 'trackback' do
   before :each do
     @post = mock('post')
     @post.stub!(:title).and_return("my blog post")
+    @post.stub!(:id).and_return(1)
     Post.stub!(:first).and_return(@post)
     
     @linkback = mock('linkback')
@@ -581,7 +592,7 @@ describe BlogSlice::Posts, 'trackback' do
   end
   
   it "should create a linkback of type trackback" do
-    Linkback.should_receive(:new).with(:type => 'trackback', :source_url => 'http://www.ekohe.com', :direction => true)
+    Linkback.should_receive(:new).with(:post_id => 1, :type => 'trackback', :source_url => 'http://www.ekohe.com', :direction => true)
     do_post
   end
   

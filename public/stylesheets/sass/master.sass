@@ -24,7 +24,7 @@
 
 body
   :font-family                Helvetica, Arial, "Lucida Sans Unicode", sans-serif
-  :font-size                  11px
+  :font-size                  12px
   :text-align                 center
   
 #container
@@ -83,6 +83,11 @@ h2
     :font-size =              36px
     :margin-top =             0
     :border                   none
+
+// Firefox, removes dotted active links
+a, a:active
+  :outline                    none
+
 
 // Messages
 #message
@@ -275,9 +280,22 @@ form
 .tags
   :background                  none
 
-// Comments
+#linkback
+  :clear                        left
+  :font-family                  Georgia, "Times New Roman", Times, serif
+  :font-weight                  normal
+  :font-size                    1.1em
+  :color =                      !grey
+  :margin-left =                4px
+  :padding-top =                !margin/2
 
-.comments_number
+.linkback_url
+  :font-size =                  1.2em
+  :padding                      2px
+
+// Comments & Linkbacks
+
+.comments_number, .linkbacks_number
   :font-size                   1.5em
   :font-weight                 bold
   :margin-top =                !margin * 4
@@ -285,16 +303,16 @@ form
   :padding-bottom =            !margin / 2
   :border-bottom =             1px solid #888
 
-#comments_part
+#comments_part, #linkbacks_part
   :width =                     470px
   
-  #comments
-    .comment
+  #comments, #linkbacks
+    .comment, .linkback
       :margin-top =            !margin 
       :margin-bottom =         !margin
       :padding-bottom =        !margin
       :background              url('/slices/blog-slice/images/grey_horizontal_line.gif') left bottom repeat-x
-      .author
+      .author, .linkback_title
         :font-family           Georgia, "Times New Roman", Times, serif
         :font-size =           1.3em
         :font-weight =         bold
@@ -309,6 +327,10 @@ form
         :margin-left =         !margin
         p
           :margin-left         0
+    .linkback
+      :background              none
+      .admin
+        :margin-top =          !margin
 
 #new_comment_form
   h3
@@ -357,6 +379,7 @@ form
 #dashboard  
   :width                      100%
   :overflow                   auto
+  :margin-top =               !margin
   .left, .right
     :width                      400px
     :overflow                   auto
@@ -432,7 +455,34 @@ form
       :width                    90px
     .comments_count
       :text-align               right
-
+  .linkback
+    .first_column
+      :width                    200px
+      .source_title
+        :display                block
+        :float                  none
+        :font-size              1em
+      .type
+        :display                block
+        :float                  none
+        :font-size              0.8em
+        
+    .second_column
+      :width                    105px
+      .target_post
+        :display                block
+        :float                  none
+        :font-size              0.8em
+      .created_at
+        :display                block
+        :float                  none
+        :font-size              0.8em
+            
+    .third_column
+      :font-size                0.8em
+      :width                    70px
+      :text-align               right
+    
 .details
   :margin-top =               !margin
   :font-size                  0.8em
@@ -473,4 +523,8 @@ form
   a
     :padding                  3px 4px
     :border =                 1px solid !light_grey
-    
+
+// In-place editor
+
+input.inplace_field
+  :width                      80px

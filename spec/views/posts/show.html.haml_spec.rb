@@ -30,6 +30,7 @@ describe "posts/show authorized" do
   def render
     @controller.instance_variable_set(:@post, @post) 
     @controller.instance_variable_set(:@comments, sample_comments)
+    @controller.instance_variable_set(:@linkbacks, []) 
     @controller.instance_variable_set(:@comment, Comment.new) 
     @body = @controller.render(:show)
   end
@@ -137,6 +138,7 @@ describe "posts/show not authorized" do
     create_comments
     @controller.instance_variable_set(:@post, @post) 
     @controller.instance_variable_set(:@comments, @post.comments) 
+    @controller.instance_variable_set(:@linkbacks, []) 
     @controller.instance_variable_set(:@comment, Comment.new) 
     @controller.stub!(:authorized?).and_return(false)
   end
@@ -162,13 +164,13 @@ describe "posts/show not authorized" do
   end
   
   it "should not display the trackback url if not allowed" do
-    @post.allow_trackbacks = false
+    @post.allow_linkbacks = false
     render
     @body.should_not have_tag(:a, :href => '/posts/my-first-post/trackback')
   end
   
   it "should display the trackback url if allowed" do
-    @post.allow_trackbacks = true
+    @post.allow_linkbacks = true
     render
     @body.should have_tag(:a, :href => '/posts/my-first-post/trackback')
   end

@@ -34,8 +34,8 @@
       .element= link tag.name, :to => resource(tag)
     - if @post.tags.empty?
       .element None
-  - if @post.allow_trackbacks
-    #trackback
+  - if @post.allow_linkbacks
+    #linkback
       You can
       = link 'trackback', :to => resource(@post, :trackback)
       this post from your own site.
@@ -45,13 +45,18 @@
     = link 'Edit', :to => resource(@post, :edit), :class => 'action edit'
     = link 'Delete', :to => resource(@post), :method => 'delete', :confirm => "Are you sure?", :class => 'action delete'
 
+- if @post.allow_linkbacks and @linkbacks.size > 0
+  #linkbacks_part
+    .linkbacks_number= pluralize('Response', @linkbacks.size)
+    #linkbacks= partial 'linkbacks/linkback', :with => @linkbacks
+    
 - if @post.allow_comments
-  #comments_part    
-    .comments_number= "#{@comments.size} Comment#{@comments.size != 1 ? "s" : ""}"
+  #comments_part
+    - unless @comments.empty?
+      .comments_number= pluralize('Comment', @comments.size)
 
-    #comments= partial 'comments/comment', :with => @comments
+      #comments= partial 'comments/comment', :with => @comments
 
     #new_comment_form
       %h3 Leave a comment
       = render_form :comment
-%p= link 'Linkbacks', :to => url(:post_linkbacks, @post), :class => 'action view_children'

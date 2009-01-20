@@ -11,7 +11,7 @@ module Merb
                           {:published_at =>       {:control => :date_and_time}},
                           {:separator =>          {:label => "Options"}},
                           {:allow_comments =>     {:control => :checkbox, :label => false, :after => "Enable Comments"}},
-                          {:allow_trackbacks =>   {:control => :checkbox, :label => false, :after => "Enable Trackbacks"}},
+                          {:allow_linkbacks =>    {:control => :checkbox, :label => false, :after => "Enable Linkbacks (Trackbacks & Pingbacks)"}},
                           {:status =>             {:control => :select, :collection => post_status_collection}}
                         ],
          :slice => true}

@@ -1,6 +1,6 @@
 body {
   font-family: Helvetica, Arial, "Lucida Sans Unicode", sans-serif;
-  font-size: 11px;
+  font-size: 12px;
   text-align: center; }
 
 #container {
@@ -55,6 +55,9 @@ h2 {
     font-size: 36px;
     margin-top: 0;
     border: none; }
+
+a, a:active {
+  outline: none; }
 
 #message {
   margin: 0;
@@ -221,7 +224,20 @@ form div input#post_published_at_date {
 .tags {
   background: none; }
 
-.comments_number {
+#linkback {
+  clear: left;
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: normal;
+  font-size: 1.1em;
+  color: #555555;
+  margin-left: 4px;
+  padding-top: 7px; }
+
+.linkback_url {
+  font-size: 1.2em;
+  padding: 2px; }
+
+.comments_number, .linkbacks_number {
   font-size: 1.5em;
   font-weight: bold;
   margin-top: 60px;
@@ -229,28 +245,32 @@ form div input#post_published_at_date {
   padding-bottom: 7px;
   border-bottom: 1px solid #888888; }
 
-#comments_part {
+#comments_part, #linkbacks_part {
   width: 470px; }
-  #comments_part #comments .comment {
+  #comments_part #comments .comment, #comments_part #comments .linkback,   #comments_part #linkbacks .comment, #comments_part #linkbacks .linkback,   #linkbacks_part #comments .comment, #linkbacks_part #comments .linkback,   #linkbacks_part #linkbacks .comment, #linkbacks_part #linkbacks .linkback {
     margin-top: 15px;
     margin-bottom: 15px;
     padding-bottom: 15px;
     background: url('/slices/blog-slice/images/grey_horizontal_line.gif') left bottom repeat-x; }
-    #comments_part #comments .comment .author {
+    #comments_part #comments .comment .author, #comments_part #comments .comment .linkback_title,     #comments_part #comments .linkback .author, #comments_part #comments .linkback .linkback_title,     #comments_part #linkbacks .comment .author, #comments_part #linkbacks .comment .linkback_title,     #comments_part #linkbacks .linkback .author, #comments_part #linkbacks .linkback .linkback_title,     #linkbacks_part #comments .comment .author, #linkbacks_part #comments .comment .linkback_title,     #linkbacks_part #comments .linkback .author, #linkbacks_part #comments .linkback .linkback_title,     #linkbacks_part #linkbacks .comment .author, #linkbacks_part #linkbacks .comment .linkback_title,     #linkbacks_part #linkbacks .linkback .author, #linkbacks_part #linkbacks .linkback .linkback_title {
       font-family: Georgia, "Times New Roman", Times, serif;
       font-size: 1.3em;
       font-weight: bold; }
-      #comments_part #comments .comment .author .date {
+      #comments_part #comments .comment .author .date,       #comments_part #comments .comment .linkback_title .date,       #comments_part #comments .linkback .author .date,       #comments_part #comments .linkback .linkback_title .date,       #comments_part #linkbacks .comment .author .date,       #comments_part #linkbacks .comment .linkback_title .date,       #comments_part #linkbacks .linkback .author .date,       #comments_part #linkbacks .linkback .linkback_title .date,       #linkbacks_part #comments .comment .author .date,       #linkbacks_part #comments .comment .linkback_title .date,       #linkbacks_part #comments .linkback .author .date,       #linkbacks_part #comments .linkback .linkback_title .date,       #linkbacks_part #linkbacks .comment .author .date,       #linkbacks_part #linkbacks .comment .linkback_title .date,       #linkbacks_part #linkbacks .linkback .author .date,       #linkbacks_part #linkbacks .linkback .linkback_title .date {
         font-family: Helvetica, Arial, "Lucida Sans Unicode", sans-serif;
         color: #555555;
         font-size: 0.8em;
         font-weight: normal; }
-    #comments_part #comments .comment .content {
+    #comments_part #comments .comment .content,     #comments_part #comments .linkback .content,     #comments_part #linkbacks .comment .content,     #comments_part #linkbacks .linkback .content,     #linkbacks_part #comments .comment .content,     #linkbacks_part #comments .linkback .content,     #linkbacks_part #linkbacks .comment .content,     #linkbacks_part #linkbacks .linkback .content {
       font-family: Georgia, "Times New Roman", Times, serif;
       font-size: 1.2em;
       margin-left: 15px; }
-      #comments_part #comments .comment .content p {
+      #comments_part #comments .comment .content p,       #comments_part #comments .linkback .content p,       #comments_part #linkbacks .comment .content p,       #comments_part #linkbacks .linkback .content p,       #linkbacks_part #comments .comment .content p,       #linkbacks_part #comments .linkback .content p,       #linkbacks_part #linkbacks .comment .content p,       #linkbacks_part #linkbacks .linkback .content p {
         margin-left: 0; }
+  #comments_part #comments .linkback,   #comments_part #linkbacks .linkback,   #linkbacks_part #comments .linkback,   #linkbacks_part #linkbacks .linkback {
+    background: none; }
+    #comments_part #comments .linkback .admin,     #comments_part #linkbacks .linkback .admin,     #linkbacks_part #comments .linkback .admin,     #linkbacks_part #linkbacks .linkback .admin {
+      margin-top: 15px; }
 
 #new_comment_form h3 {
   font-size: 1.5em;
@@ -293,7 +313,8 @@ form div input#post_published_at_date {
 
 #dashboard {
   width: 100%;
-  overflow: auto; }
+  overflow: auto;
+  margin-top: 15px; }
   #dashboard .left, #dashboard .right {
     width: 400px;
     overflow: auto; }
@@ -366,6 +387,30 @@ form div input#post_published_at_date {
     width: 90px; }
   #dashboard .post .comments_count {
     text-align: right; }
+  #dashboard .linkback .first_column {
+    width: 200px; }
+    #dashboard .linkback .first_column .source_title {
+      display: block;
+      float: none;
+      font-size: 1em; }
+    #dashboard .linkback .first_column .type {
+      display: block;
+      float: none;
+      font-size: 0.8em; }
+  #dashboard .linkback .second_column {
+    width: 105px; }
+    #dashboard .linkback .second_column .target_post {
+      display: block;
+      float: none;
+      font-size: 0.8em; }
+    #dashboard .linkback .second_column .created_at {
+      display: block;
+      float: none;
+      font-size: 0.8em; }
+  #dashboard .linkback .third_column {
+    font-size: 0.8em;
+    width: 70px;
+    text-align: right; }
 
 .details {
   margin-top: 15px;
@@ -399,3 +444,6 @@ form div input#post_published_at_date {
 .pagination a {
   padding: 3px 4px;
   border: 1px solid #cccccc; }
+
+input.inplace_field {
+  width: 80px; }
