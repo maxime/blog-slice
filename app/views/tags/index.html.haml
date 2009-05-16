@@ -1,10 +1,8 @@
 - throw_content :title do
-  = link blog_options[:blog_title], :to => slice_url(:posts)
-  \/
   Tags
 
 #tags
   - @tags.each do |tag|
-    - unless tag.posts.empty?
+    - unless (tag.posts.count == 0)
       %span{:class => "size_#{tag.size}"}
-        = link tag.name, :to => resource(tag)
+        = link tag.name, :to => resource(tag), :title => pluralize('Post', tag.posts.count)

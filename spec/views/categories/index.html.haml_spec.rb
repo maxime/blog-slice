@@ -37,8 +37,8 @@ describe "categories/index, authorized" do
   it "should display links for editing and destroying categories" do
     @body.should have_tag(:a, :href => '/categories/anilopyrin/edit')
     @body.should have_tag(:a, :href => '/categories/colorable/edit')
-    @body.should have_tag(:a, :href => '/categories/anilopyrin', :method => :delete)
-    @body.should have_tag(:a, :href => '/categories/colorable', :method => :delete)
+    @body.should have_tag(:a, :href => '/categories/anilopyrin', :method => 'delete')
+    @body.should have_tag(:a, :href => '/categories/colorable', :method => 'delete')
   end
 end
 
@@ -80,8 +80,8 @@ describe "categories/index, authorized" do
   it "should display links for editing and destroying categories" do
     @body.should_not have_tag(:a, :href => '/categories/anilopyrin/edit')
     @body.should_not have_tag(:a, :href => '/categories/colorable/edit')
-    @body.should_not have_tag(:a, :href => '/categories/anilopyrin', :method => :delete)
-    @body.should_not have_tag(:a, :href => '/categories/colorable', :method => :delete)
+    @body.should_not have_tag(:a, :href => '/categories/anilopyrin', :method => 'delete')
+    @body.should_not have_tag(:a, :href => '/categories/colorable', :method => 'delete')
   end
 end
 

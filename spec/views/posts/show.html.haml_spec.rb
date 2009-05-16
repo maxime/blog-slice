@@ -174,5 +174,10 @@ describe "posts/show not authorized" do
     render
     @body.should have_tag(:a, :href => '/posts/my-first-post/trackback')
   end
+  
+  it "should render the link rel='pingback' for pingback enabled resources" do
+    render
+    @body.should have_tag(:link, :rel => 'pingback', :href => 'http://www.example.org/pingback')
+  end
 end
 

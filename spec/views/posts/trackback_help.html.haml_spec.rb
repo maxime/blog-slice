@@ -23,8 +23,6 @@ describe "posts/trackback_help" do
   end
   
   it "should display a input textfield with the trackback url inside" do
-    @body.should have_tag("input", :type => 'text') do |input|
-      input.should contain("/posts/my-first-post/trackback")
-    end
+    @body.should have_tag("input", :type => 'text', :value => "http://www.example.org/posts/my-first-post/trackback")
   end
 end

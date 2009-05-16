@@ -1,3 +1,5 @@
+require "xmlrpc/server"
+
 class BlogSlice::Posts < BlogSlice::Application
   provides :html, :xml, :rss
   before :authorization_required, :exclude => [:index, :show, :feed, :trackback]
@@ -26,6 +28,11 @@ class BlogSlice::Posts < BlogSlice::Application
   end
   
   def show
+    # This is a pingback-enabled resource, so we return the X-Pingback header
+    self.headers.merge!({'X-Pingback' => (blog_options[:host] + slice_url(:pingback))})
+
+    return "" if request.method == :head
+    
     # Increase view count
     @post.update_attributes(:views_count => ((@post.views_count || 0) + 1))
     
@@ -85,6 +92,47 @@ class BlogSlice::Posts < BlogSlice::Application
         render :trackback_failure, :format => :xml, :layout => false        
       end
     end
+  end
+  
+  def pingback
+    xmlrpc = XMLRPC::BasicServer.new
+
+    xmlrpc.add_handler("pingback.ping") do |source_url, target_url|
+      Linkback.new(:source_url => source_url, :target_url => target_url, :type => 'linkback').handle_linkback
+    end
+    puts self.request.inspect
+    
+    xml_response = xmlrpc.process(request.raw_post)
+
+    # Log the error if there is one
+    parser = XMLRPC::XMLParser::XMLStreamParser.new
+    ret = parser.parseMethodResponse(xml_response)
+    Merb.logger.info("XMLRPC fault raised. Code: #{ret[1].faultCode}: Message: #{ret[1].faultString}") unless ret[0]
+
+    self.headers["Content-Type"] = "text/xml; charset=utf-8"
+
+    render xml_response, :layout => false
+
+    # answer = <<-ANSWER
+    #   <?xml version="1.0"?>
+    #   <methodResponse>
+    #     <fault>
+    #       <value>
+    #         <struct>
+    #           <member>
+    #             <name>faultCode</name>
+    #             <value><int>0</int></value>
+    #           </member>
+    #           <member>
+    #             <name>faultString</name>
+    #             <value><string>Too many parameters.</string></value>
+    #           </member>
+    #         </struct>
+    #       </value>
+    #     </fault>
+    #   </methodResponse>
+    # ANSWER
+    # render answer
   end
   
   protected

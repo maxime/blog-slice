@@ -1,5 +1,6 @@
 - throw_content :head do
   %link{:rel => 'alternate', :type => 'application/rss+xml', :title => "Comments RSS 2.0", :href => resource(@post, :comments, :feed)}
+  ="<link rel=\"pingback\" href=\"#{(blog_options[:host] + slice_url(:pingback))}\" />"
 - comment_status = ((@post.comments.size == 1) ? "One Comment" : (((@post.comments.size==0) ? 'No' : @post.comments.size.to_s) + ' Comments'))
 
 .post{:id => "post_#{@post.id}"}

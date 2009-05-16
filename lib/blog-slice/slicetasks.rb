@@ -14,6 +14,24 @@ namespace :slices do
     task :migrate do
     end
     
+    desc "Send Pingback"
+    task :send_pingback do
+      # From http://github.com/apotonick/pingback_engine/
+      require 'xmlrpc/client'
+      
+      server = XMLRPC::Client.new2("http://localhost:4000/pingback")
+
+      ok, param = server.call2("pingback.ping", ARGV[0], ARGV[1])
+
+      if ok then
+        puts "Response: #{param}"
+      else
+        puts "Error:"
+        puts param.faultCode 
+        puts param.faultString
+      end
+    end
+    
     desc "Generate data"
     task :generate_data => :merb_env do
       include DataMapper::Sweatshop::Unique

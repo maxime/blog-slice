@@ -1,3 +1,6 @@
+require 'hpricot'
+require 'open-uri'
+
 class Linkback
   include DataMapper::Resource
   include DataMapper::Timestamp
@@ -24,5 +27,24 @@ class Linkback
 
   def outgoing?
     self.direction == true
+  end
+  
+  def handle_linkback
+    begin
+      #source_html = open(source_uri) if source_uri =~ /^http:\/\//
+      #@parser     = Hpricot(source_html)
+
+      self.title  = "bla" # FIXME
+      #return 17 unless @linking_node = find_linking_node_to(target_uri)
+      #@excerpt = excerpt_content_to(@linking_node, target_uri)
+      self.excerpt = "bla" # FIXME
+      self.save
+      #return 33 unless save_pingback # invoke the outside callback.
+      return "Ping from #{source_uri} to #{target_uri} registered. Thanks for linking to us."
+      ### TODO: let save_callback propagate other error codes.
+
+    rescue SocketError, OpenURI::HTTPError => e
+      return 16
+    end
   end
 end

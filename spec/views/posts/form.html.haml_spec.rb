@@ -26,7 +26,7 @@ describe "posts/form" do
   end
   
   it "should have a text field for the title" do
-    @body.should have_tag(:input, :type => :text, :id => 'post_title')
+    @body.should have_tag(:input, :type => 'text', :id => 'post_title')
   end
   
   it "should have a text area for the content" do
@@ -38,7 +38,7 @@ describe "posts/form" do
   end
   
   it "should have a tag text field for the tags" do
-    @body.should have_tag(:input, :type => :text, :id => 'post_tags_list')
+    @body.should have_tag(:input, :type => 'text', :id => 'post_tags_list')
   end
   
   it "should have a multiple checkboxes for selecting categories" do

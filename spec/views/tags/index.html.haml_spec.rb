@@ -13,9 +13,11 @@ describe 'tags/index' do
     @controller = BlogSlice::Tags.new(fake_request)
     
     first_tag = Tag.new(:id => 1, :slug => 'chocolate', :name => 'Chocolate')
-    first_tag.stub!(:posts).and_return([1])
+    posts = [1]
+    posts.stub!(:count).and_return(1)
+    first_tag.stub!(:posts).and_return(posts)
     second_tag = Tag.new(:id => 2, :slug => 'technology', :name => 'Technology')
-    second_tag.stub!(:posts).and_return([1])
+    second_tag.stub!(:posts).and_return(posts)
     
     @controller.instance_variable_set(:@tags, [first_tag, second_tag]) 
     

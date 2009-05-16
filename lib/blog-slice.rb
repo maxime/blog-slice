@@ -22,7 +22,7 @@ if defined?(Merb::Plugins)
     
     # Slice metadata
     self.description = "Blog Slice is a very basic blogging system"
-    self.version = "0.9.10"
+    self.version = "0.9.11"
     self.author = "Maxime Guilbot for Ekohe"
     
     Merb.add_mime_type :rss, nil, %w[text/xml]
@@ -74,7 +74,10 @@ if defined?(Merb::Plugins)
       end
       scope.resources :categories, :identify => :slug
       scope.resources :tags, :identify => :slug
+
+      scope.match("/posts/:slug", :method => :head).to(:controller => 'posts', :action => 'show').name(:show_post_head)
       
+      scope.match("/pingback").to(:controller => 'posts', :action => 'pingback').name(:pingback)
       scope.match("/feed").to(:controller => 'posts', :action => 'feed', :format => 'rss').name(:feed)
       scope.match("/dashboard").to(:controller => 'dashboard', :action => 'dashboard').name(:dashboard)
       scope.match("/moderate_comments").to(:controller => 'comments', :action => 'moderate').name(:moderate_comments)
@@ -110,9 +113,10 @@ if defined?(Merb::Plugins)
   dependency "merb-simple-forms"
   dependency "RedCloth"
   dependency "BlueCloth"
-  dependency "merb_builder"
+  dependency "merb-builder"
   dependency "merb-mailer"
-  require "will_paginate"
+  gem 'will_paginate', '~> 3.0.0' 
+  require 'will_paginate'
   
   require 'blog-slice/text_rendering'
 end
